@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "configurator-corporate",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,2105 @@
+<div id="app" >
+  <div class="product-template__container page-width"
+    id="ProductSection-{{ section.id }}"
+    data-section-id="{{ section.id }}"
+    data-section-type="product"
+    data-enable-history-state="true"
+    data-ajax-enabled="{{ settings.enable_ajax }}">
+
+    <div class="product-single__meta justify-content-center">
+
+      <div v-if="itemsInCart > 0">
+        <br/><br/>
+        <p class="h1 margin-top mt-4"> Oops! You already have a box in your cart. </p>
+        <p>You can only order one box at a time. If you need to edit a box, please clear the cart and start again.</p>
+        <p></p>
+        <a class="btn" href="/cart">Cart</a>
+      </div>
+
+      <div v-if="itemsInCart === 0">
+        <!-- STEPS -->
+        <div class="container px-0 px-lg-3">
+          <div class="progressCont" v-show="stepIndex < totalSteps">
+            <ul class="progressBar">
+              <li
+                :class="{ active: isComplete[0], current: stepIndex === 0, linkHover: isComplete[0] }"
+                @click="setStep(0)">
+                <span>Gifts</span>
+              </li>
+              <li
+                :class="{ active: isComplete[1], current: stepIndex === 1, linkHover: isComplete[1] }"
+                @click="setStep(1)">
+                <span>Message</span>
+              </li>
+              <!-- <li
+                :class="{ active: isComplete[1], current: stepIndex === 1, linkHover: isComplete[1] }"
+                @click="setStep(1)">
+                <span>Panels</span>
+              </li> -->
+              <li
+                :class="{ active: isComplete[2], current: stepIndex === 2, linkHover: isComplete[2] }"
+                @click="setStep(2)">
+                <span>Review</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!--  NAVIGATOR TOP  -->
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <button
+                v-if="stepIndex == 0"
+                type="button"
+                class="btn btn--secondary  float-left"
+                onclick="history.back();">Back</button>
+              <button
+                v-if="stepIndex > 0"
+                type="button"
+                class="btn btn--secondary  float-left"
+                @click="prevStep">Back</button>
+            </div>
+            <div class="col">
+              <button
+                v-if="stepIndex < totalSteps - 2"
+                type="button"
+                class="btn  float-right"
+                @click="nextStep">Next</button>
+              <button
+                v-if="stepIndex === totalSteps - 2"
+                type="button"
+                class="btn  float-right"
+                @click="nextStep">Next</button>
+            </div>
+          </div>
+        </div>
+        <!--  STEP ONE - CHOOSE GIFTS  -->
+        <div class="step" v-show="stepIndex === 0">
+          <h2>Shop for Gifts</h2>
+          <div class="cartItems__wrapper">
+            <div class="cartItems__container">
+              <img class="cartItems__img-card" src="{{ product.featured_image | img_url: '200x200' }}" alt="{{ product.title }}" id="{{ product.selected_or_first_available_variant.id }}">
+              <template v-for="gifts in cartItems">
+                <div class="cartItems__item" v-for="count in gifts.quantity">
+                  <img class="cartItems__img" :src="gifts.giftImage" :alt="gifts.title" :id="gifts.id">
+                  <div class="cartItems__subtract" :id="gifts.id" @click="removeGift($event)">-</div>
+                </div>
+              </template>
+            </div>
+            <div class="cartPricing__wrapper">
+              <div>
+                <div class="cartPricing__container">
+                  <p class="cartPricing__title">{{ product.title }}</p>
+                  <p class="cartPricing__price">${{ product.price | money_without_currency }}</p>
+                </div>
+                <div class="cartPricing__container" v-for="gifts in cartItems">
+                  <p class="cartPricing__title"> ${ gifts.title }</p>
+                  <p class="cartPricing__price">${ gifts.quantity } x $${ gifts.price }</p>
+                </div>
+              </div>
+              <div class="cartPricing__container" id="total">
+                <p class="cartPricing__title">Total</p>
+                <p class="cartPricing__price">$${ boxTotalCost }</p>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="gift.favourite === true">
+              <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event)">
+                <div class="row no-gutters">
+                  <div class="col-sm-12">
+                    <img :src="gift.image" :alt="gift.title" class="border">
+                  </div>
+                </div>
+                <div class="row no-gutters">
+                  <div class="col-sm-12">
+                    <h3 class="grid-product__title grid-product__title--heading text-center py-0 pt-3">${ gift.title }</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="pb-3">
+                <label v-if="gift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="gift.id">${ gift.variantOption }</label>
+                  <select v-if="gift.variants.length" class="mb-2 w-100" name="gift.title" id="gift.id"  @change="setVariantId($event, gift.id)" v-model="gift.id">
+                    <option v-for="property in gift.variants" :value="property.id">
+                      ${ property.title }
+                    </option>
+                  </select>
+                <div class="grid-product__price mb-2">$${ gift.price }</div>
+                <div v-show="gift.quantity <= 0" :id="gift.id">
+                  <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;">Add</button>
+                </div>
+                <div v-show="gift.quantity > 0" :id="gift.id">
+                  <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Add</span><span v-if="!gift.cantFit">Add 1 More</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% comment %} NEW Modal {% endcomment %}
+          <div v-if="selectedGift">
+            <div v-show="ShowGiftModal">
+              <div class="gift-modal__overlay"></div>
+              <div class="gift-modal__container" @click="closeGiftModal">
+                <div class="gift-modal" @click.stop="">
+                  <button type="button" id="gift-modal-btn-close" class="gift-modal__button-close" @click="closeGiftModal">&#x2715</button>
+                  <div class="row justify-content-center">
+                    <div class="col-12 col-sm-6">
+                      <img :src="selectedGift.image" :alt="selectedGift.title" class="gift-preview-image">
+                    </div>
+                    <div class="col-12 col-sm-6 text-left mt-3 mt-sm-0">
+                      <h3 style="text-transform: capitalize;">${ selectedGift.title }</h3>
+                      <div class="mb-3" id="gift-modal-description"></div>
+                      <label v-if="selectedGift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="selectedGift.id">${ selectedGift.variantOption }</label>
+                      <select v-if="selectedGift.variants.length" class="mb-2 w-100" name="selectedGift.title" id="selectedGift.id"  @change="setVariantId($event, selectedGift.id)" v-model="selectedGift.id">
+                        <option v-for="property in selectedGift.variants" :value="property.id">
+                          ${ property.title }
+                        </option>
+                      </select>
+                      <h4><b>$${ selectedGift.price }</b></h4>
+                      <div>
+                        <div v-show="selectedGift.quantity <= 0" :id="selectedGift.id">
+                          <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add</span></button>
+                        </div>
+                        <div v-show="selectedGift.quantity > 0" :id="selectedGift.id">
+                          <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add 1 More</span></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> 
+          </div>
+          {% comment %} /NEW Modal {% endcomment %}
+        </div>
+        <!--  STEP TWO - WRITE MESSAGE -->
+        <div class="step" v-show="stepIndex === 1">
+          <h2>Write a Personal Message</h2>
+          <div class="PersonalizeMessage">
+            <p>If you need help check out our Writer’s Block option below.<br/>Please note that our software at this time will not recognize emoji’s 😢. </p>
+            <div class="row flex-column flex-lg-row align-items-top justify-content-center">
+              <!--PRODUCT-->
+              <div class="designBundle col-lg-3">
+                <p class="rte h4 product-single__title">{{ product.title }}</p>
+                <div class="designBundleImgs row row-cols-2 row-cols-lg-1 align-items-center">
+                  <div class="col-6 col-lg-12">
+                    <img class="border" :src="productImages[1].src" alt="temp">
+                  </div>
+                  <div class="col-6 col-lg-12">
+                    <img :src="productImages[2].src" alt="temp">
+                  </div>
+                </div>
+              </div>
+              <!--CARD-->
+              <div class="col-12 col-lg-6 w-90 w-lg-100">
+                <!--MESSAGE-->
+                <div class="row w-100 mx-auto mx-lg-0">
+                    <!-- <input
+                    id="Salutation" 
+                    :class="{
+                      centerText: !productObj.properties.LetterFormat,
+                      Poppins: productObj.properties.FontName === 'Poppins',
+                      ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
+                      Marcellus: productObj.properties.FontName === 'Marcellus',
+                      Rufina: productObj.properties.FontName === 'Rufina',
+                      Parisienne: productObj.properties.FontName === 'Parisienne',
+                      HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
+                      LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
+                      OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
+                      Margarine: productObj.properties.FontName === 'Margarine',
+                      SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                    }"
+                    class="w-100 mb-2"
+                    type="text"
+                    name="Salutation"
+                    placeholder="To"
+                    v-model="productObj.properties.Salutation"
+                    @change="updateProps($event);"> -->
+                    <textarea
+                      data-limit-rows="true"
+                      maxlength="500"
+                      placeholder="Write your message..."
+                      class="col-12 mb-2"
+                      :class="{
+                        centerText: !productObj.properties.LetterFormat,
+                        Poppins: productObj.properties.FontName === 'Poppins',
+                        ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
+                        Marcellus: productObj.properties.FontName === 'Marcellus',
+                        Rufina: productObj.properties.FontName === 'Rufina',
+                        Parisienne: productObj.properties.FontName === 'Parisienne',
+                        HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
+                        LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
+                        OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
+                        Margarine: productObj.properties.FontName === 'Margarine',
+                        SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                      }"
+                      type="text-area"
+                      id="message"
+                      rows="12"
+                      column="100"
+                      wrap="hard"
+                      name="Message"
+                      v-model="productObj.properties.Message"
+                      @keyup="charRemaining($event);"
+                      @change="updateProps($event); removeInvalidChars($event)"
+                    ></textarea>
+                    <!-- <input
+                    id="Valediction"
+                    :class="{
+                      centerText: !productObj.properties.LetterFormat,
+                      Poppins: productObj.properties.FontName === 'Poppins',
+                      ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
+                      Marcellus: productObj.properties.FontName === 'Marcellus',
+                      Rufina: productObj.properties.FontName === 'Rufina',
+                      Parisienne: productObj.properties.FontName === 'Parisienne',
+                      HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
+                      LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
+                      OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
+                      Margarine: productObj.properties.FontName === 'Margarine',
+                      SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                    }"
+                    class="w-100 mb-2"
+                    type="text"
+                    name="Valediction"
+                    placeholder="From"
+                    v-model="productObj.properties.Valediction"
+                    @change="updateProps($event);"
+                    > -->
+                  <!--OPTIONS-->
+                  <div class="col-12 w-100 mb-4 mx-0 mx-lg-auto w-90 w-lg-100">
+                    <div class="row">
+                      <div class="col-6 p-0 text-left">
+                        <button class="text-left btn" type="button" @click="openWritersModal">Writer's Block</button>
+                      </div>
+                      <div class="col-6 p-0 text-right">
+                        <p class="m-0">${ characterCount } / 700 characters</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div v-if="ShowWritersModal">
+            <div class="writers-modal__overlay"></div>
+            <div class="writers-modal__container" @click="closeWritersModal">
+              <div class="writers-modal" @click.stop="">
+                <button type="button" id="writers-modal-btn-close" class="writers-modal__button-close" @click="closeWritersModal">&#x2715</button>
+                <h2>Writer's Block? Let us help!</h2>
+                <div class="row justify-content-center">
+                  <div class="col-12 col-lg-6 p-2"
+                      v-for="(wbMessage,index) in writersBlocks"
+                      :key="index"
+                      @click="inputWritersBlock(wbMessage)">
+                    <div class="wbm">
+                      <p class="p-3 m-0" style="font-size: 0.75rem"> ${ wbMessage }</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  STEP THREE - IMAGE FLAPS  -->
+        <!-- <div class="step" v-show="stepIndex == 1">
+          <h2>Customize the Side Panels of your Box</h2>
+          <p class="mb-3 text-center">
+            Each box is designed with customizable side panels that can be easily removed and displayed.
+          </p>
+          <div>
+            <div class="topAlign d-md-flex">
+              <div class="row align-items-center justify-content-center">
+                <div class="col-12 col-sm-6 panels-wrapper">
+                  <div>
+                    <h3 class="h4 my-2">Left Panel</h3>
+                    <div class="flapsUpload">
+                      <div class="polaroid">
+                        <div v-if="productObj.properties.panels[0].panelType == 'none'" class="noneUpload">
+                          <span class="align-middle font__17-5">Add a photo or choose one of our fun panels</span><br/>
+                          <span class="align-middle font__10-5">(be patient, photos can take 10 seconds to load)</span><br/>
+                        </div>
+                        <div v-if="productObj.properties.panels[0].panelType == 'image'" class="imageUpload">
+                          <img :src="productObj.properties.panels[0].imageURL" />
+                        </div>
+                      </div>
+                      <div v-if="productObj.properties.panels[0].panelType == 'none'" class="btn__container-upload">
+                        <button
+                        id="selectGraphicBtn"
+                        class="btn btn__panel"
+                        @click="showPanels(0); openPanelsModal(0);">Choose a Panel
+                        </button>
+                      </div>
+                      <div v-else>
+                        <button class="btn btn__panel" @click="removeImage(0)">
+                          Remove Image
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="col-12 col-sm-6 panels-wrapper">
+                  <div>
+                    <h3 class="h4 my-2">Right Panel</h3>
+                    <div class="flapsUpload">
+                      <div class="polaroid">
+                        <div v-if="productObj.properties.panels[1].panelType == 'none'" class="noneUpload">
+                          <span class="align-middle font__17-5">Add a photo or choose one of our fun panels</span><br/>
+                          <span class="align-middle font__10-5">(be patient, photos can take 10 seconds to load)</span><br/>
+                        </div>
+                        <div v-if="productObj.properties.panels[1].panelType == 'image'" class="imageUpload">
+                          <img :src="productObj.properties.panels[1].imageURL" />
+                        </div>
+                      </div>
+                      <div v-if="productObj.properties.panels[1].panelType == 'none'" class="btn__container-upload">
+                        <button
+                          id="selectGraphicBtn"
+                          class="btn btn__panel"
+                          @click="showPanels(1); openPanelsModal(1);">Choose a Panel
+                        </button>
+                      </div>
+                      <div v-else>
+                        <button class="btn btn__panel" @click="removeImage(1)">
+                          Remove Image
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="Show1BModal">
+            <div class="panels-modal__overlay"></div>
+            <div class="panels-modal__container" @click="closePanelsModal">
+              <div class="panels-modal" @click.stop="">
+                <button type="button" id="panels-modal-btn-close" class="panels-modal__button-close" @click="closePanelsModal">&#x2715</button>
+                <h2>{{product.vendor}} 1B Panels</h2>
+                <div class="row sidepanels">
+                  <div v-for="(panel,index) in suggestedPanels" :key="index" class="col-6 col-xl-4 p-2 c-pointer">
+                    <div style="border: 1px solid #ddd;" @click="assignGraphic(panel);">
+                      <img :src="panel">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="Show2BModal">
+            <div class="panels-modal__overlay"></div>
+            <div class="panels-modal__container" @click="closePanelsModal">
+              <div class="panels-modal" @click.stop="">
+                <button type="button" id="panels-modal-btn-close" class="panels-modal__button-close" @click="closePanelsModal">&#x2715</button>
+                <h2>{{product.vendor}} 2B Panels</h2>
+                <div class="col-6 col-xl-4 p-2 c-pointer">
+                  <img :src="panel">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        
+        <!-- STEP FOUR - REVIEW   -->
+        <div class="step" v-if="stepIndex === 2">
+          <h2>Review the Box</h2>
+          <p class="text-center">Almost finished! Take one last look before you approve but here’s a list<br> of our most common errors to help!</p>
+          <ul class="rte list__approval">
+            <li>Check your spelling and punctuation</li>
+            <li>Make sure you added the To and From</li>
+            <li>No emojis please!</li>
+            <li>Did you add your gifts?</li>
+          </ul>
+          <div class="container">
+            <!--::::: ROW 1 :::::-->
+            <!-- <div class="row align-items-center">
+              <div class="col">
+                <h3 class="h4 mt-3">Card and Pattern</h3>
+                <img class="border" :src="productImages[0].src" alt="">
+              </div>
+            </div> -->
+            <!--::::: ROW 2 :::::-->
+            <div class="row align-items-center margin-top">
+              <div class="col mb-4">
+                <div class="d-flex justify-content-center align-items-center">
+                  <h3 class="h4 mt-3 pr-4">Message</h3>
+                  <p class="mt-3 edit-icon" @click="setStep(1);"><i class="fa fa-edit "></i>&nbsp;Edit</p>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-2"></div>
+                  <div class="col-sm-12 col-md-8">
+                    <div class="cardInsideReview" :class="{ textLeft: productObj.properties.LetterFormat }">
+                      <div class="cardTextReview d-flex align-items-center">
+                        <div class="d-flex flex-column">
+                          <!-- <div
+                            class="mb-4"
+                            :class="{
+                              Poppins: productObj.properties.FontName === 'Poppins',
+                              ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
+                              Marcellus: productObj.properties.FontName === 'Marcellus',
+                              Rufina: productObj.properties.FontName === 'Rufina',
+                              Parisienne: productObj.properties.FontName === 'Parisienne',
+                              HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
+                              LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
+                              OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
+                              Margarine: productObj.properties.FontName === 'Margarine',
+                              SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                            }">${productObj.properties.Salutation}
+                          </div> -->
+                          <div
+                            class=""
+                            :class="{
+                              Poppins: productObj.properties.FontName === 'Poppins',
+                              ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
+                              Marcellus: productObj.properties.FontName === 'Marcellus',
+                              Rufina: productObj.properties.FontName === 'Rufina',
+                              Parisienne: productObj.properties.FontName === 'Parisienne',
+                              HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
+                              LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
+                              OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
+                              Margarine: productObj.properties.FontName === 'Margarine',
+                              SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                            }">${productObj.properties.Message}
+                          </div>
+                          <!-- <div
+                            :class="{
+                              Poppins: productObj.properties.FontName === 'Poppins',
+                              ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
+                              Marcellus: productObj.properties.FontName === 'Marcellus',
+                              Rufina: productObj.properties.FontName === 'Rufina',
+                              Parisienne: productObj.properties.FontName === 'Parisienne',
+                              HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
+                              LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
+                              OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
+                              Margarine: productObj.properties.FontName === 'Margarine',
+                              SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                            }">${productObj.properties.Valediction}
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-2"></div>
+                </div>
+              </div>
+            </div>
+            <!--::::: ROW 3 :::::-->
+            <!-- <div class="row align-items-center margin-top">
+              <div class="col">
+                <div class="row align-items-end">
+                  <div class="d-none d-md-block d-xl-block col">
+                    <img src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_LP.png?v=1611508912">
+                  </div>
+                  <div class="col-sm-6 col-md-4" v-for="(item, index) in productObj.properties.panels" class="topAlign">
+                    <div class="reviewPanels">
+                      <div v-if="index == 0" class="d-flex justify-content-center align-items-center">
+                        <h3 class="h4 mt-3 pr-4" >Left Panel</h3>
+                        <p class="mt-3 edit-icon"  @click="setStep(1);"><i class="fa fa-edit"></i>&nbsp;Edit</p>
+                      </div>
+                      <div v-else="index == 1" class="d-flex justify-content-center align-items-center">
+                        <h3 class="h4 mt-3 pr-4" >Right Panel</h3>
+                        <p class="mt-3 edit-icon" @click="setStep(1);"><i class="fa fa-edit"></i>&nbsp;Edit</p>
+                      </div>
+                      <div class="polaroidR">
+                        <div v-if="item.panelType == 'pattern'" class="patternUpload">
+                          <img :src="item.patternURL"/>
+                        </div>
+                        <div v-if="item.panelType == 'image'" class="imageUpload">
+                          <img class="iuMargin" :src="item.imageURL" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-none d-md-block d-xl-block col">
+                    <img src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_RP.png?v=1611508912">
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!--:::: Message :::::-->
+            <p class="text-center">When you’re 100% happy with your box, its contents and your message, press <span class="text-bold">Add to Cart</span></p>
+          </div>
+        </div>
+        <!--  NAVIGATOR BOTTOM  -->
+        <div class="container mb-5">
+          <div class="row">
+            <div class="col">
+              <button
+                v-if="stepIndex == 0 && {{ cart.item_count }} <= 0"
+                type="button"
+                class="btn btn--secondary  float-left"
+                onclick="history.back();">Back</button>
+              <button
+                v-if="stepIndex > 0 && stepIndex < totalSteps - 1"
+                type="button"
+                class="btn btn--secondary  float-left"
+                @click="prevStep">Back</button>
+            </div>
+            <div v-if="stepIndex === totalSteps - 1" class="col-12 my-0 mx-auto">
+              <button
+                v-if="stepIndex === totalSteps - 1"
+                type="submit"
+                name="add"
+                class="btn btn-approved float-right"
+                :class="{btnDisable: addingToCart}"
+                @click="pushProduct(); return false;"><i class="atc-spinner" :class="[addingToCart ? ['fas','fa-circle-o-notch','fa-spin'] : '']"></i> Add to Cart</button>
+              <button
+                v-if="stepIndex === totalSteps - 1"
+                type="button"
+                class="btn btn--secondary float-left"
+                @click="prevStep">Back</button>
+            </div>
+            <div class="col">
+              <button
+                v-if="stepIndex < totalSteps - 1 && {{ cart.item_count }} <= 0"
+                type="button"
+                class="btn  float-right"
+                @click="nextStep">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%}
+      Live region for announcing updated price and availability to screen readers
+    {%- endcomment -%}
+    <p class="visually-hidden" data-product-status
+      aria-live="polite"
+      role="status"
+    ></p>
+
+    {%- comment -%}
+      Live region for announcing that the product form has been submitted and the
+      product is in the process being added to the cart
+    {%- endcomment -%}
+    <p class="visually-hidden" data-loader-status
+      aria-live="assertive"
+      role="alert"
+      aria-hidden="true"
+    >{{ 'products.product.loader_label' | t }}</p>
+
+    <div
+      class="product-single__store-availability-container"
+      data-store-availability-container
+      data-product-title="{{ product.title | escape }}"
+      data-has-only-default-variant="{{ product.has_only_default_variant }}"
+      data-base-url="{{ shop.url }}{{ routes.root_url }}"          >
+    </div>
+  </div>
+  {{ product.vendor }}
+</div>
+
+
+<script>
+  //*******************************************************//
+  //********************* JavaScript **********************//
+  //*******************************************************//
+  let itemsInCart = JSON.parse(window.localStorage.getItem("itemsInCart"))
+  if (!itemsInCart)
+  {
+    itemsInCart = 0;
+  }
+  var submit_clicked = false;
+  $('button[type="submit"]').click(function(){
+      submit_clicked = true;
+  });
+  $(document).ready(function () {
+    $('textarea[data-limit-rows=true]')
+      .on('keypress', function (event) {
+          var textarea = $(this),
+              text = textarea.val(),
+              numberOfLines = (text.match(/\n/g) || []).length + 1,
+              maxRows = parseInt(textarea.attr('rows'));
+          if (event.which == 13 && numberOfLines === maxRows ) {
+            return false;
+          }
+      });
+  });
+  window.onbeforeunload = function closeEditorWarning () {
+    /** Check to see if the settings warning is displayed */
+    if( submit_clicked === false && {{ cart.item_count }} == 0) {
+      bol_option_changed = true;
+    }
+    /** Display a warning if the user is trying to leave the page with unsaved settings */
+    if(bol_option_changed === true){
+      return '';
+    }
+  };
+  var productImages = []
+  {% for image in product.images %}
+    var objectImg = {}
+    objectImg.src = "{{ image.src | product_img_url: '500x' }}"
+    objectImg.alt = "{{ image.alt }}"
+    productImages.push(objectImg)
+  {% endfor %}
+  var giftList = []
+  //This grabs the collection for the specific corporate account
+  {% for giftProduct in collections["genesis-gifts"].products %}
+    {%- comment %}<locksmith:e2e9>{% endcomment -%}
+      {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: giftProduct, subject_parent: collections.gifts-genesis, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+    {%- comment %}</locksmith:e2e9>{% endcomment -%}
+    {%- if giftProduct.available -%}
+      var object = {}
+      object.variants = [];
+      {% unless giftProduct.has_only_default_variant %}
+        {% for option in giftProduct.variants %}
+        {% if option.available %}
+          object.variants.push({id: {{ option.id }}, title: "{{ option.title }}", price: "{{ option.price | money_without_currency }}", image: "{{ option.featured_media | img_url: '500x500' }}" });
+        {% endif %}
+        {% endfor %}
+                  object.variantOption = "{{ giftProduct.options }}"
+      {% endunless %}
+      object.title = "{{ giftProduct.title }}"
+      object.price = "{{ giftProduct.selected_or_first_available_variant.price | money_without_currency }}"
+      object.image = "{{ giftProduct.featured_image | img_url: '500x500' }}"
+      object.tag = "{{ giftProduct.tags }}"
+      object.id = {{ giftProduct.selected_or_first_available_variant.id }}
+      object.description = `{{ giftProduct.description }}`
+      object.quantity = 0;
+      object.favourite = true;
+      object.cantFit = false;
+      object.occupancy = {{ giftProduct.metafields.Occupancy['Occupancy'] }}
+      object.active = false
+      giftList.push(object)
+    {%- endif -%}
+  {% endfor %}
+
+  function uniqByKeepLast(data, key){
+    return [
+      ...new Map(
+        data.map(x => [key(x), x])
+      ).values()
+    ]
+  }
+	
+  giftList = uniqByKeepLast(giftList, it => it.id)
+
+  var li_productID = {{ product.selected_or_first_available_variant.id }}
+  var li_productPrice = {{ product.price | money_without_currency }}
+
+  let writersBlocks = []
+  {% for tag in product.tags %}
+    {% if tag == 'Anniversary'
+          or tag == 'Baby'
+          or tag == 'Birthday'
+          or tag == 'Congratulations'
+          or tag == 'Corporate Leaving'
+          or tag == 'Corporate Welcome'
+          or tag == 'Corporate Appreciation'
+          or tag == 'Bridesmaid'
+          or tag == 'Wedding'
+          or tag == 'Get Well'
+          or tag == 'Just Because'
+          or tag == 'Love'
+          or tag == 'Retirement'
+          or tag == 'Sympathy'
+          or tag == 'Thank You'
+          or tag == 'Holiday'
+          or tag ==  product.vendor
+    %}
+      {% assign productTag = tag | downcase | replace: ' ', '-' %}
+      {% if collections[productTag].metafields.writersblock['wb1'] %} writersBlocks.push("{{ collections[productTag].metafields.writersblock['wb1'] }}") {% endif %}
+      {% if collections[productTag].metafields.writersblock['wb2'] %} writersBlocks.push("{{ collections[productTag].metafields.writersblock['wb2'] }}") {% endif %}
+      {% if collections[productTag].metafields.writersblock['wb3'] %} writersBlocks.push("{{ collections[productTag].metafields.writersblock['wb3'] }}") {% endif %}
+      {% if collections[productTag].metafields.writersblock['wb4'] %} writersBlocks.push("{{ collections[productTag].metafields.writersblock['wb4'] }}") {% endif %}
+      {% if collections[productTag].metafields.writersblock['wb5'] %} writersBlocks.push("{{ collections[productTag].metafields.writersblock['wb5'] }}") {% endif %}
+      {% if collections[productTag].metafields.writersblock['wb6'] %} writersBlocks.push("{{ collections[productTag].metafields.writersblock['wb6'] }}") {% endif %}
+      {% if collections[productTag].metafields.writersblock['wb7'] %} writersBlocks.push("{{ collections[productTag].metafields.writersblock['wb7'] }}") {% endif %}
+      {% if collections[productTag].metafields.writersblock['wb8'] %} writersBlocks.push("{{ collections[productTag].metafields.writersblock['wb8'] }}") {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  let suggestedPanels = [];
+  //let occasions = ['Anniversary', 'Baby', 'Birthday','Congratulations', 'Corporate', 'Get Well', 'Just Because', 'Love', 'Retirement', 'Sympathy', 'Thank You'];
+  //{%comment%} {% assign occasions = "Anniversary, Baby, Birthday, Congratulations, Corporate, Get Well, Just Because, Love, Retirement, Sympathy, Thank You" | split: ", " %}{%endcomment%}
+  {% assign occasions = product.vendor | downcase | replace: ' ', '-' %}
+  {% for occasion in occasions %}
+    {% for tag in product.tags %}
+      {% assign productTag = tag | downcase | replace: ' ', '-' %}
+        {% for i in (1..26) %}
+          {% assign spIndex = "sp" | append: i %}
+          {% if collections[productTag].metafields.sidepanels[spIndex] %} suggestedPanels.push("{{ collections[productTag].metafields.sidepanels[spIndex] }}") {% endif %}
+        {% endfor %}
+    {% endfor %}
+  {% endfor %}
+
+  console.log("{{ product.vendor }}")
+
+  suggestedPanels = [...new Set(suggestedPanels)];
+  suggestedPanels = Array.from(suggestedPanels);
+
+  function arr_dupe (compareArr, alterArr) {
+    let a = [], diff = [];
+    for (let i = 0; i < compareArr.length; i++) {
+        a[compareArr[i]] = true;
+    }
+    for (let i = 0; i < alterArr.length; i++) {
+        if (a[alterArr[i]]) {
+            delete a[alterArr[i]];
+        } else {
+            diff.push(alterArr[i]);
+        }
+    }
+    return diff;
+  }
+
+  writersBlocks = [...new Set(writersBlocks)];
+  writersBlocks = Array.from(writersBlocks);
+  //*******************************************************//
+  //*********************** VUEJS *************************//
+  //*******************************************************//
+  var demo = new Vue({
+    delimiters: ["${", "}"],
+    el: "#app",
+    data: {
+      ranges: [
+        '\ud83c[\udf00-\udfff]', // U+1F300 to U+1F3FF
+        '\ud83d[\udc00-\ude4f]', // U+1F400 to U+1F64F
+        '\ud83d[\ude80-\udeff]', // U+1F680 to U+1F6FF
+        '[\u2700-\u27BF]',
+        '[\uE000-\uF8FF]'
+      ],
+      itemsInCart: itemsInCart,
+      ShowGiftModal: false,
+      ShowWritersModal: false,
+      Show1BModal: false,
+      Show2BModal: false,
+      writersBlocks: writersBlocks,
+      suggestedPanels: suggestedPanels,
+      productImages: productImages,
+      giftList: giftList,
+      showAllGifts: false,
+      currentFilter: "All",
+      selectedGift: giftList[0],
+      characterCount: 700,
+      boxTotalCost: 14.00,
+      productObj: {
+        id: li_productID,
+        price: li_productPrice,
+        quantity: 1,
+        properties: {
+          LetterFormat: true,
+          Salutation: "",
+          Message: "",
+          Valediction: "",
+          FontName: "Poppins",
+          panels: [
+            {
+              panelType: "none",
+              patternURL: "",
+              imageURL: "",
+              showProgress: false,
+              uPloadProgressNow: 0
+            },
+            {
+              panelType: "none",
+              patternURL: "",
+              imageURL: "",
+              showProgress: false,
+              uPloadProgressNow: 0
+            }
+          ]
+        }
+      },
+      bundleSelected: false,
+      cartItems: [],
+      addingToCart: false,
+      stepIndex: 0,
+      totalSteps: 3,
+      isComplete: [true, false, false, false, false],
+      uPloadProgressNow: 0,
+      flaps: {
+        flapsPhotos: false,
+        photos: [
+          {
+            image: false
+          },
+          {
+            image: false
+          }
+        ]
+      },
+      selectingPanel: [false, false],
+    },
+    mounted: function(){
+      this.calcTotalCost()
+      this.$el.addEventListener('uploadSuccess', this.uploaderysuccess);
+      setTimeout(this.checkDOMChange, 2000);
+      },
+    methods: {
+      checkDOMChange(){
+        if (Shoppad.apps.uploadery.darkroom == undefined && this.ShowGiftModal == false && this.ShowWritersModal == false && this.Show1BModal == false && this.Show2BModal == false) {
+          $("body").css("overflow", "scroll");
+        } else {
+          $("body").css("overflow", "hidden");
+        }
+        //call the function again after 100 milliseconds
+        setTimeout( this.checkDOMChange, 100 );
+      },
+      uploaderyProgressStart(e){
+        console.log("Save Clicked")
+      },
+      uploaderyProgressCancel(e){
+        console.log("Cancel Clicked")
+      },
+      uploaderysuccess(e){
+            var imageURL = e.detail.file;
+            var filename = imageURL.replace(/^.*[\\\/]/, '')
+            var imageName = filename.split('-editor-')[1]
+            var innertxt = e.srcElement.innerText.split(" ")
+            if (innertxt[0].toLowerCase() == "left") {
+              this.setUploadImage(0, imageURL, filename)
+            } else if (innertxt[0].toLowerCase() == "right") {
+              this.setUploadImage(1, imageURL, filename)
+            }
+      },
+      setStep(currentindex) {
+        if (this.isComplete[currentindex] === true) {
+          this.stepIndex = currentindex;
+        }
+        window.scrollTo(0,0);
+        this.cancelSelection();
+        if (this.stepIndex > 1){
+          this.setDefaultPattern();
+        }
+      },
+      nextStep() {
+        if (this.stepIndex < this.totalSteps - 1) {
+          this.stepIndex++;
+          this.isComplete[this.stepIndex] = true;
+          this.setStep(this.stepIndex);
+        }
+        if (this.stepIndex == 2){
+          this.setDefaultPattern();
+        }
+      },
+      setDefaultPattern() {
+        if (this.productObj.properties.panels[0].panelType == "none" || this.productObj.properties.panels[1].panelType == "none") {
+          // Call Error Here that panel is missing.
+        }
+      },
+      prevStep() {
+        if (this.stepIndex > 0) {
+          this.stepIndex--;
+          this.setStep(this.stepIndex);
+        }
+      },
+      submit() {
+        alert("Submit");
+      },
+      switchTextAlign(event, value) {
+        //this.productObj.properties.LetterFormat = !this.productObj.properties.LetterFormat;
+        this.productObj.properties.LetterFormat = value;
+        this.updateBooleanProp(event.currentTarget.name, this.productObj.properties.LetterFormat);
+      },
+      switchFont(font) {
+        this.productObj.properties.FontName = font;
+      },
+      showPanels(index){
+        Vue.set(this.selectingPanel, index, true);
+      },
+      cancelSelection(){
+        Vue.set(this.selectingPanel, 0, false);
+        Vue.set(this.selectingPanel, 1, false);
+      },
+      assignGraphic(panelObj, index){
+        if (this.selectingPanel[0]){
+          this.removeImage(0);
+          if( panelObj.includes('6144/products/') ){
+            this.productObj.properties.panels[0].uPloadProgressNow = 0;
+            this.productObj.properties.panels[0].panelType = "pattern";
+            this.productObj.properties.panels[0].patternURL = panelObj;
+          } else {
+            this.productObj.properties.panels[0].uPloadProgressNow = 100;
+            this.productObj.properties.panels[0].panelType = "image";
+            this.productObj.properties.panels[0].imageURL = panelObj;
+              var filename = panelObj.replace(/^.*[\\\/]/, '')
+              var imageName = filename.split('?')[0]
+            this.productObj.properties.panels[0].imageName = imageName
+          }
+        } else if(this.selectingPanel[1]) {
+          this.removeImage(1);
+          if(panelObj.includes('6144/products/')){
+            this.productObj.properties.panels[1].uPloadProgressNow = 0;
+            this.productObj.properties.panels[1].panelType = "pattern";
+            this.productObj.properties.panels[1].patternURL = panelObj;
+          } else {
+            this.productObj.properties.panels[1].uPloadProgressNow = 100;
+            this.productObj.properties.panels[1].panelType = "image";
+            this.productObj.properties.panels[1].imageURL = panelObj;
+              var filename = panelObj.replace(/^.*[\\\/]/, '')
+              var imageName = filename.split('?')[0]
+            this.productObj.properties.panels[1].imageName = imageName
+          }
+        }
+        Vue.set(this.selectingPanel, 0, false);
+        Vue.set(this.selectingPanel, 1, false);
+        this.Show1BModal = false;
+        this.Show2BModal = false;
+        this.cancelSelection()
+      },
+      removeImage: function (index) {
+        this.productObj.properties.panels[index].image = false;
+        this.productObj.properties.panels[index].imageURL = "";
+        this.productObj.properties.panels[index].patternURL = "";
+        this.productObj.properties.panels[index].imageName = "";
+        this.productObj.properties.panels[index].imageFilename = "";
+        this.productObj.properties.panels[index].uPloadProgressNow = 0;
+        this.productObj.properties.panels[index].showProgress = false;
+        this.productObj.properties.panels[index].panelType = "none";
+      },
+      triggerUpload(item, index) {
+        if (index == 0) {
+          document.querySelector(".leftpanel").click();
+        } else {
+          document.querySelector(".rightpanel").click();
+        }
+      },
+      setUploadImage(e, fileurl, imgname){
+        this.productObj.properties.panels[e].panelType = "image";
+        this.productObj.properties.panels[e].imageURL = fileurl;
+        this.productObj.properties.panels[e].imageFilename = imgname;
+        var imageName = imgname.split('-editor-')[1]
+        this.productObj.properties.panels[e].imageName = imageName;
+      },
+      //Update the properties object based on what property is edited.
+      updateProps(event){
+        this.productObj.properties[event.currentTarget.name] = event.currentTarget.value;
+      },
+      updateBooleanProp(name, elVar){
+        this.productObj.properties[name] = elVar;
+      },
+      setVariantId(event, giftId){
+        for(let gifts of this.giftList){
+          if (giftId === gifts.id){
+            gifts.id = event.target.value;
+            for (let variant of gifts.variants){
+              if (giftId === variant.id){
+                gifts.price = variant.price;
+                gifts.image = variant.image;
+              }
+            }
+          }
+        }
+      },
+      objectContains(array, item){
+        return array.indexOf(item) > -1;
+      },
+      openGiftModal(){
+        this.ShowGiftModal = true;
+        // When the modal is shown, we want a fixed body
+        $("body").css("overflow", "hidden");
+      },
+      closeGiftModal(){
+        this.ShowGiftModal = false;
+            // When the modal is hidden...Release the body
+        $("body").css("overflow", "scroll");
+      },
+      openWritersModal(){
+        this.ShowWritersModal = true;
+        // When the modal is shown, we want a fixed body
+        $("body").css("overflow", "hidden");
+      },
+      closeWritersModal(){
+        this.ShowWritersModal = false;
+            // When the modal is hidden...Release the body
+        $("body").css("overflow", "scroll");
+      },
+      openPanelsModal(index){
+        if (index == 0){
+          this.Show1BModal = true;
+        }else if (index == 1){
+          this.Show2BModal = true;
+        }
+        // When the modal is shown, we want a fixed body
+        $("body").css("overflow", "hidden");
+      },
+      closePanelsModal(){
+        this.Show1BModal = false;
+        this.Show2BModal = false;
+            // When the modal is hidden...Release the body
+        $("body").css("overflow", "scroll");
+      },
+      inputWritersBlock(wbMessage){
+        this.productObj.properties.Message = wbMessage;
+        this.closeWritersModal();
+        this.characterCount = 700 - wbMessage.length;
+      },
+      toggleGiftSelection(){
+        for (i = 0; i < this.giftList.length; i++){
+          if (event.currentTarget.id == this.giftList[i].id)
+          {
+          this.selectedGift = this.giftList[i];
+          document.querySelector("#gift-modal-description").innerHTML = this.selectedGift.description;
+            this.openGiftModal();
+            return;
+          }
+        }
+      },
+      //remove 1 quantity or full item
+      // Call removeGift($event)
+      removeGift(event){
+        for (i = 0 ; i< this.cartItems.length; i++)
+        {
+          if (this.cartItems[i].id == event.currentTarget.id)
+          {
+            if(this.cartItems[i].quantity > 1){
+              this.cartItems[i].quantity -= 1;
+            }
+            else{
+              this.cartItems.splice(i,1);
+            }
+            this.bundleSelected = false;
+          }
+        }
+        for (i= 0; i < this.giftList.length; i++)
+        {
+          if (this.giftList[i].id == event.currentTarget.id)
+          {
+            if(this.giftList[i].quantity > 0){
+              this.giftList[i].quantity -= 1;
+              this.giftList[i].active = false;
+            }
+          }
+        }
+        this.checkBoxFull()
+        this.calcTotalCost()
+      },
+      checkBoxFull() {
+        var cartSpaceTaken = 0;
+        for (i = 0; i < this.cartItems.length; i++){
+          cartSpaceTaken += this.cartItems[i].occupancy * this.cartItems[i].quantity;
+        }
+        for (i = 0 ; i < this.giftList.length; i++){
+            if (cartSpaceTaken + this.giftList[i].occupancy > 12)
+            {
+              this.giftList[i].cantFit = true;
+            } else {
+              this.giftList[i].cantFit = false;
+            }
+        }
+      },
+      calcTotalCost(){
+        var totalCost = 0;
+        for (i = 0; i < this.cartItems.length; i++){
+          totalCost += this.cartItems[i].price * this.cartItems[i].quantity;
+        }
+        totalCost+= this.productObj.price;
+        this.boxTotalCost = totalCost.toFixed(2);
+      },
+      //Pass a gift to the cartItems array
+      // Call pushGift($event)
+      pushGift(event){
+        var currentGift;
+        for (i= 0; i < this.giftList.length; i++)
+        {
+          if (this.giftList[i].id == event.currentTarget.id)
+          {
+            currentGift = this.giftList[i];
+          }
+        }
+        var cartSpaceTaken = 0;
+        for (i = 0; i < this.cartItems.length; i++){
+          cartSpaceTaken += this.cartItems[i].occupancy * this.cartItems[i].quantity;
+        }
+        var totalSpaceTaken = cartSpaceTaken + currentGift.occupancy;
+        if (totalSpaceTaken > 12){
+          return;
+        } else {
+          var image = currentGift.image;
+          var giftOccupancy = currentGift.occupancy;
+          var unitPrice = currentGift.price;
+          var unitTitle = currentGift.title;
+          currentGift.quantity += 1;
+          currentGift.active = true;
+          for (i = 0 ; i < this.cartItems.length; i++)
+          {
+            if (this.cartItems[i].id == event.currentTarget.id)
+            {
+              this.cartItems[i].quantity += 1;
+              this.checkBoxFull()
+              this.calcTotalCost()
+              return;
+            }
+          }
+          this.cartItems.push({id: event.currentTarget.id, title: unitTitle, price: unitPrice, quantity: 1, giftImage: image, occupancy: giftOccupancy});
+          this.bundleSelected = true;
+        }
+        this.checkBoxFull()
+        this.calcTotalCost()
+      },
+      //Pass the greeting card box and send cartItems array to cart
+      pushProduct(){
+        if (this.addingToCart != true){
+          this.addingToCart = true;
+          submit_clicked = true;
+          var finalBox = {}
+          finalBox.id = this.productObj.id
+          finalBox.quantity = this.productObj.quantity
+          finalBox.properties = {}
+          //finalBox.properties.Salutation = this.productObj.properties.Salutation
+          finalBox.properties.Message = this.productObj.properties.Message
+          //finalBox.properties.Valediction = this.productObj.properties.Valediction
+          // finalBox.properties.Font = this.productObj.properties.FontName
+          // if (this.productObj.properties.panels[0].panelType == "pattern") {
+          //   finalBox.properties.LeftPanel = this.PatternName
+          //   finalBox.properties._LeftPanelFN = this.PatternName
+          //   finalBox.properties._LeftPanelURL = this.productObj.properties.panels[0].patternURL
+          // } else if (this.productObj.properties.panels[0].panelType == "image") {
+          //   finalBox.properties.LeftPanel = this.productObj.properties.panels[0].imageName
+          //   if (this.productObj.properties.panels[0].imageFilename !== null && this.productObj.properties.panels[0].imageFilename !== undefined && this.productObj.properties.panels[0].imageFilename != ""){
+          //     finalBox.properties._LeftPanelFN = this.productObj.properties.panels[0].imageFilename
+          //   } else {
+          //     finalBox.properties._LeftPanelFN = this.productObj.properties.panels[0].imageName
+          //   }
+          //   finalBox.properties._LeftPanelURL = this.productObj.properties.panels[0].imageURL
+          // }
+          // if (this.productObj.properties.panels[1].panelType == "pattern") {
+          //   finalBox.properties.RightPanel = this.PatternName
+          //   finalBox.properties._RightPanelFN = this.PatternName
+          //   finalBox.properties._RightPanelURL = this.productObj.properties.panels[1].patternURL
+          // } else if (this.productObj.properties.panels[1].panelType == "image") {
+          //   finalBox.properties.RightPanel = this.productObj.properties.panels[1].imageName
+          //   if (this.productObj.properties.panels[1].imageFilename !== null && this.productObj.properties.panels[1].imageFilename !== undefined && this.productObj.properties.panels[1].imageFilename !== ""){
+          //     finalBox.properties._RightPanelFN = this.productObj.properties.panels[1].imageFilename
+          //   } else {
+          //     finalBox.properties._RightPanelFN = this.productObj.properties.panels[1].imageName
+          //   }
+          //   finalBox.properties._RightPanelURL = this.productObj.properties.panels[1].imageURL
+          // }
+          var giftsInCart = [];
+          for (i = 0 ; i < this.cartItems.length; i++)
+          {
+            giftsInCart.push(this.cartItems[i].quantity + " x " + this.cartItems[i].title)
+          }
+          if (giftsInCart != null || giftsInCart != ""){
+            finalBox.properties.Gifts = giftsInCart.join(", ");
+          }
+          this.cartItems.push(finalBox);
+          addItem(this.cartItems);
+          this.cartItems = [];
+        }
+      },
+      charRemaining(event) {
+        var limit = 700;
+        var chars = event.currentTarget.value.length;
+        this.characterCount = limit - chars;
+      },
+      removeInvalidChars(event) {
+        var str = event.currentTarget.value;
+        str = str.replace(new RegExp(this.ranges.join('|'), 'g'), '');
+        event.currentTarget.value = str;
+      },
+    }
+  });
+</script>
+
+
+<style scoped>
+  * {
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
+    outline: none;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  #app {
+    display: flex;
+    flex-direction: column;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+  }
+  #uploadery-container input[type="file"] {
+    display: none;
+  }
+  label.spb-productdescfont.spb-productdesctextcolor.leftpanel,
+  label.spb-productdescfont.spb-productdesctextcolor.rightpanel {
+    font-size: 0px;
+  }
+  .progressCont {
+    margin: 0 auto;
+    max-width: 1300px;
+    width: 100%;
+    padding-bottom:50px;
+  }
+  .progressBar {
+    counter-reset: step;
+    list-style: none;
+    margin: 0 auto;
+  }
+  .progressBar li {
+    float: left;
+    width: 33.3%;
+    position: relative;
+    text-align: center;
+  }
+  .progressBar li:after {
+    content: "";
+    counter-increment: step;
+    height: 2px;
+    display: block;
+    margin: 0 auto 0px auto;
+    background: #fff;
+    text-align: center;
+  }
+  .progressBar li.active:after {
+    border-color: #fff;
+    background: #303030;
+    color: #fff;
+  }
+  .progressBar li.current:after {
+    border-color: #fcd299;
+    background: #fcd299;
+    color: #fff;
+  }
+  .linkHover:hover{
+    cursor: pointer;
+  }
+  /*.progressBar li:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: #ddd;
+    top: 12px;
+    left: -50%;
+    z-index: -1;
+  }
+  .progressBar li:first-child:after {
+    content: none;
+  }
+  .progressBar li.active + li:after {
+    background: #303030;
+  }*/
+  @media (max-width: 350px) {
+    .progressBar li span {
+      display: none;
+    }
+  }
+  .step {
+    width: 100%;
+    max-width: 1300px;
+    margin: 24px auto;
+  }
+  .cardOptions{
+    margin: 20px auto 10px;
+    width: 90vw;
+    max-width: 600px;
+  }
+  .cardInsideReview {
+    align-items: center;
+    text-align: center;
+    margin: 0px auto;
+    /*position:relative;*/
+    width: 100%;
+    /*padding-top: 66.67%;*/
+    box-shadow: 0px 0px 10px 0px #C5C5C5;
+    background: white;
+  }
+  .cardTextReview{
+    display: block;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 40px 40px 40px 40px;
+    /*position:  absolute;*/
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    white-space: pre-line;
+    min-height: 400px;
+  }
+  .designBundle {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+  }
+  .designBundleImgs img{
+    max-height: 180px;
+    margin:5px;
+  }
+  @media(max-width:1200px)
+  {
+    .designBundleImgs img{
+      margin:0px;
+    }
+  }
+  .cardText {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 40px;
+    white-space: pre-line;
+  }
+  .smBTNs input[type="radio"]{
+    opacity: 0;
+    position: fixed;
+    width: 0;
+  }
+  .smBTNs input[type="radio"]:checked + label {
+    background-color: #bbb;
+    color: #303030;
+    outline: 0;
+  }
+  .smBTNs label {
+    margin: 5px;
+    background-color: #eee;
+    border: none;
+    outline: 0;
+    border-radius: 2px;
+    color: #303030;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    display: inline-block;
+    font-size: 14px;
+    letter-spacing: normal;
+    width: 100%;
+  }
+  .radioFonts input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+    margin: 0;
+  }
+  .radioFonts label {
+    margin: 5px;
+    background-color: #eee;
+    border: none;
+    outline: 0;
+    border-radius: 2px;
+    color: #303030;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    min-width: 120px;
+    width: 40%;
+  }
+  .radioFonts input[type="radio"]:checked + label {
+    background-color: #bbb;
+    color: #303030;
+    outline: 0;
+  }
+  .radioFonts label:hover {
+    background-color: #ddd;
+    color: #303030;
+    outline: 0;
+  }
+  .btnWritersBlock{
+    background: #eee;
+    background-color: #fee9cc !important;
+    padding: 5px 10px!important;
+  }
+  .btnWritersBlock:hover,
+  .btnWritersBlock:active
+  {
+    background-color: #fcd299 !important;
+  }
+  .btn-active{
+    background-color: #aaa !important;
+  }
+  .btn__text-alignment {
+    font-size: 20px;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background-color: #ddd;
+    color: #000;
+    line-height: normal;
+  }
+  .btn__text-alignment:hover,
+  .btn__text-alignment:active {
+    background-color: #aaa !important;
+    background: #aaa !important;
+  }
+  @media (max-width: 1200px){
+    .btn__text-alignment {
+      font-size: 25px;
+      width: 38px;
+      height: 38px;
+    }
+  }
+  /*.btn-approved{
+    background: lightgreen !important;
+  }
+  .btn-approved:hover,
+  .btn-approved:active,
+  .btn-approved:focus{
+    background: green !important;
+  }*/
+  .font-selector{
+    letter-spacing: normal !important;
+    text-transform: capitalize !important;
+  }
+  .Poppins {
+    font-family: 'Poppins' !important;
+    font-size: 16px !important;
+  }
+  .ArimaMadurai {
+    font-family: 'Arima Madurai' !important;
+    font-size: 18px !important;
+  }
+  .Marcellus {
+    font-family: 'Marcellus' !important;
+    font-size: 17px !important;
+  }
+  .Rufina {
+    font-family: 'Rufina' !important;
+    font-size: 18px !important;
+  }
+  .Parisienne {
+    font-family: 'Parisienne' !important;
+    font-size: 21px !important;
+  }
+  .HomemadeApple {
+    font-family: 'Homemade Apple' !important;
+    font-size: 16px !important;
+  }
+  .LobsterTwo {
+    font-family: 'Lobster Two' !important;
+    font-size: 18px !important;
+  }
+  .OriginalSurfer {
+    font-family: 'Original Surfer' !important;
+    font-size: 18px !important;
+  }
+  .Margarine {
+    font-family: 'Margarine' !important;
+    font-size: 17px !important;
+  }
+  .SansitaSwashed {
+    font-family: 'Sansita Swashed' !important;
+    font-size: 18px !important;
+  }
+  @media (max-width: 600px){
+    .Poppins {
+      font-size: 12px !important;
+    }
+    .ArimaMadurai {
+      font-size: 14px !important;
+    }
+    .Marcellus {
+      font-size: 13px !important;
+    }
+    .Rufina {
+      font-size: 14px !important;
+    }
+    .Parisienne {
+      font-size: 17px !important;
+    }
+    .HomemadeApple {
+      font-size: 12px !important;
+    }
+    .LobsterTwo {
+      font-size: 14px !important;
+    }
+    .OriginalSurfer {
+      font-size: 14px !important;
+    }
+    .Margarine {
+      font-size: 13px !important;
+    }
+    .SansitaSwashed {
+      font-size: 14px !important;
+    }
+  }
+  .textLeft {
+    text-align: left;
+    justify-content: left;
+  }
+  .messageTA {
+    resize: none;
+    width: 100%;
+    /*height: 120px;*/
+    padding: 5px;
+  }
+  .centerText {
+    text-align: center;
+  }
+  .multi-line{
+    margin:20px 0;
+  }
+  @media(max-width: 620px)
+  {
+    .cardText{
+      padding: 4vw
+    }
+    .multi-line{
+      height: 100%;
+      margin: 1vw 0;
+    }
+    .cardTextReview{
+    padding: 10px 40px 40px 40px;
+    }
+  }
+  .radioButton {
+    width: 250px;
+    margin: 10px;
+  }
+  .flapsUpload {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 100%;
+    margin: 0 auto;
+  }
+  .helperimgInside {
+    width: 100px;
+  }
+  .topAlign {
+    vertical-align: top;
+  }
+  .ptrn-panel-container{
+    position: relative;
+    margin: 5px;
+    cursor: pointer;
+  }
+  .sidepanels .card {
+    padding-right: 0px!important;
+    padding-left: 0px!important;
+  }
+  .sidepanels .row {
+    margin-right: 0px!important;
+    margin-left: 0px!important;
+  }
+  .ptrn-overlay{
+    position: absolute;
+    left: 0;
+    right: 0;
+    transition: .5s ease;
+    background-color: rgba(256, 256, 256, 0.7);
+    overflow:hidden;
+    z-index: 100;
+    margin-bottom: 0;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+  }
+  .polaroid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    width: 90vw;
+    max-width: 500px;
+    aspect-ratio: 2/1;
+    box-shadow: 0px 0px 10px 0px #c5c5c5;
+    background-color: #ffffff;
+    overflow: hidden;
+  }
+  .polaroidR {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 2/1;
+    box-shadow: 0px 0px 10px 0px #c5c5c5;
+    background-color: #ffffff;
+    }
+  .imageUploadR {
+    margin: auto;
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .iuMargin {
+    padding: 10%;
+  }
+  .reviewPanels{
+    width: 100%;
+    height: 100%;
+
+  }
+  .patternUploadR {
+    margin: auto;
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .noneUpload {
+    padding:20px;
+  }
+  .imageUpload {
+    width: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+  .imageUpload img {
+    width: 100%;
+  }
+  .patternUpload {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+  .patternUpload img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: center;
+  }
+  .overlay{
+    background-color: #ffffff;
+    z-index:1;
+    opacity:0.5;
+    margin-top:20px;
+  }
+  .panels-wrapper {
+    margin-bottom: 1.5rem;
+  }
+  ul.checkbox li {
+    display: inline;
+  }
+  ul.checkbox li label {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(139, 139, 139, 0.3);
+    color: #adadad;
+    border-radius: 25px;
+    white-space: nowrap;
+    margin: 3px 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.2s;
+  }
+  ul.checkbox li label {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  ul.checkbox li label::before {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 12px;
+    padding: 2px 6px 2px 2px;
+    content: "\f00d";
+    transition: transform 0.3s ease-in-out;
+  }
+  ul.checkbox li input[type="checkbox"]:checked + label::before {
+    content: "\f00c";
+    transform: rotate(-360deg);
+    transition: transform 0.3s ease-in-out;
+  }
+  ul.checkbox li input[type="checkbox"]:checked + label {
+    border: 2px solid #ec5f58;
+    background-color: #ec5f58;
+    color: #fff;
+    transition: all 0.2s;
+  }
+  ul.checkbox li input[type="checkbox"] {
+    display: absolute;
+  }
+  ul.checkbox li input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+  }
+  ul.checkbox li input[type="checkbox"]:focus + label {
+    border: 2px solid #ec5f58;
+  }
+  .giftWrapper{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .giftContainer{
+    width: 969px;
+  }
+  .giftQuantity{
+    max-width: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*outline: 1px solid #303030;
+    outline-offset: -1px;*/
+    height: 33px;
+    margin: 0 auto;
+    padding: 0px 10px;
+  }
+  .btnGiftAddRemove{
+    width: 25%;
+    height: 100%;
+    color: #303030;
+    background: #fcd299;
+    outline: none;
+    border: none;
+  }
+  .btnGiftAddRemove:hover,
+  .btnGiftAddRemove:active {
+    outline: none;
+    background: #fbbc67;
+  }
+  .btnGiftAddRemove:focus{
+    outline: none;
+  }
+  .btnDisable,
+  .btnDisable:hover,
+  .btnDisable:active {
+    opacity: 0.1;
+    cursor: not-allowed;
+  }
+  .cartItems__wrapper{
+    display: flex;
+    width: 90%;
+    max-width: 1050px;
+    border: 1px solid #303030;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cartItems__container{
+    display: flex;
+    flex-wrap: wrap;
+    border-right: 1px solid #303030;
+    width: 60%;
+    background: #fff;
+  }
+  .cartItems__item-holder{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .cartItems__item{
+    position:relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 100px;
+    height: 100px;
+    overflow:hidden;
+  }
+  .cartItems__img{
+    object-fit:cover;
+    min-height: 100%;
+    min-width: 100%
+  }
+  .cartItems__img-card{
+    height: 100px;
+    padding: 10px;
+  }
+  .cartItems__subtract{
+    position:absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #303030;
+    background: #cccccc;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .cartItems__subtract:hover{
+    background: #999999;
+  }
+  .cartPricing__wrapper{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40%;
+    background: #fff;
+  }
+  .cartPricing__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 10px;
+    width: 100%;
+  }
+  .cartPricing__title{
+    text-align: left;
+    margin-bottom: 5px;
+  }
+  .cartPricing__price{
+    text-align: right;
+    margin-bottom: 5px;
+  }
+  #total{
+    background: #151515;
+  }
+  #total p{
+    font-weight: 600;
+    color: white !important;
+    margin-bottom: 0px;
+  }
+  .secretmsg-img {
+    width: 100%;
+  }
+  @media screen and (max-width: 800px){
+    .cartItems__wrapper{
+      display: block;
+      width: 90%;
+    }
+    .cartItems__container{
+      border-right: none;
+      border-bottom: 1px solid #303030;
+      width: 100%;
+      justify-content: center;
+    }
+    .cartItems__item-holder{
+      justify-content:center;
+    }
+    .cartItems__item{
+      width: 75px;
+      height: 75px;
+    }
+    .cartItems__img-card{
+      height: 100px;
+    }
+    .cartPricing__wrapper{
+      width: 100%;
+    }
+  }
+  .font__17-5{
+    font-size: 17.5px;
+  }
+  .font__10-5{
+    font-size: 10.5px;
+  }
+  .btn__container-upload{
+    width: 100%; max-width: 250px;
+  }
+  .text-or{
+    margin: 5px auto;
+    font-weight: 600;
+  }
+  .btn__panel{
+    font-size: 12px;
+    width: 90vw;
+    max-width: 250px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .c-pointer{
+    cursor: pointer;
+  }
+    /* Mobile First - All screen sizes */
+  .gift-modal__overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    background-color: rgba(0,0,0, 0.6);
+    overflow: auto;
+    animation: full-overlay-on 0.5s forwards;
+  }
+  .gift-modal__container{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2001;
+  }
+  .gift-modal{
+    position: relative;
+    overflow: auto;
+    width: 90%;
+    height: auto;
+    max-height: 90vh;
+    background-color: white;
+    margin: 0 auto;
+    padding: 32px;
+    animation: modal-open 0.5s forwards;
+  }
+  #gift-modal-btn{
+    margin-top: 1rem;
+  }
+  .gift-modal__button-close{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .text--capitalize{
+    text-transform: capitalize !important;
+  }
+  /* Any Screens Larger than 769px */
+  @media (min-width: 769px){
+    .gift-modal{
+      min-width: 692px;
+      max-width: 66.67%;
+    }
+    .gift-modal__image-text{
+      flex-direction: row;
+    }
+    .gift-modal__image-text img{
+      min-width: 100px;
+      width: 50%;
+      max-width: 300px;
+      padding-right: 16px;
+      padding-bottom: 0px;
+    }
+  }
+  /* Any Screens Larger than 1200px */
+  @media (min-width: 1200px){
+    .gift-modal{
+      min-width: 800px;
+      width: 50%;
+      max-width: 1000px;
+    }
+  }
+  .writers-modal__overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    background-color: rgba(0,0,0, 0.6);
+    overflow: auto;
+    animation: full-overlay-on 0.5s forwards;
+  }
+  .writers-modal__container{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2001;
+  }
+  .writers-modal{
+    position: relative;
+    overflow: auto;
+    width: 90%;
+    height: auto;
+    max-height: 50vh;
+    background-color: white;
+    margin: 0 auto;
+    padding: 32px;
+    animation: modal-open 0.5s forwards;
+  }
+  #writers-modal-btn{
+    margin-top: 1rem;
+  }
+  .writers-modal__button-close{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .wbm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color:#eee;
+    cursor:pointer;
+  }
+  .wbm:hover{
+    background-color:#bbb;
+  }
+  /* Any Screens Larger than 769px */
+  @media (min-width: 769px){
+    .writers-modal{
+      min-width: 692px;
+      max-width: 66.67%;
+    }
+  }
+  /* Any Screens Larger than 1200px */
+  @media (min-width: 1200px){
+    .writers-modal{
+      min-width: 800px;
+      width: 50%;
+      max-width: 1000px;
+    }
+  }
+  .panels-modal__overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    background-color: rgba(0,0,0, 0.6);
+    overflow: auto;
+    animation: full-overlay-on 0.5s forwards;
+  }
+  .panels-modal__container{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2001;
+  }
+  .panels-modal{
+    position: relative;
+    overflow: auto;
+    width: 90%;
+    height: auto;
+    max-height: 75vh;
+    background-color: white;
+    margin: 0 auto;
+    padding: 32px;
+    animation: modal-open 0.5s forwards;
+  }
+  #panels-modal-btn{
+    margin-top: 1rem;
+  }
+  .panels-modal__button-close{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  /* Any Screens Larger than 769px */
+  @media (min-width: 769px){
+    .panels-modal{
+      min-width: 692px;
+      max-width: 66.67%;
+    }
+  }
+  /* Any Screens Larger than 1200px */
+  @media (min-width: 1200px){
+    .panels-modal{
+      min-width: 800px;
+      width: 70%;
+      max-width: 1200px;
+    }
+  }
+</style>
