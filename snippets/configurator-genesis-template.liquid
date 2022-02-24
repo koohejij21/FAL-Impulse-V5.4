@@ -6,7 +6,7 @@
     data-enable-history-state="true"
     data-ajax-enabled="{{ settings.enable_ajax }}">
 
-    <div class="product-single__meta justify-content-center">
+    <div class="justify-content-center">
 
       <div v-if="itemsInCart > 0">
         <br/><br/>
@@ -266,9 +266,9 @@
                     > -->
                   <!--OPTIONS-->
                   <div class="col-12 w-100 mb-4 mx-0 mx-lg-auto w-90 w-lg-100">
-                    <div class="row">
+                    <div class="row w-100 mx-auto">
                       <div class="col-6 p-0 text-left">
-                        <button class="text-left btn" type="button" @click="openWritersModal">Writer's Block</button>
+                        <button class="btn" type="button" @click="openWritersModal">Writer's Block?</button>
                       </div>
                       <div class="col-6 p-0 text-right">
                         <p class="m-0">${ characterCount } / 700 characters</p>
@@ -534,17 +534,17 @@
             </div>
             <div v-if="stepIndex === totalSteps - 1" class="col-12 my-0 mx-auto">
               <button
+              v-if="stepIndex === totalSteps - 1"
+              type="button"
+              class="btn btn--secondary float-left"
+              @click="prevStep">Back</button>
+              <button
                 v-if="stepIndex === totalSteps - 1"
                 type="submit"
                 name="add"
                 class="btn btn-approved float-right"
                 :class="{btnDisable: addingToCart}"
                 @click="pushProduct(); return false;"><i class="atc-spinner" :class="[addingToCart ? ['fas','fa-circle-o-notch','fa-spin'] : '']"></i> Add to Cart</button>
-              <button
-                v-if="stepIndex === totalSteps - 1"
-                type="button"
-                class="btn btn--secondary float-left"
-                @click="prevStep">Back</button>
             </div>
             <div class="col">
               <button
@@ -935,6 +935,7 @@
         this.Show1BModal = false;
         this.Show2BModal = false;
         this.cancelSelection()
+        this.closePanelsModal()
       },
       removeImage: function (index) {
         this.productObj.properties.panels[index].image = false;

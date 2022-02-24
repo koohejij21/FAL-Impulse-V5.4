@@ -1,11 +1,11 @@
 <div id="app" >
-    <div class="product-template__container page-width"
+    <div class="product-template__container page-width pt-3"
     id="ProductSection-{{ section.id }}"
     data-section-id="{{ section.id }}"
     data-section-type="product"
     data-enable-history-state="true"
     data-ajax-enabled="{{ settings.enable_ajax }}">
-        <div class="product-single__meta justify-content-center">
+        <div class="justify-content-center">
             <div  v-show="itemsInCart > 0">
                 <br/><br/>
                 <p class="h1 margin-top mt-4"> Oops! You already have a box in your cart. </p>
@@ -54,33 +54,29 @@
                 </div>
                 <!--  NAVIGATOR TOP  -->
                 <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <button
-                                v-if="stepIndex == 0"
-                                type="button"
-                                class="btn btn--secondary  float-left"
-                                onclick="history.back();"
-                            >Back</button>
-                            <button
-                                v-if="stepIndex > 0"
-                                type="button"
-                                class="btn btn--secondary  float-left"
-                                @click="prevStep"
-                                >Back</button>
-                        </div>
-                        <div class="col">
-                            <button
-                                v-if="stepIndex < totalSteps - 2"
-                                type="button"
-                                class="btn  float-right"
-                                @click="nextStep">Next</button>
-                            <button
-                                v-if="stepIndex === totalSteps - 2"
-                                type="button"
-                                class="btn  float-right"
-                                @click="nextStep">Next</button>
-                        </div>
+                    <div class="row justify-content-between">
+                      <button
+                          v-if="stepIndex == 0"
+                          type="button"
+                          class="btn btn--secondary"
+                          onclick="history.back();"
+                      >Back</button>
+                      <button
+                          v-if="stepIndex > 0"
+                          type="button"
+                          class="btn btn--secondary"
+                          @click="prevStep"
+                          >Back</button>
+                      <button
+                          v-if="stepIndex < totalSteps - 2"
+                          type="button"
+                          class="btn"
+                          @click="nextStep">Next</button>
+                      <button
+                          v-if="stepIndex === totalSteps - 2"
+                          type="button"
+                          class="btn"
+                          @click="nextStep">Next</button>
                     </div>
                 </div>
 
@@ -89,111 +85,18 @@
                     <h2>Write a Personal Message</h2>
                     <div class="PersonalizeMessage">
                         <p>If you need help check out our Writer’s Block option below.<br/>Please note that our software at this time will not recognize emoji’s 😢. </p>
-                        <div class="row flex-column-reverse flex-lg-row align-items-top justify-content-center">
-                            <!--FONTS-->
-                            <div class="radioFonts col-12 col-lg-3 w-90 w-lg-100">
-                                <p class="rte h4 text-center">Choose Font:</p>
-                                <input
-                                type="radio"
-                                class="radioButton"
-                                name="FontName"
-                                id="Poppins"
-                                value="Poppins"
-                                @click="switchFont('Poppins'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="Poppins font-selector" for="Poppins">Poppins</label>
-                                <input
-                                type="radio"
-                                class="radioButton"
-                                name="FontName"
-                                id="Marcellus"
-                                value="Marcellus"
-                                @click="switchFont('Marcellus'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="Marcellus font-selector" for="Marcellus">Marcellus</label>
-                                <input
-                                type="radio"
-                                class="radioButton"
-                                name="FontName"
-                                id="Rufina"
-                                value="Rufina"
-                                @click="switchFont('Rufina'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="Rufina font-selector" for="Rufina">Rufina</label>
-                                <input
-                                type="radio"
-                                class="radioButton"
-                                name="FontName"
-                                id="Parisienne"
-                                value="Parisienne"
-                                @click="switchFont('Parisienne'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="Parisienne font-selector" for="Parisienne">Parisienne</label>
-                                <input
-                                type="radio"
-                                class="radioButton"
-                                name="FontName"
-                                id="LobsterTwo"
-                                value="LobsterTwo"
-                                @click="switchFont('LobsterTwo'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="LobsterTwo font-selector" for="LobsterTwo">Lobster Two</label>
-                                <input
-                                type="radio"
-                                class="radioButton"
-                                name="FontName"
-                                id="Margarine"
-                                value="Margarine"
-                                @click="switchFont('Margarine'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="Margarine font-selector" for="Margarine">Margarine</label>
-                                <input
-                                type="radio"
-                                class="radioButton"
-                                name="FontName"
-                                id="SansitaSwashed"
-                                value="SansitaSwashed"
-                                @click="switchFont('SansitaSwashed'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="SansitaSwashed font-selector" for="SansitaSwashed">Sansita</label>
-                                <input
-                                type="radio"
-                                class="radioButton"
-                                name="FontName"
-                                id="OriginalSurfer"
-                                value="OriginalSurfer"
-                                @click="switchFont('OriginalSurfer'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="OriginalSurfer font-selector" for="OriginalSurfer">Surfer</label>
-                                <input
-                                type="radio"
-                                class="radioButton"
-                                name="FontName"
-                                id="ArimaMadurai"
-                                value="ArimaMadurai"
-                                @click="switchFont('ArimaMadurai'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="ArimaMadurai font-selector" for="ArimaMadurai">Arima</label>
-                                <input
-                                type="radio"
-                                class="radioButton"
-                                name="FontName"
-                                id="HomemadeApple"
-                                value="HomemadeApple"
-                                @click="switchFont('HomemadeApple'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="HomemadeApple font-selector" for="HomemadeApple">Homemade</label>
-                                <!-- <p>Please do not use emoji’s as our software can’t recognize them 😢</p> -->
+                        <div class="row flex-column flex-lg-row align-items-top justify-content-center">
+                            <!--PRODUCT-->
+                            <div class="designBundle col-lg-3">
+                                <p class="rte h4 product-single__title">{{ product.title }}</p>
+                                <div class="designBundleImgs row row-cols-2 row-cols-lg-1 align-items-center">
+                                    <div class="col-6 col-lg-12">
+                                        <img class="border" :src="productImages[1].src" alt="temp">
+                                    </div>
+                                    <div class="col-6 col-lg-12">
+                                        <img :src="productImages[2].src" alt="temp">
+                                    </div>
+                                </div>
                             </div>
                             <!--MESSAGE-->
                             <div class="col-12 col-lg-6 mx-auto w-90 w-lg-100">
@@ -270,9 +173,9 @@
                                     >
                                 <!--OPTIONS-->
                                 <div class="col-12 w-100 mb-4 mx-0 mx-lg-auto w-90 w-lg-100">
-                                    <div class="row">
+                                    <div class="row w-100 mx-auto">
                                         <div class="col-6 p-0 text-left">
-                                            <button class="text-left btn" type="button" @click="openWritersModal">Writer's Block</button>
+                                            <button class="btn" type="button" @click="openWritersModal">Writer's Block?</button>
                                         </div>
                                         <div class="col-6 p-0 text-right">
                                             <p class="m-0">${ characterCount } / 400 characters</p>
@@ -280,18 +183,50 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--PRODUCT-->
-                            <div class="designBundle col-lg-3">
-                                <p class="rte h4 product-single__title">{{ product.title }}</p>
-                                <div class="designBundleImgs row row-cols-2 row-cols-lg-1 align-items-center">
-                                    <div class="col-6 col-lg-12">
-                                        <img class="border" :src="productImages[1].src" alt="temp">
-                                    </div>
-                                    <div class="col-6 col-lg-12">
-                                        <img :src="productImages[2].src" alt="temp">
-                                    </div>
-                                </div>
+                            <!--FONTS-->
+                            <div class="col-12 col-lg-3 w-90 w-lg-100">
+                              <p class="rte h4 text-center">Choose Font:</p>
+                              <div class="radioFonts">
+                                <input
+                                type="radio"
+                                name="FontName"
+                                id="Poppins"
+                                value="Poppins"
+                                @click="switchFont('Poppins'); updateProps($event);"
+                                v-model="productObj.properties.FontName"
+                                />
+                                <label class="Poppins font-selector" for="Poppins">Poppins</label>
+                                <input
+                                type="radio"
+                                name="FontName"
+                                id="Marcellus"
+                                value="Marcellus"
+                                @click="switchFont('Marcellus'); updateProps($event);"
+                                v-model="productObj.properties.FontName"
+                                />
+                                <label class="Marcellus font-selector" for="Marcellus">Marcellus</label>
+                                <input
+                                type="radio"
+                                name="FontName"
+                                id="Parisienne"
+                                value="Parisienne"
+                                @click="switchFont('Parisienne'); updateProps($event);"
+                                v-model="productObj.properties.FontName"
+                                />
+                                <label class="Parisienne font-selector" for="Parisienne">Parisienne</label>
+                                <input
+                                type="radio"
+                                name="FontName"
+                                id="HomemadeApple"
+                                value="HomemadeApple"
+                                @click="switchFont('HomemadeApple'); updateProps($event);"
+                                v-model="productObj.properties.FontName"
+                                />
+                                <label class="HomemadeApple font-selector" for="HomemadeApple">Homemade</label>
+                                <!-- <p>Please do not use emoji’s as our software can’t recognize them 😢</p> -->
+                              </div>
                             </div>
+                            
                         </div>
                         <div v-if="ShowWritersModal">
                             <div class="writers-modal__overlay"></div>
@@ -792,40 +727,34 @@
                 </div>
                 <!--  NAVIGATOR BOTTOM  -->
                 <div class="container mb-5">
-                    <div class="row">
-                        <div class="col">
-                            <button
-                                v-if="stepIndex == 0 && {{ cart.item_count }} <= 0"
-                                type="button"
-                                class="btn btn--secondary  float-left"
-                                onclick="history.back();">Back</button>
-                            <button
-                                v-if="stepIndex > 0 && stepIndex < totalSteps - 1"
-                                type="button"
-                                class="btn btn--secondary  float-left"
-                                @click="prevStep">Back</button>
-                        </div>
-                        <div v-if="stepIndex === totalSteps - 1" class="col-12 col-sm-6 my-0 mx-auto">
-                            <button
-                                v-if="stepIndex === totalSteps - 1"
-                                type="submit"
-                                name="add"
-                                class="btn  btn-approved float-right"
-                                :class="{btnDisable: addingToCart}"
-                                @click="pushProduct(); return false;"><i class="atc-spinner" :class="[addingToCart ? ['fas','fa-circle-o-notch','fa-spin'] : '']"></i> Add to Cart</button>
-                            <button
-                                v-if="stepIndex === totalSteps - 1"
-                                type="button"
-                                class="btn btn--secondary float-left"
-                                @click="prevStep">Back</button>
-                        </div>
-                        <div class="col">
-                            <button
-                                v-if="stepIndex < totalSteps - 1 && {{ cart.item_count }} <= 0"
-                                type="button"
-                                class="btn  float-right"
-                                @click="nextStep">Next</button>
-                        </div>
+                    <div class="row justify-content-between">
+                      <button
+                          v-if="stepIndex == 0 && {{ cart.item_count }} <= 0"
+                          type="button"
+                          class="btn btn--secondary"
+                          onclick="history.back();">Back</button>
+                      <button
+                          v-if="stepIndex > 0 && stepIndex < totalSteps - 1"
+                          type="button"
+                          class="btn btn--secondary"
+                          @click="prevStep">Back</button>
+                      <button
+                      v-if="stepIndex === totalSteps - 1"
+                      type="button"
+                      class="btn btn--secondary"
+                      @click="prevStep">Back</button>
+                      <button
+                          v-if="stepIndex === totalSteps - 1"
+                          type="submit"
+                          name="add"
+                          class="btn  btn-approved"
+                          :class="{btnDisable: addingToCart}"
+                          @click="pushProduct(); return false;"><i class="atc-spinner" :class="[addingToCart ? ['fas','fa-circle-o-notch','fa-spin'] : '']"></i> Add to Cart</button>
+                      <button
+                          v-if="stepIndex < totalSteps - 1 && {{ cart.item_count }} <= 0"
+                          type="button"
+                          class="btn"
+                          @click="nextStep">Next</button>
                     </div>
                 </div>
             </div>
@@ -1463,6 +1392,7 @@
         Vue.set(this.selectingPanel, 1, false);
         this.ShowPanelsModal = false;
         this.cancelSelection()
+        this.closePanelsModal()
       },
       removeImage: function (index) {
         this.productObj.properties.panels[index].image = false;
@@ -1883,6 +1813,11 @@
     letter-spacing: normal;
     width: 100%;
   }
+  .radioFonts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
   .radioFonts input[type="radio"] {
     opacity: 0;
     position: fixed;
@@ -1899,11 +1834,11 @@
     padding: 6px 10px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
     transition-duration: 0.4s;
     min-width: 120px;
-    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .radioFonts input[type="radio"]:checked + label {
     background-color: #bbb;
