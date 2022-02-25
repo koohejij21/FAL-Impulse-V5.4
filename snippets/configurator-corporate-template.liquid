@@ -1,5 +1,5 @@
 <div id="app" >
-    <div class="product-template__container page-width pt-3"
+    <div class="product-template__container page-width pt-3 mx"
     id="ProductSection-{{ section.id }}"
     data-section-id="{{ section.id }}"
     data-section-type="product"
@@ -54,7 +54,7 @@
                 </div>
                 <!--  NAVIGATOR TOP  -->
                 <div class="container">
-                    <div class="row justify-content-between">
+                    <div class="row w-100 justify-content-between">
                       <button
                           v-if="stepIndex == 0"
                           type="button"
@@ -727,7 +727,7 @@
                 </div>
                 <!--  NAVIGATOR BOTTOM  -->
                 <div class="container mb-5">
-                    <div class="row justify-content-between">
+                    <div class="row w-100 justify-content-between">
                       <button
                           v-if="stepIndex == 0 && {{ cart.item_count }} <= 0"
                           type="button"

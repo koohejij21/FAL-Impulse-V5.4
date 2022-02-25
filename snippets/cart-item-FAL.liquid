@@ -1,0 +1,112 @@
+<div class="cart__item" data-key="{{ product.key }}">
+  {%- assign img_url = product | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+  <div class="cart__image">
+    <a href="{{ product.url }}" style="height: 0; padding-bottom: {{ 100 | divided_by: product.image.aspect_ratio }}%;">
+      <img class="lazyload"
+          data-src="{{ img_url }}"
+          data-widths="[180, 360, 540]"
+          data-aspectratio="{{ product.aspect_ratio }}"
+          data-sizes="auto"
+          alt="{{ product.product.title | escape }}">
+
+      <noscript>
+        <img class="lazyloaded"
+          src="{{ product | img_url: '400x' }}"
+          alt="{{ product.product.title | escape }}">
+      </noscript>
+    </a>
+  </div>
+  <div class="cart__item-details">
+    <div class="cart__item-title">
+      <a href="{{ product.url }}" class="cart__item-name">
+        {{ product.product.title }}
+      </a>
+      {%- unless product.product.has_only_default_variant -%}
+        <div class="cart__item--variants">
+          {%- for option in product.options_with_values -%}
+            <div><span>{{ option.name }}:</span> {{ option.value }}</div>
+          {%- endfor -%}
+        </div>
+      {%- endunless -%}
+      {%- if product.selling_plan_allocation != empty -%}
+        <div class="cart__item--variants">
+          {{ product.selling_plan_allocation.selling_plan.name }}
+        </div>
+      {%- endif -%}
+      {%- assign property_size = product.properties | size -%}
+      {% if property_size > 0 %}
+        {% for p in product.properties %}
+          {% assign property_first_char = p.first | slice: 0 %}
+          <p data-cart-item-property-name {% if p.first == 'Message' or p.first == 'Font' or p.first == 'Salutation' or p.first == 'Valediction' %} class="mb-0"{% endif %}>
+            {%- if p.first == 'Message' or p.first == 'Font' or p.first == 'Salutation' or p.first == 'Valediction' -%}
+              {%- if p.last != "" -%}
+                <i>{{ p.first }}</i>: {{ p.last }}
+              {%- endif -%}
+            {%- endif -%}
+          </p>
+        {% endfor %}
+        <div style="display: flex; margin-bottom: 1rem;">
+          {% for p in product.properties %}
+            {% assign property_first_char = p.first | slice: 0 %}
+            {%- if p.last contains '/cdn' or p.last contains '/uploadery' -%}
+              <div style="box-shadow: 0px 0px 5px 0px #c5c5c5; background-color: #ffffff; width:60px;  height: 60px; margin-right: 1rem;" data-cart-item-property-value>
+                <img src="{{ p.last }}" style="padding: 5px;">
+                &nbsp;&nbsp;&nbsp;
+              </div>
+            {%- endif -%}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    <div class="cart__item-sub">
+      <div class="cart__item-price-col text-right">
+        {% if product.original_price != product.final_price %}
+          <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+          <small class="cart__price cart__price--strikethrough">
+            {{ product.original_price | money }}
+          </small>
+          <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+          <span class="cart__price cart__discount">
+            {{ product.final_price | money }}
+          </span>
+        {% else %}
+          <span class="cart__price">
+            {{ product.original_price | money }}
+          </span>
+        {% endif %}
+
+        {%- if product.line_level_discount_allocations != blank -%}
+          {%- for discount_allocation in product.line_level_discount_allocations -%}
+            <small class="cart__discount">{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})</small>
+          {%- endfor -%}
+        {%- endif -%}
+
+        {%- if product.unit_price_measurement -%}
+          {%- capture unit_price_base_unit -%}
+            <span class="unit-price-base">
+              {%- if product.unit_price_measurement -%}
+                {%- if product.unit_price_measurement.reference_value != 1 -%}
+                  {{ product.unit_price_measurement.reference_value }}
+                {%- endif -%}
+                {{ product.unit_price_measurement.reference_unit }}
+              {%- endif -%}
+            </span>
+          {%- endcapture -%}
+
+          <div class="product__unit-price">{{ product.unit_price | money }}/{{ unit_price_base_unit }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style scoped>
+  @media (min-width:1000px){
+    .cart__item:not(:first-child){
+      padding-left: 6rem;
+    }
+  }
+  .cart__item:not(:first-child) .cart__image{
+    max-width: 80px;
+  }
+</style>
