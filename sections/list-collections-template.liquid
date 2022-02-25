@@ -40,10 +40,16 @@
       -%}
       {%- if section.settings.sort == 'products_low' or section.settings.sort == 'date' or section.settings.sort == 'alphabetical' -%}
         {%- for collection in collections -%}
+          {%- comment %}<locksmith:1c77>{% endcomment -%}
+            {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: collection, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+          {%- comment %}</locksmith:1c77>{% endcomment -%}
           {%- render 'collection-grid-item', collection: collection, grid_item_width: grid_item_width -%}
         {%- endfor -%}
       {%- else -%}
         {%- for collection in collections reversed -%}
+          {%- comment %}<locksmith:b677>{% endcomment -%}
+            {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: collection, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+          {%- comment %}</locksmith:b677>{% endcomment -%}
           {%- render 'collection-grid-item', collection: collection, grid_item_width: grid_item_width -%}
         {%- endfor -%}
       {%- endif -%}
