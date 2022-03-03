@@ -193,15 +193,15 @@
         "promo2-1": {
           "type": "sale_collection",
           "settings": {
-            "sale_collection": "",
+            "sale_collection": "cards",
             "top_text": "Up to",
             "middle_text": "50% off",
             "bottom_text": "Select products",
-            "width": "50",
+            "width": "100",
             "color_tint": "#000000",
             "color_tint_opacity": 0,
             "boxed": false,
-            "framed": true
+            "framed": false
           }
         },
         "promo2-2": {
