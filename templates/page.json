@@ -3,40 +3,9 @@
     "main": {
       "type": "main-page",
       "settings": {}
-    },
-    "16458136993a108ab7": {
-      "type": "newsletter",
-      "blocks": {
-        "16458136991307294b-0": {
-          "type": "title",
-          "settings": {
-            "title": "Sign up and save"
-          }
-        },
-        "16458136991307294b-1": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.<\/p>"
-          }
-        },
-        "16458136991307294b-2": {
-          "type": "form",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "16458136991307294b-0",
-        "16458136991307294b-1",
-        "16458136991307294b-2"
-      ],
-      "settings": {
-        "color_background": "#f9f9f9",
-        "color_text": "#1c1d1d"
-      }
     }
   },
   "order": [
-    "main",
-    "16458136993a108ab7"
+    "main"
   ]
 }
