@@ -65,6 +65,7 @@
           {% endif %}
 
           <div class="cart__item-row cart__checkout-wrapper">
+          <div class="delivery-selection">{% render 'delivery-date' %}</div>
             <button type="submit" name="checkout" data-terms-required="{{ settings.cart_terms_conditions_enable }}" class="btn cart__checkout">
               {{ 'cart.general.checkout' | t }}
             </button>
@@ -72,6 +73,12 @@
             {% if additional_checkout_buttons and settings.cart_additional_buttons %}
               <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
             {% endif %}
+            {% render 'cart-info-modal', button_text: "Shipping
+            Guidelines", modal_title: "Shipping Guidelines", image_text:"Each 5am
+            Lemon box is packaged in a 5x5x7 corrugate carton to protect it during
+            shipping.", image_src:
+            "https://cdn.shopify.com/s/files/1/0517/8700/6144/files/DSC6553.jpg?v=1611547846"
+            %}
           </div>
 
           <div class="cart__item-row text-center">
@@ -120,6 +127,6 @@
 
 {% schema %}
   {
-    "name": "Cart page"
+    "name": "Cart page FAL"
   }
 {% endschema %}
