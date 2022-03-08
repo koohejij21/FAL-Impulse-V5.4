@@ -1,94 +1,254 @@
-<div id="app" >
-    <div class="product-template__container page-width pt-3"
+<div id="app" class="d-flex align-items-center">
+    <div class="product-template__container page-width pt-3 mx-0 w-100"
     id="ProductSection-{{ section.id }}"
     data-section-id="{{ section.id }}"
     data-section-type="product"
     data-enable-history-state="true"
     data-ajax-enabled="{{ settings.enable_ajax }}">
+    <h1 class="visually-hidden">{{ product.title }}</h1>
         <div class="justify-content-center">
-            <div  v-show="itemsInCart > 0">
+            <div v-if="itemsInCart > 0">
                 <br/><br/>
-                <p class="h1 margin-top mt-4"> Oops! You already have a box in your cart. </p>
+                <p class="h1 margin-top mt-4"> Oops! You already have a box in your cart.</p>
                 <p>You can only order one box at a time. If you need to edit a box, please clear the cart and start again.</p>
                 <br/>
                 <a class="btn" href="/cart">Cart</a>
             </div>
 
-            <div v-show="itemsInCart === 0">
-                <!-- STEPS -->
-                <div class="container px-0 px-lg-3">
-                    <div class="progressCont" v-show="stepIndex < totalSteps">
-                        <ul class="progressBar">
-                            <li
-                                id="one"
-                                :class="{ active: isComplete[0], current: stepIndex === 0, linkHover: isComplete[0] }"
-                                @click="setStep(0)">
-                                <span>Message</span>
-                            </li>
-                            <li
-                                id="two"
-                                :class="{ active: isComplete[1], current: stepIndex === 1, linkHover: isComplete[1] }"
-                                @click="setStep(1)">
-                                <span>Panels</span>
-                            </li>
-                            <li
-                                id="three"
-                                :class="{ active: isComplete[2], current: stepIndex === 2, linkHover: isComplete[2] }"
-                                @click="setStep(2)">
-                                <span>Quote</span>
-                            </li>
-                            <li
-                                id="four"
-                                :class="{ active: isComplete[3], current: stepIndex === 3, linkHover: isComplete[3] }"
-                                @click="setStep(3)">
-                                <span>Gifts</span>
-                            </li>
-                            <li
-                                id="five"
-                                :class="{ active: isComplete[4], current: stepIndex === 4, linkHover: isComplete[4] }"
-                                @click="setStep(4)">
-                                <span>Review</span>
-                            </li>
-                        </ul>
-                    </div>
+            <div v-if="itemsInCart === 0">
+              <!-- STEPS -->
+              <div class="progressCont" v-if="stepIndex < totalSteps">
+                  <ul class="progressBar">
+                      <li
+                          id="one"
+                          :class="{ active: isComplete[0], current: stepIndex === 0, linkHover: isComplete[0] }"
+                          @click="setStep(0)">
+                          <span>Gifts</span>
+                      </li>
+                      <li
+                          id="two"
+                          :class="{ active: isComplete[1], current: stepIndex === 1, linkHover: isComplete[1] }"
+                          @click="setStep(1)">
+                          <span>Message</span>
+                      </li>
+                      <li
+                          id="three"
+                          :class="{ active: isComplete[2], current: stepIndex === 2, linkHover: isComplete[2] }"
+                          @click="setStep(2)">
+                          <span>Panels</span>
+                      </li>
+                      <li
+                          id="four"
+                          :class="{ active: isComplete[3], current: stepIndex === 3, linkHover: isComplete[3] }"
+                          @click="setStep(3)">
+                          <span>Quote</span>
+                      </li>
+                      <li
+                          id="five"
+                          :class="{ active: isComplete[4], current: stepIndex === 4, linkHover: isComplete[4] }"
+                          @click="setStep(4)">
+                          <span>Review</span>
+                      </li>
+                  </ul>
                 </div>
                 <!--  NAVIGATOR TOP  -->
-                <div class="container">
-                    <div class="row w-100 justify-content-between">
-                        <button
-                            v-if="stepIndex == 0"
-                            type="button"
-                            class="btn btn--secondary"
-                            onclick="history.back();"
+                <div class="row justify-content-between mx-1">
+                    <button
+                        v-if="stepIndex == 0"
+                        type="button"
+                        class="btn btn--secondary"
+                        onclick="history.back();"
+                    >Back</button>
+                    <button
+                        v-if="stepIndex > 0"
+                        type="button"
+                        class="btn btn--secondary"
+                        @click="prevStep"
                         >Back</button>
-                        <button
-                            v-if="stepIndex > 0"
-                            type="button"
-                            class="btn btn--secondary"
-                            @click="prevStep"
-                            >Back</button>
-                        <button
-                            v-if="stepIndex < totalSteps - 2"
-                            type="button"
-                            class="btn"
-                            @click="nextStep">Next</button>
-                        <button
-                            v-if="stepIndex === totalSteps - 2"
-                            type="button"
-                            class="btn"
-                            @click="nextStep">Next</button>
-                    </div>
+                    <button
+                        v-if="stepIndex < totalSteps - 2"
+                        type="button"
+                        class="btn"
+                        @click="nextStep">Next</button>
+                    <button
+                        v-if="stepIndex === totalSteps - 2"
+                        type="button"
+                        class="btn"
+                        @click="nextStep">Next</button>
                 </div>
 
-                <!--  STEP ONE - WRITE MESSAGE -->
+                <!--  STEP ONE - CHOOSE GIFTS  -->
                 <div class="step" v-show="stepIndex === 0">
-                    <h2>Write a Personal Message</h2>
+                    <h2 class="pt-3" >Shop for Gifts</h2>
+                    <p>We have curated gift sets for many occasions, feel free to also create your own.</p>
+                    <div class="cartItems__wrapper">
+                        <div class="cartItems__container">
+                            <img class="cartItems__img-card" src="{{ product.featured_image | img_url: '200x200' }}" alt="{{ product.title }}" id="{{ product.selected_or_first_available_variant.id }}">
+                            <template v-for="gifts in cartItems">
+                                <div class="cartItems__item" v-for="count in gifts.quantity">
+                                    <img class="cartItems__img" :src="gifts.giftImage" :alt="gifts.title" :id="gifts.id">
+                                    <div class="cartItems__subtract" :id="gifts.id" @click="removeGift($event)">-</div>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="cartPricing__wrapper">
+                        <div>
+                            <div class="cartPricing__container">
+                            <p class="cartPricing__title">{{ product.title }}</p>
+                            <p class="cartPricing__price">${{ product.price | money_without_currency }}</p>
+                            </div>
+                            <div class="cartPricing__container" v-for="gifts in cartItems">
+                            <p class="cartPricing__title"> ${ gifts.title }</p>
+                            <p class="cartPricing__price">${ gifts.quantity } x $${ gifts.price }</p>
+                            </div>
+                        </div>
+                        <div class="cartPricing__container" id="total">
+                            <p class="cartPricing__title">Total</p>
+                            <p class="cartPricing__price">$${ boxTotalCost }</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="mb-2 pl-lg-3 mr-auto">
+                            <label class="d-none" for="giftFilter">Filter:</label>
+                            <select name="giftFilter" id="giftFilter" v-model="currentFilter">
+                                <option v-for="tag in giftTags" :value="tag">${ tag }</option>
+                            </select>
+                        </div>
+                        <h3 v-if="currentFilter === 'Gift Sets' || currentFilter === 'All'">Gift Sets</h3>
+                        <div v-if="currentFilter === 'Gift Sets' || currentFilter === 'All'" class="row justify-content-center">
+                            <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="objectContains(gift.tag, 'Gift Sets')">
+                                <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event);">
+                                    <img :src="gift.image" :alt="gift.title">
+                                    <h3 class="grid-product__title grid-product__title--heading text-center px-3 pt-3">${ gift.title }</h3>
+                                </div>
+                                <div class="w-100 pb-3">
+                                    <label v-if="gift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="gift.id">${ gift.variantOption }</label>
+                                    <select v-if="gift.variants.length" class="mb-2 w-100" name="gift.title" id="gift.id"  @change="setVariantId($event, gift.id)" v-model="gift.id">
+                                        <option v-for="property in gift.variants" :value="property.id">
+                                        ${ property.title }
+                                        </option>
+                                    </select>
+                                    <div class="grid-product__price mb-2">$${ gift.price }</div>
+                                    <div v-show="gift.quantity <= 0" :id="gift.id">
+                                        <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;">Add</button>
+                                    </div>
+                                    <div v-show="gift.quantity > 0" :id="gift.id">
+                                        <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Add</span><span v-if="!gift.cantFit">Add 1 More</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 v-if="currentFilter === 'Gift Card' || currentFilter === 'All'"class="my-3">Gift Cards</h3>
+                        <div v-if="currentFilter === 'Gift Card' || currentFilter === 'All'" class="row justify-content-center">
+                            <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="objectContains(gift.tag, 'Gift Card')">
+                                <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event)">
+                                    <div class="row no-gutters">
+                                        <div class="col-sm-12">
+                                            <img :src="gift.image" :alt="gift.title" class="border">
+                                        </div>
+                                    </div>
+                                    <div class="row no-gutters">
+                                        <div class="col-sm-12">
+                                            <h3 class="grid-product__title grid-product__title--heading text-center py-0 pt-3">${ gift.title }</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pb-3">
+                                <label v-if="gift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="gift.id">${ gift.variantOption }</label>
+                                <select v-if="gift.variants.length" class="mb-2 w-100" name="gift.title" id="gift.id"  @change="setVariantId($event, gift.id)" v-model="gift.id">
+                                    <option v-for="property in gift.variants" :value="property.id">
+                                    ${ property.title }
+                                    </option>
+                                </select>
+                                <div class="grid-product__price mb-2">$${ gift.price }</div>
+                                <div v-show="gift.quantity <= 0" :id="gift.id">
+                                    <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add</span></button>
+                                </div>
+                                <div v-show="gift.quantity > 0" :id="gift.id">
+                                    <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add 1 More</span></button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 v-if="currentFilter !== 'Gift Card' && currentFilter !== 'Gift Sets'"class="my-3">Gifts</h3>
+                        <div v-if="currentFilter !== 'Gift Card' && currentFilter !== 'Gift Sets'" class="row justify-content-center">
+                            <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="objectContains(gift.tag, 'Single') && (objectContains(gift.tag, currentFilter) || currentFilter === 'All')">
+                                <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event)">
+                                    <div class="row no-gutters">
+                                        <div class="col-sm-12">
+                                            <img :src="gift.image" :alt="gift.title" class="border">
+                                        </div>
+                                    </div>
+                                    <div class="row no-gutters">
+                                        <div class="col-sm-12">
+                                            <h3 class="grid-product__title grid-product__title--heading text-center py-0 pt-3">${ gift.title }</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pb-3">
+                                    <label for="gift.id">${ gift.variantOption }</label>
+                                    <select class="mb-2 w-100" name="gift.title" id="gift.id" v-if="gift.variants.length" @change="setVariantId($event, gift.id)" v-model="gift.id">
+                                    <option v-for="property in gift.variants" :value="property.id">
+                                        ${ property.title }
+                                    </option>
+                                    </select>
+                                    <div class="grid-product__price mb-2">$${ gift.price }</div>
+                                    <div v-show="gift.quantity <= 0" :id="gift.id">
+                                        <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add</span></button>
+                                    </div>
+                                    <div v-show="gift.quantity > 0" :id="gift.id">
+                                        <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add 1 More</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %} NEW Modal {% endcomment %}
+                    <div v-show="ShowGiftModal">
+                      <div class="gift-modal__overlay"></div>
+                      <div class="gift-modal__container" @click="closeGiftModal">
+                        <div class="gift-modal" @click.stop="">
+                          <button type="button" id="gift-modal-btn-close" class="gift-modal__button-close" @click="closeGiftModal">&#x2715</button>
+                          <div class="row justify-content-center">
+                            <div class="col-12 col-sm-6">
+                                <img :src="selectedGift.image" :alt="selectedGift.title" class="gift-preview-image">
+                            </div>
+                            <div class="col-12 col-sm-6 text-left mt-3 mt-sm-0">
+                                <h3 style="text-transform: capitalize;">${ selectedGift.title }</h3>
+                                <div class="mb-3" id="gift-modal-description"></div>
+                                <label v-if="selectedGift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="selectedGift.id">${ selectedGift.variantOption }</label>
+                                <select v-if="selectedGift.variants.length" class="mb-2 w-100" name="selectedGift.title" id="selectedGift.id"  @change="setVariantId($event, selectedGift.id)" v-model="selectedGift.id">
+                                <option v-for="property in selectedGift.variants" :value="property.id">
+                                    ${ property.title }
+                                </option>
+                                </select>
+                                <h4><b>$${ selectedGift.price }</b></h4>
+                                <div>
+                                <div v-show="selectedGift.quantity <= 0" :id="selectedGift.id">
+                                    <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add</span></button>
+                                </div>
+                                <div v-show="selectedGift.quantity > 0" :id="selectedGift.id">
+                                    <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add 1 More</span></button>
+                                </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      {% comment %} /NEW Modal {% endcomment %}
+                  </div>
+
+                <!--  STEP TWO - WRITE MESSAGE -->
+                <div class="step" v-show="stepIndex === 1">
+                    <h2 class="pt-3" >Write a Personal Message</h2>
                     <div class="PersonalizeMessage">
                         <p>If you need help check out our Writer’s Block option below.<br/>Please note that our software at this time will not recognize emoji’s 😢. </p>
                         <div class="row flex-column flex-lg-row align-items-top justify-content-center">
                             <!--PRODUCT-->
                             <div class="designBundle col-lg-3">
-                                <p class="rte h4 product-single__title">{{ product.title }}</p>
+                                <!-- <p class="rte h4 product-single__title">{{ product.title }}</p> -->
                                 <div class="designBundleImgs row row-cols-2 row-cols-lg-1 align-items-center">
                                     <div class="col-6 col-lg-12">
                                         <img class="border" :src="productImages[1].src" alt="temp">
@@ -232,7 +392,7 @@
                             <div class="writers-modal__container" @click="closeWritersModal">
                                 <div class="writers-modal" @click.stop="">
                                     <button type="button" id="writers-modal-btn-close" class="writers-modal__button-close" @click="closeWritersModal">&#x2715</button>
-                                    <h2>Writer's Block? Let us help!</h2>
+                                    <div class="h2">Writer's Block? Let us help!</div>
                                     <div class="row justify-content-center">
                                         <div class="col-12 col-lg-6 col-xl-4 p-2"
                                             v-for="(wbMessage,index) in writersBlocks"
@@ -249,9 +409,9 @@
                     </div>
                 </div>
 
-                <!--  STEP TWO - IMAGE FLAPS  -->
-                <div class="step" v-show="stepIndex == 1">
-                    <h2>Customize the Side Panels of your Box</h2>
+                <!--  STEP THREE - IMAGE FLAPS  -->
+                <div class="step" v-show="stepIndex == 2">
+                    <h2 class="pt-3">Customize the Side Panels of your Box</h2>
                     <p class="mb-3 text-center">
                         Each box is designed with customizable side panels that can be easily removed and displayed.
                     </p>
@@ -262,15 +422,15 @@
                         </div>
                     </div>
                     <div>
-                        <div class="topAlign">
+                        <div class="align-top">
                             <div>
                                 <div class="row align-items-center justify-content-center">
                                     <div class="d-none d-lg-block d-xl-block col-3 col-lg-2 col-xl-3">
                                         <img src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_LP.png?v=1611508912" class="helperimg">
                                     </div>
                                     <div class="col-sm-5 col-lg-4 col-xl-3 panels-wrapper" v-for="(item, index) in productObj.properties.panels" :key="index">
-                                        <h3 class="h4 my-2" v-if="index == 0">Left Panel</h3>
-                                        <h3 class="h4 my-2" v-else="index == 1">Right Panel</h3>
+                                        <div class="h4 my-2" v-if="index == 0">Left Panel</div>
+                                        <div class="h4 my-2" v-else="index == 1">Right Panel</div>
                                         <div class="flapsUpload">
                                             <div class="polaroid">
                                                 <div v-if="item.showProgress" class="imageUpload overlay">
@@ -296,7 +456,6 @@
                                                 class="btn btn__panel"
                                                 @click="triggerUpload(item, index)">Upload Your Photo
                                                 </button>
-                                                <p class="text-or">OR</p>
                                                 <button
                                                 id="selectGraphicBtn"
                                                 class="btn btn__panel"
@@ -322,7 +481,7 @@
                         <div class="panels-modal__container" @click="closePanelsModal">
                             <div class="panels-modal" @click.stop="">
                                 <button type="button" id="panels-modal-btn-close" class="panels-modal__button-close" @click="closePanelsModal">&#x2715</button>
-                                <h2>Suggested Panels</h2>
+                                <div class="h2">Suggested Panels</div>
                                 <!-- <h3 class="h4 text-left text-bold">Suggested Designs</h3> -->
                                 <div class="row sidepanels">
                                     <div v-for="(panel,index) in suggestedPanels" :key="index" class="col-6 col-sm-3 col-xl-2 p-2 c-pointer position-relative">
@@ -350,12 +509,12 @@
                     </div>
                 </div>
 
-                <!--  STEP THREE - SECRET MESSAGE -->
-                <div class="step" v-show="stepIndex === 2">
+                <!--  STEP FOUR - SECRET MESSAGE -->
+                <div class="step" v-show="stepIndex === 3">
                     {% assign secretMessage = product.metafields.ha_SecretMessage %}
                     <div class="row">
                         <div class="col">
-                            <h2>Select a Special Message</h2>
+                            <h2 class="pt-3" >Select a Special Message</h2>
                             <p>Each box can have a message or quote printed on the bottom, the options for this box are below.</p>
                         </div>
                     </div>
@@ -373,7 +532,7 @@
                                         name="SecretMessage"
                                         id="smsg1"
                                         @click="secretmsg('{{ secretMessage.SM_Option1URL }}');" />
-                                    <label class="smBTN" for="smsg1">{{ secretMessage.SM_Option1 }}</label>
+                                    <label class="text-label" for="smsg1">{{ secretMessage.SM_Option1 }}</label>
                                 </div>
                                 {% endif %}
                                 {% if product.metafields.ha_SecretMessage.SM_Option2 != blank and  product.metafields.ha_SecretMessage.SM_Option2URL != blank %}
@@ -384,7 +543,7 @@
                                         name="SecretMessage"
                                         id="smsg2"
                                         @click="secretmsg('{{ secretMessage.SM_Option2URL }}');" />
-                                    <label class="smBTN" for="smsg2">{{ secretMessage.SM_Option2 }}</label>
+                                    <label class="text-label" for="smsg2">{{ secretMessage.SM_Option2 }}</label>
                                 </div>
                                 {% endif %}
                                 {% if product.metafields.ha_SecretMessage.SM_Option3 != blank and  product.metafields.ha_SecretMessage.SM_Option3URL != blank %}
@@ -395,7 +554,7 @@
                                         name="SecretMessage"
                                         id="smsg3"
                                         @click="secretmsg('{{ secretMessage.SM_Option3URL }}');" />
-                                    <label class="smBTN" for="smsg3">{{ secretMessage.SM_Option3 }}</label>
+                                    <label class="text-label" for="smsg3">{{ secretMessage.SM_Option3 }}</label>
                                 </div>
                                 {% endif %}
                                 {% if product.metafields.ha_SecretMessage.SM_Option4 != blank and  product.metafields.ha_SecretMessage.SM_Option4URL != blank %}
@@ -406,7 +565,7 @@
                                         name="SecretMessage"
                                         id="smsg4"
                                         @click="secretmsg('{{ secretMessage.SM_Option4URL }}');" />
-                                    <label class="smBTN" for="smsg4">{{ secretMessage.SM_Option4 }}</label>
+                                    <label class="text-label" for="smsg4">{{ secretMessage.SM_Option4 }}</label>
                                 </div>
                                 {% endif %}
                                 <div class="smBTNs col-sm-12 mb-1 mt-3">
@@ -416,179 +575,16 @@
                                         name="SecretMessage"
                                         id="smsg5"
                                         @click="secretmsg('https://cdn.shopify.com/s/files/1/0517/8700/6144/files/sm000.png');" />
-                                    <label class="smBTN" for="smsg5">Leave the bottom blank</label>
+                                    <label class="text-label" for="smsg5">Leave the bottom blank</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!--  STEP FOUR - CHOOSE GIFTS  -->
-                <div class="step" v-show="stepIndex === 3">
-                    <h2>Shop for Gifts</h2>
-                    <p>We have curated gift sets for many occasions, feel free to also create your own.</p>
-                    <div class="cartItems__wrapper">
-                        <div class="cartItems__container">
-                            <img class="cartItems__img-card" src="{{ product.featured_image | img_url: '200x200' }}" alt="{{ product.title }}" id="{{ product.selected_or_first_available_variant.id }}">
-                            <template v-for="gifts in cartItems">
-                                <div class="cartItems__item" v-for="count in gifts.quantity">
-                                    <img class="cartItems__img" :src="gifts.giftImage" :alt="gifts.title" :id="gifts.id">
-                                    <div class="cartItems__subtract" :id="gifts.id" @click="removeGift($event)">-</div>
-                                </div>
-                            </template>
-                        </div>
-                        <div class="cartPricing__wrapper">
-                        <div>
-                            <div class="cartPricing__container">
-                            <p class="cartPricing__title">{{ product.title }}</p>
-                            <p class="cartPricing__price">${{ product.price | money_without_currency }}</p>
-                            </div>
-                            <div class="cartPricing__container" v-for="gifts in cartItems">
-                            <p class="cartPricing__title"> ${ gifts.title }</p>
-                            <p class="cartPricing__price">${ gifts.quantity } x $${ gifts.price }</p>
-                            </div>
-                        </div>
-                        <div class="cartPricing__container" id="total">
-                            <p class="cartPricing__title">Total</p>
-                            <p class="cartPricing__price">$${ boxTotalCost }</p>
-                        </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="text-lg-left mb-2 pl-lg-3">
-                            <label class="d-none" for="giftFilter">Filter:</label>
-                            <select name="giftFilter" id="giftFilter" v-model="currentFilter">
-                                <option v-for="tag in giftTags" :value="tag">${ tag }</option>
-                            </select>
-                        </div>
-                        <h3 v-if="currentFilter === 'Gift Sets' || currentFilter === 'All'">Gift Sets</h3>
-                        <div v-if="currentFilter === 'Gift Sets' || currentFilter === 'All'" class="row justify-content-center">
-                            <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="objectContains(gift.tag, 'Gift Sets')">
-                                <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event);">
-                                    <img :src="gift.image" :alt="gift.title">
-                                    <h3 class="grid-product__title grid-product__title--heading text-center px-3 pt-3">${ gift.title }</h3>
-                                </div>
-                                <div class="w-100 pb-3">
-                                    <label v-if="gift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="gift.id">${ gift.variantOption }</label>
-                                    <select v-if="gift.variants.length" class="mb-2 w-100" name="gift.title" id="gift.id"  @change="setVariantId($event, gift.id)" v-model="gift.id">
-                                        <option v-for="property in gift.variants" :value="property.id">
-                                        ${ property.title }
-                                        </option>
-                                    </select>
-                                    <div class="grid-product__price mb-2">$${ gift.price }</div>
-                                    <div v-show="gift.quantity <= 0" :id="gift.id">
-                                        <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;">Add</button>
-                                    </div>
-                                    <div v-show="gift.quantity > 0" :id="gift.id">
-                                        <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Add</span><span v-if="!gift.cantFit">Add 1 More</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h3 v-if="currentFilter === 'Gift Card' || currentFilter === 'All'"class="my-3">Gift Cards</h3>
-                        <div v-if="currentFilter === 'Gift Card' || currentFilter === 'All'" class="row justify-content-center">
-                            <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="objectContains(gift.tag, 'Gift Card')">
-                                <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event)">
-                                    <div class="row no-gutters">
-                                        <div class="col-sm-12">
-                                            <img :src="gift.image" :alt="gift.title" class="border">
-                                        </div>
-                                    </div>
-                                    <div class="row no-gutters">
-                                        <div class="col-sm-12">
-                                            <h3 class="grid-product__title grid-product__title--heading text-center py-0 pt-3">${ gift.title }</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pb-3">
-                                <label v-if="gift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="gift.id">${ gift.variantOption }</label>
-                                <select v-if="gift.variants.length" class="mb-2 w-100" name="gift.title" id="gift.id"  @change="setVariantId($event, gift.id)" v-model="gift.id">
-                                    <option v-for="property in gift.variants" :value="property.id">
-                                    ${ property.title }
-                                    </option>
-                                </select>
-                                <div class="grid-product__price mb-2">$${ gift.price }</div>
-                                <div v-show="gift.quantity <= 0" :id="gift.id">
-                                    <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add</span></button>
-                                </div>
-                                <div v-show="gift.quantity > 0" :id="gift.id">
-                                    <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add 1 More</span></button>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h3 v-if="currentFilter !== 'Gift Card' && currentFilter !== 'Gift Sets'"class="my-3">Gifts</h3>
-                        <div v-if="currentFilter !== 'Gift Card' && currentFilter !== 'Gift Sets'" class="row justify-content-center">
-                            <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="objectContains(gift.tag, 'Single') && (objectContains(gift.tag, currentFilter) || currentFilter === 'All')">
-                                <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event)">
-                                    <div class="row no-gutters">
-                                        <div class="col-sm-12">
-                                            <img :src="gift.image" :alt="gift.title" class="border">
-                                        </div>
-                                    </div>
-                                    <div class="row no-gutters">
-                                        <div class="col-sm-12">
-                                            <h3 class="grid-product__title grid-product__title--heading text-center py-0 pt-3">${ gift.title }</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pb-3">
-                                    <label for="gift.id">${ gift.variantOption }</label>
-                                    <select class="mb-2 w-100" name="gift.title" id="gift.id" v-if="gift.variants.length" @change="setVariantId($event, gift.id)" v-model="gift.id">
-                                    <option v-for="property in gift.variants" :value="property.id">
-                                        ${ property.title }
-                                    </option>
-                                    </select>
-                                    <div class="grid-product__price mb-2">$${ gift.price }</div>
-                                    <div v-show="gift.quantity <= 0" :id="gift.id">
-                                        <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add</span></button>
-                                    </div>
-                                    <div v-show="gift.quantity > 0" :id="gift.id">
-                                        <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add 1 More</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% comment %} NEW Modal {% endcomment %}
-                    <div v-show="ShowGiftModal">
-                      <div class="gift-modal__overlay"></div>
-                      <div class="gift-modal__container" @click="closeGiftModal">
-                        <div class="gift-modal" @click.stop="">
-                          <button type="button" id="gift-modal-btn-close" class="gift-modal__button-close" @click="closeGiftModal">&#x2715</button>
-                          <div class="row justify-content-center">
-                            <div class="col-12 col-sm-6">
-                                <img :src="selectedGift.image" :alt="selectedGift.title" class="gift-preview-image">
-                            </div>
-                            <div class="col-12 col-sm-6 text-left mt-3 mt-sm-0">
-                                <h3 style="text-transform: capitalize;">${ selectedGift.title }</h3>
-                                <div class="mb-3" id="gift-modal-description"></div>
-                                <label v-if="selectedGift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="selectedGift.id">${ selectedGift.variantOption }</label>
-                                <select v-if="selectedGift.variants.length" class="mb-2 w-100" name="selectedGift.title" id="selectedGift.id"  @change="setVariantId($event, selectedGift.id)" v-model="selectedGift.id">
-                                <option v-for="property in selectedGift.variants" :value="property.id">
-                                    ${ property.title }
-                                </option>
-                                </select>
-                                <h4><b>$${ selectedGift.price }</b></h4>
-                                <div>
-                                <div v-show="selectedGift.quantity <= 0" :id="selectedGift.id">
-                                    <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add</span></button>
-                                </div>
-                                <div v-show="selectedGift.quantity > 0" :id="selectedGift.id">
-                                    <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add 1 More</span></button>
-                                </div>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                      {% comment %} /NEW Modal {% endcomment %}
-                  </div>
-
                 <!-- STEP FIVE - REVIEW   -->
-                <div class="step" v-if="stepIndex === 4">
-                    <h2>Review the Box</h2>
+                <div class="step" v-show="stepIndex === 4">
+                    <h2 class="pt-3" >Review the Box</h2>
                     <p class="text-center">Almost finished! Take one last look before you approve but here’s a list<br> of our most common errors to help!</p>
                     <ul class="rte list__approval">
                         <li>Check your spelling and punctuation</li>
@@ -621,44 +617,26 @@
                                                         class="mb-4"
                                                         :class="{
                                                         Poppins: productObj.properties.FontName === 'Poppins',
-                                                        ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
                                                         Marcellus: productObj.properties.FontName === 'Marcellus',
-                                                        Rufina: productObj.properties.FontName === 'Rufina',
                                                         Parisienne: productObj.properties.FontName === 'Parisienne',
-                                                        HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
-                                                        LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
-                                                        OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
-                                                        Margarine: productObj.properties.FontName === 'Margarine',
-                                                        SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                                                        HomemadeApple: productObj.properties.FontName === 'HomemadeApple'
                                                         }">${productObj.properties.Salutation}
                                                     </div>
                                                     <div
                                                         class="mb-4"
                                                         :class="{
                                                         Poppins: productObj.properties.FontName === 'Poppins',
-                                                        ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
                                                         Marcellus: productObj.properties.FontName === 'Marcellus',
-                                                        Rufina: productObj.properties.FontName === 'Rufina',
                                                         Parisienne: productObj.properties.FontName === 'Parisienne',
-                                                        HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
-                                                        LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
-                                                        OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
-                                                        Margarine: productObj.properties.FontName === 'Margarine',
-                                                        SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                                                        HomemadeApple: productObj.properties.FontName === 'HomemadeApple'
                                                         }">${productObj.properties.Message}
                                                     </div>
                                                     <div
                                                         :class="{
                                                         Poppins: productObj.properties.FontName === 'Poppins',
-                                                        ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
                                                         Marcellus: productObj.properties.FontName === 'Marcellus',
-                                                        Rufina: productObj.properties.FontName === 'Rufina',
                                                         Parisienne: productObj.properties.FontName === 'Parisienne',
-                                                        HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
-                                                        LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
-                                                        OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
-                                                        Margarine: productObj.properties.FontName === 'Margarine',
-                                                        SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                                                        HomemadeApple: productObj.properties.FontName === 'HomemadeApple'
                                                         }">${productObj.properties.Valediction}
                                                     </div>
                                                 </div>
@@ -676,14 +654,14 @@
                                     <div class="d-none d-md-block d-xl-block col-sm-12 col-md-3">
                                         <img src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_LP.png?v=1611508912">
                                     </div>
-                                    <div class="col-sm-6 col-md-3" v-for="(item, index) in productObj.properties.panels" class="topAlign">
+                                    <div class="col-sm-6 col-md-3" v-for="(item, index) in productObj.properties.panels" class="align-top">
                                         <div>
                                             <div v-if="index == 0" class="d-flex justify-content-center align-items-center">
-                                                <h3 class="h4 mt-3 pr-4" >Left Panel</h3>
+                                                <div class="h4 mt-3 pr-4" >Left Panel</div>
                                                 <p class="mt-3 edit-icon"  @click="setStep(1);"><i class="fa fa-edit"></i>&nbsp;Edit</p>
                                             </div>
                                             <div v-else="index == 1" class="d-flex justify-content-center align-items-center">
-                                                <h3 class="h4 mt-3 pr-4" >Right Panel</h3>
+                                                <div class="h4 mt-3 pr-4" >Right Panel</div>
                                                 <p class="mt-3 edit-icon" @click="setStep(1);"><i class="fa fa-edit"></i>&nbsp;Edit</p>
                                             </div>
                                             <div class="polaroidR">
@@ -725,36 +703,34 @@
                     </div>
                 </div>
                 <!--  NAVIGATOR BOTTOM  -->
-                <div class="container mb-5">
-                    <div class="row w-100 justify-content-between">
-                      <button
-                          v-if="stepIndex == 0 && {{ cart.item_count }} <= 0"
-                          type="button"
-                          class="btn btn--secondary"
-                          onclick="history.back();">Back</button>
-                      <button
-                          v-if="stepIndex > 0 && stepIndex < totalSteps - 1"
-                          type="button"
-                          class="btn btn--secondary"
-                          @click="prevStep">Back</button>
-                      <button
-                      v-if="stepIndex === totalSteps - 1"
+                <div class="row justify-content-between mx-1">
+                  <button
+                      v-if="stepIndex == 0 && {{ cart.item_count }} <= 0"
+                      type="button"
+                      class="btn btn--secondary"
+                      onclick="history.back();">Back</button>
+                  <button
+                      v-if="stepIndex > 0 && stepIndex < totalSteps - 1"
                       type="button"
                       class="btn btn--secondary"
                       @click="prevStep">Back</button>
-                      <button
-                          v-if="stepIndex === totalSteps - 1"
-                          type="submit"
-                          name="add"
-                          class="btn btn-approved"
-                          :class="{btnDisable: addingToCart}"
-                          @click="pushProduct(); return false;"><i class="atc-spinner" :class="[addingToCart ? ['fas','fa-circle-o-notch','fa-spin'] : '']"></i> Add to Cart</button>
-                      <button
-                          v-if="stepIndex < totalSteps - 1 && {{ cart.item_count }} <= 0"
-                          type="button"
-                          class="btn"
-                          @click="nextStep">Next</button>
-                    </div>
+                  <button
+                  v-if="stepIndex === totalSteps - 1"
+                  type="button"
+                  class="btn btn--secondary"
+                  @click="prevStep">Back</button>
+                  <button
+                      v-if="stepIndex === totalSteps - 1"
+                      type="submit"
+                      name="add"
+                      class="btn btn-approved"
+                      :class="{btnDisable: addingToCart}"
+                      @click="pushProduct(); return false;"><i class="atc-spinner" :class="[addingToCart ? ['fas','fa-circle-o-notch','fa-spin'] : '']"></i> Add to Cart</button>
+                  <button
+                      v-if="stepIndex < totalSteps - 1 && {{ cart.item_count }} <= 0"
+                      type="button"
+                      class="btn"
+                      @click="nextStep">Next</button>
                 </div>
             </div>
 
@@ -1303,7 +1279,7 @@
         }
         window.scrollTo(0,0);
         this.cancelSelection();
-        if (this.stepIndex > 1){
+        if (this.stepIndex > 2){
           this.setDefaultPattern();
         }
       },
@@ -1313,7 +1289,7 @@
           this.isComplete[this.stepIndex] = true;
           this.setStep(this.stepIndex);
         }
-        if (this.stepIndex == 2){
+        if (this.stepIndex == 3){
           this.setDefaultPattern();
         }
       },
@@ -1659,7 +1635,7 @@
   #app {
     display: flex;
     flex-direction: column;
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -1725,9 +1701,12 @@
   .progressBar li.active + li:after {
     background: #303030;
   }*/
-  @media (max-width: 350px) {
+  @media (max-width: 375px) {
     .progressBar li span {
       display: none;
+    }
+    .progressCont{
+      padding-bottom: 20px;
     }
   }
   .step {
@@ -1805,7 +1784,7 @@
     padding: 6px 10px;
     text-align: center;
     text-decoration: none;
-    text-transform: none;
+    text-transform: normal;
     display: inline-block;
     font-size: 14px;
     letter-spacing: normal;
@@ -1900,17 +1879,9 @@
     font-family: 'Poppins' !important;
     font-size: 16px !important;
   }
-  .ArimaMadurai {
-    font-family: 'Arima Madurai' !important;
-    font-size: 18px !important;
-  }
   .Marcellus {
     font-family: 'Marcellus' !important;
     font-size: 17px !important;
-  }
-  .Rufina {
-    font-family: 'Rufina' !important;
-    font-size: 18px !important;
   }
   .Parisienne {
     font-family: 'Parisienne' !important;
@@ -1920,52 +1891,18 @@
     font-family: 'Homemade Apple' !important;
     font-size: 16px !important;
   }
-  .LobsterTwo {
-    font-family: 'Lobster Two' !important;
-    font-size: 18px !important;
-  }
-  .OriginalSurfer {
-    font-family: 'Original Surfer' !important;
-    font-size: 18px !important;
-  }
-  .Margarine {
-    font-family: 'Margarine' !important;
-    font-size: 17px !important;
-  }
-  .SansitaSwashed {
-    font-family: 'Sansita Swashed' !important;
-    font-size: 18px !important;
-  }
   @media (max-width: 600px){
     .Poppins {
       font-size: 12px !important;
     }
-    .ArimaMadurai {
-      font-size: 14px !important;
-    }
     .Marcellus {
       font-size: 13px !important;
-    }
-    .Rufina {
-      font-size: 14px !important;
     }
     .Parisienne {
       font-size: 17px !important;
     }
     .HomemadeApple {
       font-size: 12px !important;
-    }
-    .LobsterTwo {
-      font-size: 14px !important;
-    }
-    .OriginalSurfer {
-      font-size: 14px !important;
-    }
-    .Margarine {
-      font-size: 13px !important;
-    }
-    .SansitaSwashed {
-      font-size: 14px !important;
     }
   }
   .textLeft {
@@ -2013,9 +1950,6 @@
   }
   .helperimgInside {
     width: 100px;
-  }
-  .topAlign {
-    vertical-align: top;
   }
   .ptrn-panel-container{
     position: relative;
@@ -2252,7 +2186,7 @@
   .cartItems__img{
     object-fit:cover;
     min-height: 100%;
-    min-width: 100%
+    min-width: 100%;
   }
   .cartItems__img-card{
     height: 100px;
@@ -2322,13 +2256,6 @@
     .cartItems__item-holder{
       justify-content:center;
     }
-    .cartItems__item{
-      width: 75px;
-      height: 75px;
-    }
-    .cartItems__img-card{
-      height: 100px;
-    }
     .cartPricing__wrapper{
       width: 100%;
     }
@@ -2342,17 +2269,18 @@
   .btn__container-upload{
     width: 100%; max-width: 250px;
   }
-  .text-or{
-    margin: 5px auto;
-    font-weight: 600;
-  }
+  
   .btn__panel{
     font-size: 12px;
-    width: 90vw;
-    max-width: 250px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
+
+  .btn__panel:first-child{
+    margin-bottom: 8px;
+  }
+
   .c-pointer{
     cursor: pointer;
   }

@@ -5,8 +5,8 @@
     "color_price": "#1c1d1d",
     "color_savings_text": "#ff4e4e",
     "color_borders": "#e8e8e1",
-    "color_button": "#ffce33",
-    "color_button_text": "#005fe4",
+    "color_button": "#000000",
+    "color_button_text": "#ffffff",
     "color_sale_tag": "#1c1d1d",
     "color_cart_dot": "#ffe600",
     "color_small_image_bg": "#e5e5e5",
@@ -26,7 +26,7 @@
     "color_image_overlay": "#000000",
     "color_image_overlay_opacity": 0,
     "color_image_overlay_text_shadow": 24,
-    "type_header_font_family": "montserrat_n4",
+    "type_header_font_family": "montserrat_n6",
     "type_header_spacing": "25",
     "type_header_base_size": 40,
     "type_header_line_height": 1,
@@ -43,9 +43,10 @@
     "type_product_style": "heading",
     "type_collection_font": "body",
     "type_collection_size": 24,
-    "button_style": "round",
+    "button_style": "round-slight",
     "icon_weight": "3px",
     "icon_linecaps": "round",
+    "vendor_enable": false,
     "quick_shop_enable": false,
     "quick_shop_text": "Quick view",
     "product_grid_image_size": "natural",
@@ -84,11 +85,13 @@
       "header": {
         "type": "header",
         "blocks": {
-          "1524770014057": {
+          "68aaf710-9f3c-4fe5-abdb-4a2cf6f3d551": {
             "type": "logo",
             "settings": {
-              "desktop_logo_width": 140,
-              "mobile_logo_width": 110
+              "logo": "shopify:\/\/shop_images\/5AL_LOGO_Landscape-Black.png",
+              "logo-inverted": "shopify:\/\/shop_images\/5AL_LOGO_White_Landscape.png",
+              "desktop_logo_width": 200,
+              "mobile_logo_width": 140
             }
           },
           "1524770292306": {
@@ -109,7 +112,7 @@
           }
         },
         "block_order": [
-          "1524770014057",
+          "68aaf710-9f3c-4fe5-abdb-4a2cf6f3d551",
           "1524770292306",
           "1524770296206"
         ],
@@ -123,21 +126,29 @@
           "announcement_compact": true,
           "announcement_above_header": false,
           "toolbar_menu": "",
-          "toolbar_social": true,
+          "toolbar_social": false,
           "show_locale_selector": true,
-          "show_currency_selector": true,
-          "show_currency_flags": true
+          "show_currency_selector": false,
+          "show_currency_flags": false
         }
       },
       "footer": {
         "type": "footer",
         "blocks": {
+          "1494301487048": {
+            "type": "logo_social",
+            "settings": {
+              "logo": "shopify:\/\/shop_images\/5AL_LOGO_Landscape-Black.png",
+              "desktop_logo_height": 50,
+              "container_width": 33
+            }
+          },
           "1494301487049": {
             "type": "menu",
             "settings": {
               "show_footer_title": false,
               "menu": "footer",
-              "container_width": 25
+              "container_width": 33
             }
           },
           "1494292487693": {
@@ -148,19 +159,12 @@
               "text": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.<\/p>",
               "container_width": 33
             }
-          },
-          "1494301487048": {
-            "type": "logo_social",
-            "settings": {
-              "desktop_logo_height": 50,
-              "container_width": 95
-            }
           }
         },
         "block_order": [
+          "1494301487048",
           "1494301487049",
-          "1494292487693",
-          "1494301487048"
+          "1494292487693"
         ],
         "settings": {
           "show_locale_selector": true,
@@ -199,6 +203,7 @@
         "blocks": {
           "footer-promotions-0": {
             "type": "promotion",
+            "disabled": true,
             "settings": {
               "enable_image": true,
               "title": "Site-wide promotion",
@@ -209,6 +214,7 @@
           },
           "footer-promotions-1": {
             "type": "promotion",
+            "disabled": true,
             "settings": {
               "enable_image": true,
               "title": "Site-wide promotion",
@@ -219,6 +225,7 @@
           },
           "footer-promotions-2": {
             "type": "promotion",
+            "disabled": true,
             "settings": {
               "enable_image": true,
               "title": "Site-wide promotion",
