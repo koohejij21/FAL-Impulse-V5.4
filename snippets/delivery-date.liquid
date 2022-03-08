@@ -1,0 +1,107 @@
+  {{ '//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css' | stylesheet_tag }}
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" defer="defer"></script>
+
+  <div class="date-picker">
+      <p>We require 2-3 business days to print and process your order</p>
+      <label for="asap">
+        <input type="radio" id="asap" name="attributes[DeliveryTime]" value="ASAP" checked>
+        &nbsp;Please ship as soon as it’s ready
+      </label>
+      <label for="future">
+        <input type="radio" id="future" name="attributes[DeliveryTime]" value="FUTURE">
+        &nbsp;Future Date - please select the date you would like us to <u><b>ship</b></u> it on, see our shipping information
+      </label>
+      <div class="datepicker" id="dpFUTURE">
+        <label for="date">Pick a <u><strong>ship</strong></u> date:</label>
+        <input class="ddpicker" id="date" type="text" name="attributes[DropDate]" value="{{ cart.attributes.date }}"  style="border: 1px solid #d4d4d4"/>
+        <!--<span style="display:block" class="instructions"> We do not deliver during the week-end.</span>-->
+      </div>
+  </div>
+
+  <script>
+    window.onload = function() {
+      if (window.jQuery) {
+        let $ = window.jQuery;
+
+        $(function() {
+          $("#date").datepicker({
+            minDate: +2,
+            maxDate: '+2M',
+            beforeShowDay: $.datepicker.noWeekends
+          });
+        });ßß
+      }
+    }
+
+    $(document).ready(function(){
+        $("#dpFUTURE").hide();
+          $("input[name$='attributes[DeliveryTime]']").click(function() {
+            var val = $(this).val();
+            $("#dpFUTURE").hide();
+            if (val == "FUTURE"){
+              $("#dp"+val).show();
+            }
+        });
+    });
+  </script>
+
+<style>
+.date-picker label{
+  letter-spacing: normal !important;
+  text-transform: unset  !important;
+}
+.ddpicker input {
+  border: 1px solid #d4d4d4 !important;
+}
+
+.date-picker{
+  width: 100%;
+  float: left;
+  margin-bottom: 20px;
+}
+
+.ui-datepicker {
+  width: 300px;
+  margin: 5px auto 0;
+  font: 12pt Montserrat, Arial, sans-serif;
+  background-color: #fff;
+  /*-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);*/
+}
+
+.ui-datepicker-header,
+.ui-widget-header {
+  background: white;
+}
+
+.ui-corner-all{
+  border-radius: 0px;
+
+}
+
+.ui-datepicker-title {
+  color: black;
+}
+
+.ui-widget-content .ui-state-default {
+  border: 0px;
+  text-align: center;
+  background: #fff;
+  font-weight: normal;
+  color: #000;
+}
+
+.ui-widget-content .ui-state-default:hover {
+  border: 0px;
+  text-align: center;
+  background: #000;
+  font-weight: normal;
+  color: #fff;
+}
+
+.ui-widget-content .ui-state-active {
+  border: 0px;
+  background: white;
+  color: #000;
+}
+</style>
