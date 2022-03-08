@@ -1,5 +1,5 @@
-<div id="app">
-    <div class="product-template__container page-width pt-3"
+<div id="app" class="d-flex align-items-center">
+    <div class="product-template__container page-width pt-3 mx-0 w-100"
     id="ProductSection-{{ section.id }}"
     data-section-id="{{ section.id }}"
     data-section-type="product"
@@ -16,69 +16,65 @@
             </div>
 
             <div v-if="itemsInCart === 0">
-                <!-- STEPS -->
-                <div class="container px-0 px-lg-3">
-                    <div class="progressCont" v-if="stepIndex < totalSteps">
-                        <ul class="progressBar">
-                            <li
-                                id="one"
-                                :class="{ active: isComplete[0], current: stepIndex === 0, linkHover: isComplete[0] }"
-                                @click="setStep(0)">
-                                <span>Gifts</span>
-                            </li>
-                            <li
-                                id="two"
-                                :class="{ active: isComplete[1], current: stepIndex === 1, linkHover: isComplete[1] }"
-                                @click="setStep(1)">
-                                <span>Message</span>
-                            </li>
-                            <li
-                                id="three"
-                                :class="{ active: isComplete[2], current: stepIndex === 2, linkHover: isComplete[2] }"
-                                @click="setStep(2)">
-                                <span>Panels</span>
-                            </li>
-                            <li
-                                id="four"
-                                :class="{ active: isComplete[3], current: stepIndex === 3, linkHover: isComplete[3] }"
-                                @click="setStep(3)">
-                                <span>Quote</span>
-                            </li>
-                            <li
-                                id="five"
-                                :class="{ active: isComplete[4], current: stepIndex === 4, linkHover: isComplete[4] }"
-                                @click="setStep(4)">
-                                <span>Review</span>
-                            </li>
-                        </ul>
-                    </div>
+              <!-- STEPS -->
+              <div class="progressCont" v-if="stepIndex < totalSteps">
+                  <ul class="progressBar">
+                      <li
+                          id="one"
+                          :class="{ active: isComplete[0], current: stepIndex === 0, linkHover: isComplete[0] }"
+                          @click="setStep(0)">
+                          <span>Gifts</span>
+                      </li>
+                      <li
+                          id="two"
+                          :class="{ active: isComplete[1], current: stepIndex === 1, linkHover: isComplete[1] }"
+                          @click="setStep(1)">
+                          <span>Message</span>
+                      </li>
+                      <li
+                          id="three"
+                          :class="{ active: isComplete[2], current: stepIndex === 2, linkHover: isComplete[2] }"
+                          @click="setStep(2)">
+                          <span>Panels</span>
+                      </li>
+                      <li
+                          id="four"
+                          :class="{ active: isComplete[3], current: stepIndex === 3, linkHover: isComplete[3] }"
+                          @click="setStep(3)">
+                          <span>Quote</span>
+                      </li>
+                      <li
+                          id="five"
+                          :class="{ active: isComplete[4], current: stepIndex === 4, linkHover: isComplete[4] }"
+                          @click="setStep(4)">
+                          <span>Review</span>
+                      </li>
+                  </ul>
                 </div>
                 <!--  NAVIGATOR TOP  -->
-                <div class="container">
-                    <div class="row w-100 justify-content-between">
-                        <button
-                            v-if="stepIndex == 0"
-                            type="button"
-                            class="btn btn--secondary"
-                            onclick="history.back();"
+                <div class="row justify-content-between mx-1">
+                    <button
+                        v-if="stepIndex == 0"
+                        type="button"
+                        class="btn btn--secondary"
+                        onclick="history.back();"
+                    >Back</button>
+                    <button
+                        v-if="stepIndex > 0"
+                        type="button"
+                        class="btn btn--secondary"
+                        @click="prevStep"
                         >Back</button>
-                        <button
-                            v-if="stepIndex > 0"
-                            type="button"
-                            class="btn btn--secondary"
-                            @click="prevStep"
-                            >Back</button>
-                        <button
-                            v-if="stepIndex < totalSteps - 2"
-                            type="button"
-                            class="btn"
-                            @click="nextStep">Next</button>
-                        <button
-                            v-if="stepIndex === totalSteps - 2"
-                            type="button"
-                            class="btn"
-                            @click="nextStep">Next</button>
-                    </div>
+                    <button
+                        v-if="stepIndex < totalSteps - 2"
+                        type="button"
+                        class="btn"
+                        @click="nextStep">Next</button>
+                    <button
+                        v-if="stepIndex === totalSteps - 2"
+                        type="button"
+                        class="btn"
+                        @click="nextStep">Next</button>
                 </div>
 
                 <!--  STEP ONE - CHOOSE GIFTS  -->
@@ -426,7 +422,7 @@
                         </div>
                     </div>
                     <div>
-                        <div class="topAlign">
+                        <div class="align-top">
                             <div>
                                 <div class="row align-items-center justify-content-center">
                                     <div class="d-none d-lg-block d-xl-block col-3 col-lg-2 col-xl-3">
@@ -460,7 +456,6 @@
                                                 class="btn btn__panel"
                                                 @click="triggerUpload(item, index)">Upload Your Photo
                                                 </button>
-                                                <p class="text-or">OR</p>
                                                 <button
                                                 id="selectGraphicBtn"
                                                 class="btn btn__panel"
@@ -659,7 +654,7 @@
                                     <div class="d-none d-md-block d-xl-block col-sm-12 col-md-3">
                                         <img src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_LP.png?v=1611508912">
                                     </div>
-                                    <div class="col-sm-6 col-md-3" v-for="(item, index) in productObj.properties.panels" class="topAlign">
+                                    <div class="col-sm-6 col-md-3" v-for="(item, index) in productObj.properties.panels" class="align-top">
                                         <div>
                                             <div v-if="index == 0" class="d-flex justify-content-center align-items-center">
                                                 <div class="h4 mt-3 pr-4" >Left Panel</div>
@@ -708,36 +703,34 @@
                     </div>
                 </div>
                 <!--  NAVIGATOR BOTTOM  -->
-                <div class="container mb-5">
-                    <div class="row w-100 justify-content-between">
-                      <button
-                          v-if="stepIndex == 0 && {{ cart.item_count }} <= 0"
-                          type="button"
-                          class="btn btn--secondary"
-                          onclick="history.back();">Back</button>
-                      <button
-                          v-if="stepIndex > 0 && stepIndex < totalSteps - 1"
-                          type="button"
-                          class="btn btn--secondary"
-                          @click="prevStep">Back</button>
-                      <button
-                      v-if="stepIndex === totalSteps - 1"
+                <div class="row justify-content-between mx-1">
+                  <button
+                      v-if="stepIndex == 0 && {{ cart.item_count }} <= 0"
+                      type="button"
+                      class="btn btn--secondary"
+                      onclick="history.back();">Back</button>
+                  <button
+                      v-if="stepIndex > 0 && stepIndex < totalSteps - 1"
                       type="button"
                       class="btn btn--secondary"
                       @click="prevStep">Back</button>
-                      <button
-                          v-if="stepIndex === totalSteps - 1"
-                          type="submit"
-                          name="add"
-                          class="btn btn-approved"
-                          :class="{btnDisable: addingToCart}"
-                          @click="pushProduct(); return false;"><i class="atc-spinner" :class="[addingToCart ? ['fas','fa-circle-o-notch','fa-spin'] : '']"></i> Add to Cart</button>
-                      <button
-                          v-if="stepIndex < totalSteps - 1 && {{ cart.item_count }} <= 0"
-                          type="button"
-                          class="btn"
-                          @click="nextStep">Next</button>
-                    </div>
+                  <button
+                  v-if="stepIndex === totalSteps - 1"
+                  type="button"
+                  class="btn btn--secondary"
+                  @click="prevStep">Back</button>
+                  <button
+                      v-if="stepIndex === totalSteps - 1"
+                      type="submit"
+                      name="add"
+                      class="btn btn-approved"
+                      :class="{btnDisable: addingToCart}"
+                      @click="pushProduct(); return false;"><i class="atc-spinner" :class="[addingToCart ? ['fas','fa-circle-o-notch','fa-spin'] : '']"></i> Add to Cart</button>
+                  <button
+                      v-if="stepIndex < totalSteps - 1 && {{ cart.item_count }} <= 0"
+                      type="button"
+                      class="btn"
+                      @click="nextStep">Next</button>
                 </div>
             </div>
 
@@ -1708,9 +1701,12 @@
   .progressBar li.active + li:after {
     background: #303030;
   }*/
-  @media (max-width: 350px) {
+  @media (max-width: 375px) {
     .progressBar li span {
       display: none;
+    }
+    .progressCont{
+      padding-bottom: 20px;
     }
   }
   .step {
@@ -1954,9 +1950,6 @@
   }
   .helperimgInside {
     width: 100px;
-  }
-  .topAlign {
-    vertical-align: top;
   }
   .ptrn-panel-container{
     position: relative;
@@ -2276,17 +2269,18 @@
   .btn__container-upload{
     width: 100%; max-width: 250px;
   }
-  .text-or{
-    margin: 5px auto;
-    font-weight: 600;
-  }
+  
   .btn__panel{
     font-size: 12px;
-    width: 90vw;
-    max-width: 250px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
+
+  .btn__panel:first-child{
+    margin-bottom: 8px;
+  }
+
   .c-pointer{
     cursor: pointer;
   }
