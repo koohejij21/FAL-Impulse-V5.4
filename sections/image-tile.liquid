@@ -3,7 +3,7 @@
 <div class="index-section {% if section.settings.flush_vertical %} py-0 {% endif %}">
   <div class="page-width tile-row-wrapper {% if section.settings.section_height != 'natural' %} restrict-height {% endif %} {% if section.settings.flush_horizontal %} px-0 {% endif %}">
     {%- capture image_layout -%}
-      <div class="tile-row__item tile-image" data-aos>
+      <div class="tile-row__item" data-aos>
           {%- if section.settings.image != blank -%}
               {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}<a href="{{ section.settings.button_link }}">{%- endif -%}
                 <div class="image-wrap tile-image" style="{% if section.settings.section_height == 'natural' %} height: 0; padding-bottom: {{ 100 | divided_by: section.settings.image.aspect_ratio }}%; {% endif %}">
@@ -27,28 +27,29 @@
       </div>
     {%- endcapture -%}
 
-    <div class="tile-row" style="background-color: {{ section.settings.background_color }};">
+    <div class="tile-row" >
       {%- if section.settings.layout == 'left' -%}
         {{ image_layout }}
       {%- endif -%}
-
-      <div class="tile-row__item tile-row__text tile-row__text--{{ section.settings.layout }} text-{{ section.settings.align_text }}" data-aos>
-        {%- if section.settings.subtitle != blank -%}
-          <div class="subheading appear-delay{% cycle '','-1','-2','-3','-4' %}">{{ section.settings.subtitle }}</div>
-        {%- endif -%}
-        {%- if section.settings.title != blank -%}
-          <div class="h1 appear-delay{% cycle '','-1','-2','-3','-4' %}">{{ section.settings.title | escape }}</div>
-        {%- endif -%}
-        {%- if section.settings.text != blank -%}
-          <div class="rte appear-delay{% cycle '','-1','-2','-3','-4' %}">{{ section.settings.text }}</div>
-        {%- endif -%}
-        {%- if section.settings.button_label != blank -%}
-          <div class="appear-delay{% cycle '','-1','-2','-3','-4' %}">
-            <a href="{{ section.settings.button_link }}" class="btn{% if section.settings.button_style == 'secondary' %} btn--tertiary{% endif %}">
-              {{ section.settings.button_label }}
-            </a>
-          </div>
-        {%- endif -%}
+      <div class="tile-row__item tile-row__text" style="background-color: {{ section.settings.background_color }};">
+        <div class="text-{{ section.settings.align_text }}" data-aos>
+          {%- if section.settings.subtitle != blank -%}
+            <div class="subheading appear-delay{% cycle '','-1','-2','-3','-4' %}">{{ section.settings.subtitle }}</div>
+          {%- endif -%}
+          {%- if section.settings.title != blank -%}
+            <h2 class="h1 appear-delay{% cycle '','-1','-2','-3','-4' %}" style="color: {{ section.settings.heading_color }};">{{ section.settings.title | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.text != blank -%}
+            <p class="rte appear-delay{% cycle '','-1','-2','-3','-4' %}">{{ section.settings.text }}</p>
+          {%- endif -%}
+          {%- if section.settings.button_label != blank -%}
+            <div class="appear-delay{% cycle '','-1','-2','-3','-4' %}">
+              <a href="{{ section.settings.button_link }}" class="btn{% if section.settings.button_style == 'secondary' %} btn--secondary{% endif %}" style="background-color: {{ section.settings.button_color }};">
+                {{ section.settings.button_label }}
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
       </div>
 
       {%- if section.settings.layout == 'right' -%}
@@ -62,7 +63,10 @@
 {%- if section.settings.divider -%}</div>{%- endif -%}
 
 {% style %}
-
+    .text-left,
+    .text-right{
+      text-align: center !important;
+    }
     .restrict-height {
       height: auto;
     }
@@ -147,6 +151,12 @@
         "default": "Image with text"
       },
       {
+        "type": "color",
+        "id": "heading_color",
+        "label": "Heading Colour",
+        "default": "rgba(1,1,1,1)"
+      },
+      {
         "type": "richtext",
         "id": "text",
         "label": "Text",
@@ -156,6 +166,12 @@
         "type": "text",
         "id": "button_label",
         "label": "Button label"
+      },
+      {
+        "type": "color",
+        "id": "button_color",
+        "label": "Button Colour",
+        "default": "rgba(1,1,1,1)"
       },
       {
         "type": "url",
