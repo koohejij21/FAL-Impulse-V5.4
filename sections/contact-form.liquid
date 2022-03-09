@@ -28,20 +28,81 @@
             <label for="ContactFormName-{{ section.id }}">{{ 'contact.form.name' | t }}</label>
             <input type="text" id="ContactFormName-{{ section.id }}" class="input-full" name="contact[name]" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
           </div>
-
+          {%- if section.settings.show_company -%}
+          <div class="grid__item medium-up--one-half">
+            <label for="ContactFormCompany-{{ section.id }}">Company</label>
+            <input type="text" id="ContactFormCompany-{{ section.id }}" class="input-full" name="contact[company]" pattern="[0-9\-]*" value="{% if form.company %}{{ form.company }}{% endif %}">
+          </div>
+          {%- endif -%}
+          
           <div class="grid__item medium-up--one-half">
             <label for="ContactFormEmail-{{ section.id }}">{{ 'contact.form.email' | t }}</label>
             <input type="email" id="ContactFormEmail-{{ section.id }}" class="input-full" name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
           </div>
+          
+          {%- if section.settings.show_phone -%}
+          <div class="grid__item medium-up--one-half">
+            <label for="ContactFormPhone-{{ section.id }}">{{ 'contact.form.phone' | t }}</label>
+            <input type="tel" id="ContactFormPhone-{{ section.id }}" class="input-full" name="contact[phone]" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+          </div>
+          {%- endif -%}
+          
+          {%- if section.settings.show_count -%}
+          <div class="grid__item medium-up--one-half">
+            <label for="ContactFormCount-{{ section.id }}">Estimated # of Boxes {{ section.settings.count_min }}</label>
+            <input type="number" id="ContactFormCount-{{ section.id }}" class="input-full" name="contact[count]" autocorrect="off" autocapitalize="off">
+          </div>
+          {%- endif -%}
+          
+          {%- if section.settings.show_date -%}
+          <div class="grid__item medium-up--one-half">
+            <label for="ContactFormDate-{{ section.id }}">Delivery Date for Boxes</label>
+            <input type="date" id="ContactFormDate-{{ section.id }}" class="input-full" name="contact[date]" >
+          </div>
+          {%- endif -%}
         </div>
-
-        {%- if section.settings.show_phone -%}
-          <label for="ContactFormPhone-{{ section.id }}">{{ 'contact.form.phone' | t }}</label>
-          <input type="tel" id="ContactFormPhone-{{ section.id }}" class="input-full" name="contact[phone]" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+        
+        {%- if section.settings.show_design -%}
+        <label for="ContactFormDesign-{{ section.id }}">Step 1: Tell us which box design and bundle you want</label>
+        <input type="text" id="ContactFormDesign-{{ section.id }}" class="input-full" name="contact[design]" autocorrect="off" autocapitalize="off">
         {%- endif -%}
 
-        <label for="ContactFormMessage-{{ section.id }}">{{ 'contact.form.message' | t }}</label>
-        <textarea rows="5" id="ContactFormMessage-{{ section.id }}" class="input-full" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+        {%- if block.settings.show_gifts -%}
+          <div class="grid__item ">
+            <label for="ContactFormGifts-{{ section.id }}">Step 2: Choose a Gift Bundle (Optional)</label>
+            <select id="ContactFormGifts-{{ section.id }}" class="input-full" name="contact[gifts]">
+              {%- assign gifts = "None,Gift Bundle 1,Gift Bundle 2,Gift Bundle 3" | split: "," -%}
+              {% for gift in gifts %}
+                <option>{{ gift }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.show_cardmsg -%}
+          <label for="ContactFormCardmsg-{{ section.id }}">Step 2: Personalized Message for inside Card (Optional)</label>
+          <textarea rows="5" id="ContactFormCardmsg-{{ section.id }}" class="input-full" name="contact[cardmsg]"></textarea>
+        {%- endif -%}
+        
+        {%- if section.settings.show_message -%}
+          <label for="ContactFormMessage-{{ section.id }}">{{ 'contact.form.message' | t }}</label>
+          <textarea rows="5" id="ContactFormMessage-{{ section.id }}" class="input-full" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+        {%- endif -%}
+        
+        {%- if section.settings.show_details -%}
+          <label for="ContactFormDetails-{{ section.id }}">Additional Details</label>
+          <textarea rows="5" id="ContactFormDetails-{{ section.id }}" class="input-full" name="contact[details]"></textarea>
+        {%- endif -%}
+
+        <div class="grid__item">
+          {%- if section.settings.extra_info -%}
+          {{ section.settings.extra_info }}
+          {%- endif -%}
+          {%- if section.settings.extra_html -%}
+          {{ section.settings.extra_html }}
+          {%- endif -%}
+        </div>
+
 
         <button type="submit" class="btn">
           {{ 'contact.form.send' | t }}
@@ -53,7 +114,7 @@
           By removing it, the small reCAPTCHA widget will appear in the
           bottom right corner of the page.
         {% endcomment %}
-        {{ 'shopify.online_store.spam_detection.disclaimer_html' | t }}
+        <!-- {{ 'shopify.online_store.spam_detection.disclaimer_html' | t }} -->
 
       {%- endform -%}
     </div>
@@ -82,8 +143,63 @@
       },
       {
         "type": "checkbox",
+        "id": "show_company",
+        "label": "Show Company Field",
+        "default": false
+      },
+      {
+        "type": "checkbox",
         "id": "show_phone",
-        "label": "Show phone number"
+        "label": "Show phone number",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_count",
+        "label": "Show Box Count Field",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "count_min",
+        "label": "Count Minimum",
+        "default": "(Minimum 10)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_date",
+        "label": "Show Delivery Date Field",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_design",
+        "label": "Show Design Field",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_gifts",
+        "label": "Show Gifts Field",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cardmsg",
+        "label": "Show Card Message Field",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_message",
+        "label": "Show Message Field",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_details",
+        "label": "Show Details Field",
+        "default": false
       },
       {
         "type": "checkbox",
