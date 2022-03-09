@@ -1,0 +1,190 @@
+<style>
+  /* Mobile First - All screen sizes */
+  .modal__overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    background-color: rgba(0,0,0, 0.6);
+    overflow: auto;
+    animation: full-overlay-on 0.5s forwards;
+  }
+
+  .cart-modal__container{
+    display: none;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2001;
+  }
+  .cart-modal{
+    position: relative;
+    overflow: auto;
+    width: 90%;
+    height: auto;
+    max-height: 90vh;
+    background-color: white;
+    margin: 0 auto;
+    padding: 32px;
+    animation: modal-open 0.5s forwards;
+  }
+  #cart-modal-btn{
+    margin-top: 1rem;
+  }
+
+  .cart-modal__button-close{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .text--capitalize{
+    text-transform: capitalize !important;
+  }
+  .text--bold{
+    font-weight: 400;
+  }
+  .cart-modal__image-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .cart-modal__image-text img{
+    padding-bottom: 16px;
+    width: 100%;
+  }
+  .cart-modal__image-text p{
+    width: 100%;
+  }
+  .cart__shipping-info{
+    width: 100%;
+  }
+
+  .cart__transit-times{
+    display: table;
+    width: 100%;
+    float: right;
+    margin: 0 0 1rem;
+  }
+  .cart__transit-times td,
+  .cart__transit-times th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px !important;
+  }
+
+  /* Any Screens Larger than 769px */
+  @media (min-width: 769px){
+    .cart-modal{
+      min-width: 692px;
+      max-width: 66.67%;
+    }
+    .cart-modal__image-text{
+      flex-direction: row;
+    }
+    .cart-modal__image-text img{
+      min-width: 100px;
+      width: 50%;
+      max-width: 300px;
+      padding-right: 16px;
+      padding-bottom: 0px;
+    }
+  }
+
+  /* Any Screens Larger than 1200px */
+  @media (min-width: 1200px){
+    .cart-modal{
+      min-width: 800px;
+      width: 50%;
+      max-width: 1000px;
+    }
+  }
+</style>
+
+<button type="button" class="btn btn--secondary btn--full" id="cart-modal-btn">{{ button_text }}</button>
+
+
+<div class="modal__overlay"></div>
+<div class="cart-modal__container">
+  <div class="cart-modal">
+    <a id="cart-modal-btn-close" class="cart-modal__button-close">&#x2715</a>
+    <h2 class="text-center">{{ modal_title }}</h2>
+    <p class="text--capitalize"><strong>Estimated transit times from when it leaves 5am Lemon</strong></p>
+    <table class="cart__transit-times">
+      <tr>
+        <th style="width: 60%;"><strong>Region</strong></th>
+        <th style="width: 40%;"><strong>Est. Transit Time</strong></th>
+      </tr>
+      <tr>
+        <td>Greater Toronto Area</td>
+        <td>Next business day</td>
+      </tr>
+      <tr>
+        <td>Rest of Ontario</td>
+        <td>3 to 4 business days</td>
+      </tr>
+      <tr>
+        <td>Outside of Ontario</td>
+        <td>5 to 7 business days</td>
+      </tr>
+    </table>
+    <p><span class="text--bold">Shipping Address</span> - The person receiving the box</p>
+    <p><span class="text--bold">Billing Address</span> - The person sending the box</p>
+    <div class="cart-modal__image-text">
+      <img src="{{ image_src }}" alt="5x5x7 Corrugate Shipping Box">
+      <p>{{ image_text }}</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  var modalOverlay = document.querySelector(".modal__overlay");
+  var modal = document.querySelector(".cart-modal__container");
+  var navbar = document.querySelector(".header-sticky-wrapper");
+
+  const showModal = () => {
+    modal.style.display = "flex";
+    modalOverlay.style.display = "block";
+    navbar.style.zIndex = "0";
+    // When the modal is shown, we want a fixed body
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    document.body.style.top = `-${window.scrollY}px`;
+  }
+  const hideModal = () => {
+    modal.style.display = "none";
+    modalOverlay.style.display = "none";
+    navbar.style.zIndex = "28";
+    // When the modal is hidden...
+    const scrollY = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+  }
+
+  //Open the modal
+  document.querySelector("#cart-modal-btn").onclick = function(){
+    showModal()
+  }
+  //Close the modal
+  document.querySelector("#cart-modal-btn-close").onclick = function(){
+    hideModal();
+  }
+
+  window.onclick = function(event) {
+    if (event.target === document.querySelector(".cart-modal__container")){
+      hideModal();
+      return false;
+    }
+  }
+</script>
