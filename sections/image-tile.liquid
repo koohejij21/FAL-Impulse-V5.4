@@ -1,7 +1,7 @@
 {%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
 
 <div class="index-section {% if section.settings.flush_vertical %} py-0 {% endif %}">
-  <div class="page-width tile-row-wrapper {% if section.settings.section_height != 'natural' %} restrict-height {% endif %} {% if section.settings.flush_horizontal %} px-0 {% endif %}">
+  <div class="tile-row-wrapper {% if section.settings.section_height != 'natural' %} restrict-height {% endif %} {% if section.settings.flush_horizontal %} px-0 mx-0 {% else %} page-width {% endif %}">
     {%- capture image_layout -%}
       <div class="tile-row__item" data-aos>
           {%- if section.settings.image != blank -%}
