@@ -65,11 +65,11 @@
                         class="btn btn--secondary"
                         @click="prevStep"
                         >Back</button>
-                    <button
+                    <div
                         v-if="stepIndex < totalSteps - 2"
                         type="button"
                         class="btn"
-                        @click="nextStep">Next</button>
+                        @click="nextStep">Next</div>
                     <button
                         v-if="stepIndex === totalSteps - 2"
                         type="button"
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <div>
-                        <div class="mb-2 pl-lg-3 mr-auto">
+                        <div class="mb-2 pl-lg-3 d-flex align-items-start">
                             <label class="d-none" for="giftFilter">Filter:</label>
                             <select name="giftFilter" id="giftFilter" v-model="currentFilter">
                                 <option v-for="tag in giftTags" :value="tag">${ tag }</option>
@@ -1647,6 +1647,7 @@
   label.spb-productdescfont.spb-productdesctextcolor.rightpanel {
     font-size: 0px;
   }
+
   .progressCont {
     margin: 0 auto;
     max-width: 1300px;
