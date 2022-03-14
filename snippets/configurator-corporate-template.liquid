@@ -511,35 +511,35 @@
             </div>
           </div>
           <div v-if="ShowPanelsModal">
-            <div class="panels-modal__overlay"></div>
-            <div class="panels-modal__container" @click="closePanelsModal">
-              <div class="panels-modal" @click.stop="">
-                <button type="button" id="panels-modal-btn-close" class="panels-modal__button-close" @click="closePanelsModal">&#x2715</button>
-                <h2>{{product.vendor}} Panels</h2>
-                <!-- <h3 class="h4 text-left text-bold">Suggested Designs</h3> -->
-                <div class="row sidepanels">
-                  <div v-for="(panel,index) in suggestedPanels" :key="index" class="col-6 col-sm-3 col-xl-2 p-2 c-pointer">
-                    <div v-if="index == 0" >
-                      <p class="ptrn-overlay mx-2">Box Pattern</p>
-                    </div>
-                    <div style="border: 1px solid #ddd;" @click="assignGraphic(panel);">
-                      <img :src="panel" width="200px">
-                    </div>
-                  </div>
-                </div>
-                <button type="button" v-show="!showRemainingPanels && vendor != 'Tangerine'" class="btn" @click="showRemainingPanels = true;">See More</button>
-                <div v-show="showRemainingPanels" class="pt-3">
-                  <h3 class="h4 text-left text-bold">All Panels</h3>
-                  <div class="row sidepanels">
-                    <div v-for="(panel,index) in remainingPanels" :key="index" class="col-6 col-sm-3 col-xl-2 p-2 c-pointer">
-                      <div style="border: 1px solid #ddd;" @click="assignGraphic(panel);">
-                        <img :src="panel" width="200px">
+              <div class="panels-modal__overlay"></div>
+              <div class="panels-modal__container" @click="closePanelsModal">
+                  <div class="panels-modal" @click.stop="">
+                      <button type="button" id="panels-modal-btn-close" class="panels-modal__button-close" @click="closePanelsModal">&#x2715</button>
+                      <div class="h2">Suggested Panels</div>
+                      <!-- <h3 class="h4 text-left text-bold">Suggested Designs</h3> -->
+                      <div class="row sidepanels">
+                          <div v-for="(panel,index) in suggestedPanels" :key="index" class="col-6 col-sm-3 col-xl-2 p-2 c-pointer position-relative">
+                              <div v-if="index == 0" >
+                                  <p class="ptrn-overlay mx-2">Box Pattern</p>
+                              </div>
+                              <div style="border: 1px solid #ddd;" @click="assignGraphic(panel);">
+                                  <img :src="panel" width="200px">
+                              </div>
+                          </div>
                       </div>
-                    </div>
+                      <button type="button" v-show="!showRemainingPanels" class="btn" @click="showRemainingPanels = true;">See More</button>
+                      <div v-show="showRemainingPanels" class="pt-3">
+                          <h3 class="h4 text-left text-bold">All Panels</h3>
+                          <div class="row sidepanels">
+                              <div v-for="(panel,index) in remainingPanels" :key="index" class="col-6 col-sm-3 col-xl-2 p-2 c-pointer">
+                                  <div style="border: 1px solid #ddd;" @click="assignGraphic(panel);">
+                                      <img :src="panel" width="200px">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
                   </div>
-                </div>
               </div>
-            </div>
           </div>
         </div>
         <!--  STEP FOUR - SECRET MESSAGE -->
