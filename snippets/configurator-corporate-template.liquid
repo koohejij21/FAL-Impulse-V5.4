@@ -1,791 +1,817 @@
-<div id="app" >
-    <div class="product-template__container page-width pt-3 mx"
+<div id="app" class="d-flex align-items-center">
+  <div class="product-template__container page-width py-3 mx-0 w-100"
     id="ProductSection-{{ section.id }}"
     data-section-id="{{ section.id }}"
     data-section-type="product"
     data-enable-history-state="true"
     data-ajax-enabled="{{ settings.enable_ajax }}">
-        <div class="justify-content-center">
-            <div  v-show="itemsInCart > 0">
-                <br/><br/>
-                <p class="h1 margin-top mt-4"> Oops! You already have a box in your cart. </p>
-                <p>You can only order one box at a time. If you need to edit a box, please clear the cart and start again.</p>
-                <br/>
-                <a class="btn" href="/cart">Cart</a>
+    <h1 class="visually-hidden">{{ product.title }}</h1>
+    <div class="justify-content-center">
+
+      <div v-if="itemsInCart > 0">
+        <br/><br/>
+        <p class="h1 margin-top mt-4"> Oops! You already have a box in your cart. </p>
+        <p>You can only order one box at a time. If you need to edit a box, please clear the cart and start again.</p>
+        <p></p>
+        <a class="btn" href="/cart">Cart</a>
+      </div>
+
+      <div v-if="itemsInCart === 0">
+        <!-- STEPS -->
+          <div class="progressCont" v-show="stepIndex < totalSteps">
+            <ul class="progressBar">
+              <li
+                id="one"
+                :class="{ active: isComplete[0], current: stepIndex === 0, linkHover: isComplete[0] }"
+                @click="setStep(0)">
+                <span>Gifts</span>
+              </li>
+              <li
+                id="two"
+                :class="{ active: isComplete[1], current: stepIndex === 1, linkHover: isComplete[1] }"
+                @click="setStep(1)">
+                <span>Message</span>
+              </li>
+              <li
+                id="three"
+                :class="{ active: isComplete[2], current: stepIndex === 2, linkHover: isComplete[2] }"
+                @click="setStep(2)">
+                <span>Panels</span>
+              </li>
+              <li
+                id="four"
+                :class="{ active: isComplete[3], current: stepIndex === 3, linkHover: isComplete[3] }"
+                @click="setStep(3)">
+                <span>Quote</span>
+              </li>
+              <li
+                id="five"
+                :class="{ active: isComplete[4], current: stepIndex === 4, linkHover: isComplete[4] }"
+                @click="setStep(4)">
+                <span>Review</span>
+              </li>
+            </ul>
+        </div>
+        <!--  NAVIGATOR TOP  -->
+        <div class="d-flex justify-content-between mx-1">
+          <button
+              v-if="stepIndex == 0"
+              type="button"
+              class="btn btn--secondary"
+              onclick="history.back();"
+          >Back</button>
+          <button
+              v-if="stepIndex > 0"
+              type="button"
+              class="btn btn--secondary"
+              @click="prevStep"
+              >Back</button>
+          <div
+              v-if="stepIndex < totalSteps - 2"
+              type="button"
+              class="btn"
+              @click="nextStep">Next</div>
+          <button
+              v-if="stepIndex === totalSteps - 2"
+              type="button"
+              class="btn"
+              @click="nextStep">Next</button>
+        </div>
+
+        <!--  STEP ONE - CHOOSE GIFTS  -->
+        <div class="step" v-show="stepIndex === 0">
+          <h2>Shop for Gifts</h2>
+          <div class="cartItems__wrapper">
+            <div class="cartItems__container">
+              <img class="cartItems__img-card" src="{{ product.featured_image | img_url: '200x200' }}" alt="{{ product.title }}" id="{{ product.selected_or_first_available_variant.id }}">
+              <template v-for="gifts in cartItems">
+                <div class="cartItems__item" v-for="count in gifts.quantity">
+                  <img class="cartItems__img" :src="gifts.giftImage" :alt="gifts.title" :id="gifts.id">
+                  <div class="cartItems__subtract" :id="gifts.id" @click="removeGift($event)">-</div>
+                </div>
+              </template>
             </div>
-
-            <div v-show="itemsInCart === 0">
-                <!-- STEPS -->
-                <div class="container px-0 px-lg-3">
-                    <div class="progressCont" v-show="stepIndex < totalSteps">
-                        <ul class="progressBar">
-                            <li
-                                id="one"
-                                :class="{ active: isComplete[0], current: stepIndex === 0, linkHover: isComplete[0] }"
-                                @click="setStep(0)">
-                                <span>Message</span>
-                            </li>
-                            <li
-                                id="two"
-                                :class="{ active: isComplete[1], current: stepIndex === 1, linkHover: isComplete[1] }"
-                                @click="setStep(1)">
-                                <span>Panels</span>
-                            </li>
-                            <li
-                                id="three"
-                                :class="{ active: isComplete[2], current: stepIndex === 2, linkHover: isComplete[2] }"
-                                @click="setStep(2)">
-                                <span>Quote</span>
-                            </li>
-                            <li
-                                id="four"
-                                :class="{ active: isComplete[3], current: stepIndex === 3, linkHover: isComplete[3] }"
-                                @click="setStep(3)">
-                                <span>Gifts</span>
-                            </li>
-                            <li
-                                id="five"
-                                :class="{ active: isComplete[4], current: stepIndex === 4, linkHover: isComplete[4] }"
-                                @click="setStep(4)">
-                                <span>Review</span>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="cartPricing__wrapper">
+              <div>
+                <div class="cartPricing__container">
+                  <p class="cartPricing__title">{{ product.title }}</p>
+                  <p class="cartPricing__price">${{ product.price | money_without_currency }}</p>
                 </div>
-                <!--  NAVIGATOR TOP  -->
-                <div class="container">
-                    <div class="row w-100 justify-content-between">
-                      <button
-                          v-if="stepIndex == 0"
-                          type="button"
-                          class="btn btn--secondary"
-                          onclick="history.back();"
-                      >Back</button>
-                      <button
-                          v-if="stepIndex > 0"
-                          type="button"
-                          class="btn btn--secondary"
-                          @click="prevStep"
-                          >Back</button>
-                      <button
-                          v-if="stepIndex < totalSteps - 2"
-                          type="button"
-                          class="btn"
-                          @click="nextStep">Next</button>
-                      <button
-                          v-if="stepIndex === totalSteps - 2"
-                          type="button"
-                          class="btn"
-                          @click="nextStep">Next</button>
-                    </div>
+                <div class="cartPricing__container" v-for="gifts in cartItems">
+                  <p class="cartPricing__title"> ${ gifts.title }</p>
+                  <p class="cartPricing__price">${ gifts.quantity } x $${ gifts.price }</p>
                 </div>
-
-                <!--  STEP ONE - WRITE MESSAGE -->
-                <div class="step" v-show="stepIndex === 0">
-                    <h2>Write a Personal Message</h2>
-                    <div class="PersonalizeMessage">
-                        <p>If you need help check out our Writer’s Block option below.<br/>Please note that our software at this time will not recognize emoji’s 😢. </p>
-                        <div class="row flex-column flex-lg-row align-items-top justify-content-center">
-                            <!--PRODUCT-->
-                            <div class="designBundle col-lg-3">
-                                <p class="rte h4 product-single__title">{{ product.title }}</p>
-                                <div class="designBundleImgs row row-cols-2 row-cols-lg-1 align-items-center">
-                                    <div class="col-6 col-lg-12">
-                                        <img class="border" :src="productImages[1].src" alt="temp">
-                                    </div>
-                                    <div class="col-6 col-lg-12">
-                                        <img :src="productImages[2].src" alt="temp">
-                                    </div>
-                                </div>
-                            </div>
-                            <!--MESSAGE-->
-                            <div class="col-12 col-lg-6 mx-auto w-90 w-lg-100">
-                                <input
-                                id="Salutation" 
-                                :class="{
-                                centerText: !productObj.properties.LetterFormat,
-                                Poppins: productObj.properties.FontName === 'Poppins',
-                                ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
-                                Marcellus: productObj.properties.FontName === 'Marcellus',
-                                Rufina: productObj.properties.FontName === 'Rufina',
-                                Parisienne: productObj.properties.FontName === 'Parisienne',
-                                HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
-                                LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
-                                OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
-                                Margarine: productObj.properties.FontName === 'Margarine',
-                                SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
-                                }"
-                                class="w-100 mb-2"
-                                type="text"
-                                name="Salutation"
-                                placeholder="To"
-                                v-model="productObj.properties.Salutation"
-                                @change="updateProps($event);">
-                                <textarea
-                                    data-limit-rows="true"
-                                    maxlength="400"
-                                    placeholder="Write your message..."
-                                    class="w-100 mb-2"
-                                    :class="{
-                                    centerText: !productObj.properties.LetterFormat,
-                                    Poppins: productObj.properties.FontName === 'Poppins',
-                                    ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
-                                    Marcellus: productObj.properties.FontName === 'Marcellus',
-                                    Rufina: productObj.properties.FontName === 'Rufina',
-                                    Parisienne: productObj.properties.FontName === 'Parisienne',
-                                    HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
-                                    LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
-                                    OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
-                                    Margarine: productObj.properties.FontName === 'Margarine',
-                                    SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
-                                    }"
-                                    type="text-area"
-                                    id="message"
-                                    rows="10"
-                                    column="100"
-                                    wrap="hard"
-                                    name="Message"
-                                    v-model="productObj.properties.Message"
-                                    @keyup="charRemaining($event);"
-                                    @change="updateProps($event); removeInvalidChars($event)"
-                                ></textarea>
-                                <input
-                                    id="Valediction"
-                                    :class="{
-                                    centerText: !productObj.properties.LetterFormat,
-                                    Poppins: productObj.properties.FontName === 'Poppins',
-                                    ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
-                                    Marcellus: productObj.properties.FontName === 'Marcellus',
-                                    Rufina: productObj.properties.FontName === 'Rufina',
-                                    Parisienne: productObj.properties.FontName === 'Parisienne',
-                                    HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
-                                    LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
-                                    OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
-                                    Margarine: productObj.properties.FontName === 'Margarine',
-                                    SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
-                                    }"
-                                    class="w-100 mb-2"
-                                    type="text"
-                                    name="Valediction"
-                                    placeholder="From"
-                                    v-model="productObj.properties.Valediction"
-                                    @change="updateProps($event);"
-                                    >
-                                <!--OPTIONS-->
-                                <div class="col-12 w-100 mb-4 mx-0 mx-lg-auto w-90 w-lg-100">
-                                    <div class="row w-100 mx-auto">
-                                        <div class="col-6 p-0 text-left">
-                                            <button class="btn" type="button" @click="openWritersModal">Writer's Block?</button>
-                                        </div>
-                                        <div class="col-6 p-0 text-right">
-                                            <p class="m-0">${ characterCount } / 400 characters</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--FONTS-->
-                            <div class="col-12 col-lg-3 w-90 w-lg-100">
-                              <p class="rte h4 text-center">Choose Font:</p>
-                              <div class="radioFonts">
-                                <input
-                                type="radio"
-                                name="FontName"
-                                id="Poppins"
-                                value="Poppins"
-                                @click="switchFont('Poppins'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="Poppins font-selector" for="Poppins">Poppins</label>
-                                <input
-                                type="radio"
-                                name="FontName"
-                                id="Marcellus"
-                                value="Marcellus"
-                                @click="switchFont('Marcellus'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="Marcellus font-selector" for="Marcellus">Marcellus</label>
-                                <input
-                                type="radio"
-                                name="FontName"
-                                id="Parisienne"
-                                value="Parisienne"
-                                @click="switchFont('Parisienne'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="Parisienne font-selector" for="Parisienne">Parisienne</label>
-                                <input
-                                type="radio"
-                                name="FontName"
-                                id="HomemadeApple"
-                                value="HomemadeApple"
-                                @click="switchFont('HomemadeApple'); updateProps($event);"
-                                v-model="productObj.properties.FontName"
-                                />
-                                <label class="HomemadeApple font-selector" for="HomemadeApple">Homemade</label>
-                                <!-- <p>Please do not use emoji’s as our software can’t recognize them 😢</p> -->
-                              </div>
-                            </div>
-                            
-                        </div>
-                        <div v-if="ShowWritersModal">
-                            <div class="writers-modal__overlay"></div>
-                            <div class="writers-modal__container" @click="closeWritersModal">
-                                <div class="writers-modal" @click.stop="">
-                                    <button type="button" id="writers-modal-btn-close" class="writers-modal__button-close" @click="closeWritersModal">&#x2715</button>
-                                    <h2>Writer's Block? Let us help!</h2>
-                                    <div class="row justify-content-center">
-                                        <div class="col-12 col-lg-6 col-xl-4 p-2"
-                                            v-for="(wbMessage,index) in writersBlocks"
-                                            :key="index"
-                                            @click="inputWritersBlock(wbMessage)">
-                                            <div class="wbm">
-                                                <p class="p-3 m-0" style="font-size: 0.75rem"> ${ wbMessage }</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              </div>
+              <div class="cartPricing__container" id="total">
+                <p class="cartPricing__title">Total</p>
+                <p class="cartPricing__price">$${ boxTotalCost }</p>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="gift.favourite === true">
+              <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event)">
+                <div class="row no-gutters">
+                  <div class="col-sm-12">
+                    <img :src="gift.image" :alt="gift.title" class="border">
+                  </div>
                 </div>
-
-                <!--  STEP TWO - IMAGE FLAPS  -->
-                <div class="step" v-show="stepIndex == 1">
-                    <h2>Customize the Side Panels of your Box</h2>
-                    <p class="mb-3 text-center">
-                        Each box is designed with customizable side panels that can be easily removed and displayed.
-                    </p>
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <div id="uploadery-container">
-                            </div>
-                        </div>
+                <div class="row no-gutters">
+                  <div class="col-sm-12">
+                    <h3 class="grid-product__title grid-product__title--heading text-center py-0 pt-3">${ gift.title }</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="pb-3">
+                <label v-if="gift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="gift.id">${ gift.variantOption }</label>
+                  <select v-if="gift.variants.length" class="mb-2 w-100" name="gift.title" id="gift.id"  @change="setVariantId($event, gift.id)" v-model="gift.id">
+                    <option v-for="property in gift.variants" :value="property.id">
+                      ${ property.title }
+                    </option>
+                  </select>
+                <div class="grid-product__price mb-2">$${ gift.price }</div>
+                <div v-show="gift.quantity <= 0" :id="gift.id">
+                  <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add</span></button>
+                </div>
+                <div v-show="gift.quantity > 0" :id="gift.id">
+                  <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add 1 More</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button v-if="vendor != 'Tangerine'" class="btn btn--secondary mb-2" type="button" @click="showAllGifts = !showAllGifts"><span v-if="!showAllGifts">Show More Gifts</span><span v-else>Hide 5amLemon Gifts</span></button>
+          <div v-if="showAllGifts">
+            <div>
+              <div class="mb-2 pl-lg-3 d-flex align-items-start">
+                <label class="d-none" for="giftFilter">Filter:</label>
+                <select name="giftFilter" id="giftFilter" v-model="currentFilter">
+                  <option v-for="tag in giftTags" :value="tag">${ tag }</option>
+                </select>
+              </div>
+              <h3 v-if="currentFilter === 'Gift Sets' || currentFilter === 'All'">Gift Sets</h3>
+              <p v-if="currentFilter === 'Gift Sets' || currentFilter === 'All'">We have curated gift sets for many occasions, feel free to also create your own.</p>
+              <div v-if="currentFilter === 'Gift Sets' || currentFilter === 'All'" class="row justify-content-center">
+                <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="objectContains(gift.tag, 'Gift Sets') && gift.favourite === false">
+                  <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event);">
+                    <img :src="gift.image" :alt="gift.title">
+                    <h3 class="grid-product__title grid-product__title--heading text-center px-3 pt-3">${ gift.title }</h3>
+                  </div>
+                  <div class="w-100 pb-3">
+                    <label v-if="gift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="gift.id">${ gift.variantOption }</label>
+                  <select v-if="gift.variants.length" class="mb-2 w-100" name="gift.title" id="gift.id"  @change="setVariantId($event, gift.id)" v-model="gift.id">
+                    <option v-for="property in gift.variants" :value="property.id">
+                      ${ property.title }
+                    </option>
+                  </select>
+                    <div class="grid-product__price mb-2">$${ gift.price }</div>
+                    <div v-show="gift.quantity <= 0" :id="gift.id">
+                      <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;">Add</button>
                     </div>
+                    <div v-show="gift.quantity > 0" :id="gift.id">
+                      <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Add</span><span v-if="!gift.cantFit">Add 1 More</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h3 v-if="currentFilter === 'Gift Card' || currentFilter === 'All'"class="my-3">Gift Cards</h3>
+              <div v-if="currentFilter === 'Gift Card' || currentFilter === 'All'" class="row justify-content-center">
+                <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="objectContains(gift.tag, 'Gift Card') && gift.favourite === false">
+                  <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event)">
+                    <div class="row no-gutters">
+                      <div class="col-sm-12">
+                        <img :src="gift.image" :alt="gift.title" class="border">
+                      </div>
+                    </div>
+                    <div class="row no-gutters">
+                      <div class="col-sm-12">
+                        <h3 class="grid-product__title grid-product__title--heading text-center py-0 pt-3">${ gift.title }</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pb-3">
+                    <label v-if="gift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="gift.id">${ gift.variantOption }</label>
+                  <select v-if="gift.variants.length" class="mb-2 w-100" name="gift.title" id="gift.id"  @change="setVariantId($event, gift.id)" v-model="gift.id">
+                    <option v-for="property in gift.variants" :value="property.id">
+                      ${ property.title }
+                    </option>
+                  </select>
+                    <div class="grid-product__price mb-2">$${ gift.price }</div>
+                    <div v-show="gift.quantity <= 0" :id="gift.id">
+                      <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;">Add</button>
+                    </div>
+                    <div v-show="gift.quantity > 0" :id="gift.id">
+                      <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Add</span><span v-if="!gift.cantFit">Add 1 More</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h3 v-if="currentFilter !== 'Gift Card' && currentFilter !== 'Gift Sets'"class="my-3">Gifts</h3>
+              <div v-if="currentFilter !== 'Gift Card' && currentFilter !== 'Gift Sets'" class="row justify-content-center">
+                <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="objectContains(gift.tag, 'Single') && (objectContains(gift.tag, currentFilter) || currentFilter === 'All') && gift.favourite === false">
+                  <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event)">
+                    <div class="row no-gutters">
+                      <div class="col-sm-12">
+                        <img :src="gift.image" :alt="gift.title" class="border">
+                      </div>
+                    </div>
+                    <div class="row no-gutters">
+                      <div class="col-sm-12">
+                        <h3 class="grid-product__title grid-product__title--heading text-center py-0 pt-3">${ gift.title }</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pb-3">
+                  <label v-if="gift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="gift.id">${ gift.variantOption }</label>
+                  <select v-if="gift.variants.length" class="mb-2 w-100" name="gift.title" id="gift.id"  @change="setVariantId($event, gift.id)" v-model="gift.id">
+                    <option v-for="property in gift.variants" :value="property.id">
+                      ${ property.title }
+                    </option>
+                  </select>
+                    <div class="grid-product__price mb-2">$${ gift.price }</div>
+                    <div v-show="gift.quantity <= 0" :id="gift.id">
+                      <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add</span></button>
+                    </div>
+                    <div v-show="gift.quantity > 0" :id="gift.id">
+                      <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add 1 More</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% comment %} NEW Modal {% endcomment %}
+          <div v-show="ShowGiftModal">
+            <div class="gift-modal__overlay"></div>
+            <div class="gift-modal__container" @click="closeGiftModal">
+              <div class="gift-modal" @click.stop="">
+                <button type="button" id="gift-modal-btn-close" class="gift-modal__button-close" @click="closeGiftModal">&#x2715</button>
+                <div class="row justify-content-center">
+                  <div class="col-12 col-sm-6">
+                    <img :src="selectedGift.image" :alt="selectedGift.title" class="gift-preview-image">
+                  </div>
+                  <div class="col-12 col-sm-6 text-left mt-3 mt-sm-0">
+                    <h3 style="text-transform: capitalize;">${ selectedGift.title }</h3>
+                    <div class="mb-3" id="gift-modal-description"></div>
+                    <label v-if="selectedGift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="selectedGift.id">${ selectedGift.variantOption }</label>
+                    <select v-if="selectedGift.variants.length" class="mb-2 w-100" name="selectedGift.title" id="selectedGift.id"  @change="setVariantId($event, selectedGift.id)" v-model="selectedGift.id">
+                      <option v-for="property in selectedGift.variants" :value="property.id">
+                        ${ property.title }
+                      </option>
+                    </select>
+                    <h4><b>$${ selectedGift.price }</b></h4>
                     <div>
-                        <div class="topAlign">
-                            <div>
-                                <div class="row align-items-center justify-content-center">
-                                    <div class="d-none d-lg-block d-xl-block col-3 col-lg-2 col-xl-3">
-                                        <img src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_LP.png?v=1611508912" class="helperimg">
-                                    </div>
-                                    <div class="col-sm-5 col-lg-4 col-xl-3 panels-wrapper" v-for="(item, index) in productObj.properties.panels" :key="index">
-                                        <h3 class="h4 my-2" v-if="index == 0">Left Panel</h3>
-                                        <h3 class="h4 my-2" v-else="index == 1">Right Panel</h3>
-                                        <div class="flapsUpload">
-                                            <div class="polaroid">
-                                                <div v-if="item.showProgress" class="imageUpload overlay">
-                                                    <br/><br/><br/><br/>
-                                                    <p>${item.uPloadProgressNow}%</p>
-                                                </div>
-                                                <div v-if="item.panelType == 'none'" class="noneUpload">
-                                                    <span class="align-middle font__17-5">Add a photo or choose one of our fun panels</span><br/>
-                                                    <span class="align-middle font__10-5">(be patient, photos can take 10 seconds to load)</span><br/>
-                                                    <img v-if="index == 0" src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_LP_Mobile.png?v=1611594993" class="helperimgInside d-lg-none">
-                                                    <img v-else="index == 1" src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_RP_Mobile.png?v=1611594988" class="helperimgInside d-lg-none">
-                                                </div>
-                                                <div v-if="item.panelType == 'pattern'" class="patternUpload">
-                                                    <img :src="item.patternURL" class="patternSq"/>
-                                                </div>
-                                                <div v-if="item.panelType == 'image'" class="imageUpload">
-                                                    <img :src="item.imageURL" />
-                                                </div>
-                                            </div>
-                                            <div v-if="item.panelType == 'none'" class="btn__container-upload">
-                                                <button
-                                                id="cloudUploadWidget"
-                                                class="btn btn__panel"
-                                                @click="triggerUpload(item, index)">Upload Your Photo
-                                                </button>
-                                                <p class="text-or">OR</p>
-                                                <button
-                                                id="selectGraphicBtn"
-                                                class="btn btn__panel"
-                                                @click="showPanels(index); openPanelsModal();">Choose a Panel
-                                                </button>
-                                            </div>
-                                            <div v-else>
-                                                <button class="btn btn__panel" @click="removeImage(index)">
-                                                    Remove Image
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-none d-lg-block d-xl-block col-3 col-lg-2 col-xl-3">
-                                        <img src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_RP.png?v=161150891" class="helperimg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                      <div v-show="selectedGift.quantity <= 0" :id="selectedGift.id">
+                        <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add</span></button>
+                      </div>
+                      <div v-show="selectedGift.quantity > 0" :id="selectedGift.id">
+                        <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add 1 More</span></button>
+                      </div>
                     </div>
-                    <div v-if="ShowPanelsModal">
-                        <div class="panels-modal__overlay"></div>
-                        <div class="panels-modal__container" @click="closePanelsModal">
-                            <div class="panels-modal" @click.stop="">
-                                <button type="button" id="panels-modal-btn-close" class="panels-modal__button-close" @click="closePanelsModal">&#x2715</button>
-                                <h2>Suggested Panels</h2>
-                                <!-- <h3 class="h4 text-left text-bold">Suggested Designs</h3> -->
-                                <div class="row sidepanels">
-                                    <div v-for="(panel,index) in suggestedPanels" :key="index" class="col-6 col-sm-3 col-xl-2 p-2 c-pointer">
-                                        <div v-if="index == 0" >
-                                            <p class="ptrn-overlay mx-2">Box Pattern</p>
-                                        </div>
-                                        <div style="border: 1px solid #ddd;" @click="assignGraphic(panel);">
-                                            <img :src="panel" width="200px">
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="button" v-show="!showRemainingPanels" class="btn" @click="showRemainingPanels = true;">See More</button>
-                                <div v-show="showRemainingPanels" class="pt-3">
-                                    <h3 class="h4 text-left text-bold">All Panels</h3>
-                                    <div class="row sidepanels">
-                                        <div v-for="(panel,index) in remainingPanels" :key="index" class="col-6 col-sm-3 col-xl-2 p-2 c-pointer">
-                                            <div style="border: 1px solid #ddd;" @click="assignGraphic(panel);">
-                                                <img :src="panel" width="200px">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-
-                <!--  STEP THREE - SECRET MESSAGE -->
-                <div class="step" v-show="stepIndex === 2">
-                    {% assign secretMessage = product.metafields.ha_SecretMessage %}
+              </div>
+            </div>
+          </div>
+          {% comment %} /NEW Modal {% endcomment %}
+        </div>
+        <!--  STEP TWO - WRITE MESSAGE -->
+        <div class="step" v-show="stepIndex === 1">
+          <h2>Write a Personal Message</h2>
+          <div class="PersonalizeMessage">
+            <p>If you need help check out our Writer’s Block option below.<br/>Please note that our software at this time will not recognize emoji’s 😢. </p>
+            <div class="row flex-column-reverse flex-lg-row align-items-top justify-content-center">
+              <!--PRODUCT-->
+              <div class="designBundle col-lg-3">
+                <p class="rte h4 product-single__title">{{ product.title }}</p>
+                <div class="designBundleImgs row row-cols-2 row-cols-lg-1 align-items-center">
+                  <div class="col-6 col-lg-12">
+                    <img class="border" :src="productImages[1].src" alt="temp">
+                  </div>
+                  <div class="col-6 col-lg-12">
+                    <img :src="productImages[2].src" alt="temp">
+                  </div>
+                </div>
+              </div>
+              <!--CARD-->
+              <div class="col-12 col-lg-6 mx-auto w-90 w-lg-100">
+                <!--MESSAGE-->
+                <div class="row w-100 mx-auto mx-lg-0">
+                    <input
+                    id="Salutation" 
+                    :class="{
+                      centerText: !productObj.properties.LetterFormat,
+                      Poppins: productObj.properties.FontName === 'Poppins',
+                      ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
+                      Marcellus: productObj.properties.FontName === 'Marcellus',
+                      Rufina: productObj.properties.FontName === 'Rufina',
+                      Parisienne: productObj.properties.FontName === 'Parisienne',
+                      HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
+                      LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
+                      OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
+                      Margarine: productObj.properties.FontName === 'Margarine',
+                      SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                    }"
+                    class="w-100 mb-2"
+                    type="text"
+                    name="Salutation"
+                    placeholder="To"
+                    v-model="productObj.properties.Salutation"
+                    @change="updateProps($event);">
+                 
+                    <textarea
+                      data-limit-rows="true"
+                      maxlength="400"
+                      placeholder="Write your message..."
+                      class="mb-2 w-100"
+                      :class="{
+                        centerText: !productObj.properties.LetterFormat,
+                        Poppins: productObj.properties.FontName === 'Poppins',
+                        ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
+                        Marcellus: productObj.properties.FontName === 'Marcellus',
+                        Rufina: productObj.properties.FontName === 'Rufina',
+                        Parisienne: productObj.properties.FontName === 'Parisienne',
+                        HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
+                        LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
+                        OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
+                        Margarine: productObj.properties.FontName === 'Margarine',
+                        SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                      }"
+                      type="text-area"
+                      id="message"
+                      rows="10"
+                      column="100"
+                      wrap="hard"
+                      name="Message"
+                      v-model="productObj.properties.Message"
+                      @keyup="charRemaining($event);"
+                      @change="updateProps($event); removeInvalidChars($event)"
+                    ></textarea>
+                  
+                    <input
+                    id="Valediction"
+                    :class="{
+                      centerText: !productObj.properties.LetterFormat,
+                      Poppins: productObj.properties.FontName === 'Poppins',
+                      ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
+                      Marcellus: productObj.properties.FontName === 'Marcellus',
+                      Rufina: productObj.properties.FontName === 'Rufina',
+                      Parisienne: productObj.properties.FontName === 'Parisienne',
+                      HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
+                      LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
+                      OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
+                      Margarine: productObj.properties.FontName === 'Margarine',
+                      SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                    }"
+                    class="w-100 mb-2"
+                    type="text"
+                    name="Valediction"
+                    placeholder="From"
+                    v-model="productObj.properties.Valediction"
+                    @change="updateProps($event);"
+                    >
+                  <!--OPTIONS-->
+                  <div class="col-12 w-100 mb-4 mx-0 mx-lg-auto w-90 w-lg-100">
                     <div class="row">
-                        <div class="col">
-                            <h2>Select a Special Message</h2>
-                            <p>Each box can have a message or quote printed on the bottom, the options for this box are below.</p>
-                        </div>
+                      <div class="col-6 p-0 text-left">
+                        <button class="text-left btn" type="button" @click="openWritersModal">Writer's Block?</button>
+                      </div>
+                      <div class="col-6 p-0 text-right">
+                        <p class="m-0">${ characterCount } / 400 characters</p>
+                      </div>
                     </div>
-                    <div class="container mt-4">
-                        <div class="row justify-content-md-center align-items-center">
-                            <div class="col-12 col-md-6">
-                                <img class="secretmsg-img" :src="selectedSM">
-                            </div>
-                            <div class="col-12 col-md-6">
-                                {% if product.metafields.ha_SecretMessage.SM_Option1 != blank and  product.metafields.ha_SecretMessage.SM_Option1URL != blank %}
-                                <div class="smBTNs col-sm mb-1 mt-3">
-                                    <input
-                                        type="radio"
-                                        class="radioButton"
-                                        name="SecretMessage"
-                                        id="smsg1"
-                                        @click="secretmsg('{{ secretMessage.SM_Option1URL }}');" />
-                                    <label class="smBTN" for="smsg1">{{ secretMessage.SM_Option1 }}</label>
-                                </div>
-                                {% endif %}
-                                {% if product.metafields.ha_SecretMessage.SM_Option2 != blank and  product.metafields.ha_SecretMessage.SM_Option2URL != blank %}
-                                <div class="smBTNs col-sm mb-1 mt-3">
-                                    <input
-                                        type="radio"
-                                        class="radioButton"
-                                        name="SecretMessage"
-                                        id="smsg2"
-                                        @click="secretmsg('{{ secretMessage.SM_Option2URL }}');" />
-                                    <label class="smBTN" for="smsg2">{{ secretMessage.SM_Option2 }}</label>
-                                </div>
-                                {% endif %}
-                                {% if product.metafields.ha_SecretMessage.SM_Option3 != blank and  product.metafields.ha_SecretMessage.SM_Option3URL != blank %}
-                                <div class="smBTNs col-sm mb-1 mt-3">
-                                    <input
-                                        type="radio"
-                                        class="radioButton"
-                                        name="SecretMessage"
-                                        id="smsg3"
-                                        @click="secretmsg('{{ secretMessage.SM_Option3URL }}');" />
-                                    <label class="smBTN" for="smsg3">{{ secretMessage.SM_Option3 }}</label>
-                                </div>
-                                {% endif %}
-                                {% if product.metafields.ha_SecretMessage.SM_Option4 != blank and  product.metafields.ha_SecretMessage.SM_Option4URL != blank %}
-                                <div class="smBTNs col-sm mb-1 mt-3">
-                                    <input
-                                        type="radio"
-                                        class="radioButton"
-                                        name="SecretMessage"
-                                        id="smsg4"
-                                        @click="secretmsg('{{ secretMessage.SM_Option4URL }}');" />
-                                    <label class="smBTN" for="smsg4">{{ secretMessage.SM_Option4 }}</label>
-                                </div>
-                                {% endif %}
-                                <div class="smBTNs col-sm-12 mb-1 mt-3">
-                                    <input
-                                        type="radio"
-                                        class="radioButton"
-                                        name="SecretMessage"
-                                        id="smsg5"
-                                        @click="secretmsg('https://cdn.shopify.com/s/files/1/0517/8700/6144/files/sm000.png');" />
-                                    <label class="smBTN" for="smsg5">Leave the bottom blank</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-
-                <!--  STEP FOUR - CHOOSE GIFTS  -->
-                <div class="step" v-show="stepIndex === 3">
-                    <h2>Shop for Gifts</h2>
-                    <p>We have curated gift sets for many occasions, feel free to also create your own.</p>
-                    <div class="cartItems__wrapper">
-                        <div class="cartItems__container">
-                            <img class="cartItems__img-card" src="{{ product.featured_image | img_url: '200x200' }}" alt="{{ product.title }}" id="{{ product.selected_or_first_available_variant.id }}">
-                            <template v-for="gifts in cartItems">
-                                <div class="cartItems__item" v-for="count in gifts.quantity">
-                                    <img class="cartItems__img" :src="gifts.giftImage" :alt="gifts.title" :id="gifts.id">
-                                    <div class="cartItems__subtract" :id="gifts.id" @click="removeGift($event)">-</div>
-                                </div>
-                            </template>
-                        </div>
-                        <div class="cartPricing__wrapper">
-                        <div>
-                            <div class="cartPricing__container">
-                            <p class="cartPricing__title">{{ product.title }}</p>
-                            <p class="cartPricing__price">${{ product.price | money_without_currency }}</p>
-                            </div>
-                            <div class="cartPricing__container" v-for="gifts in cartItems">
-                            <p class="cartPricing__title"> ${ gifts.title }</p>
-                            <p class="cartPricing__price">${ gifts.quantity } x $${ gifts.price }</p>
-                            </div>
-                        </div>
-                        <div class="cartPricing__container" id="total">
-                            <p class="cartPricing__title">Total</p>
-                            <p class="cartPricing__price">$${ boxTotalCost }</p>
-                        </div>
-                        </div>
+              </div>
+              
+              <!--FONTS-->
+              <div class="col-12 col-lg-3 w-90 w-lg-100">
+                  <p class="rte h4 text-center">Choose Font:</p>
+                  <div class="radioFonts">
+                    <input
+                    type="radio"
+                    name="FontName"
+                    id="Poppins"
+                    value="Poppins"
+                    @click="switchFont('Poppins'); updateProps($event);"
+                    v-model="productObj.properties.FontName"
+                    />
+                    <label class="Poppins font-selector" for="Poppins">Poppins</label>
+                    <input
+                    type="radio"
+                    name="FontName"
+                    id="Marcellus"
+                    value="Marcellus"
+                    @click="switchFont('Marcellus'); updateProps($event);"
+                    v-model="productObj.properties.FontName"
+                    />
+                    <label class="Marcellus font-selector" for="Marcellus">Marcellus</label>
+                    <input
+                    type="radio"
+                    name="FontName"
+                    id="Parisienne"
+                    value="Parisienne"
+                    @click="switchFont('Parisienne'); updateProps($event);"
+                    v-model="productObj.properties.FontName"
+                    />
+                    <label class="Parisienne font-selector" for="Parisienne">Parisienne</label>
+                    <input
+                    type="radio"
+                    name="FontName"
+                    id="HomemadeApple"
+                    value="HomemadeApple"
+                    @click="switchFont('HomemadeApple'); updateProps($event);"
+                    v-model="productObj.properties.FontName"
+                    />
+                    <label class="HomemadeApple font-selector" for="HomemadeApple">Homemade</label>
+                    <!-- <p>Please do not use emoji’s as our software can’t recognize them 😢</p> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="ShowWritersModal">
+            <div class="writers-modal__overlay"></div>
+            <div class="writers-modal__container" @click="closeWritersModal">
+              <div class="writers-modal" @click.stop="">
+                <button type="button" id="writers-modal-btn-close" class="writers-modal__button-close" @click="closeWritersModal">&#x2715</button>
+                <h2>Writer's Block? Let us help!</h2>
+                <div class="row justify-content-center">
+                  <div class="col-12 col-lg-6 col-xl-4 p-2"
+                      v-for="(wbMessage,index) in writersBlocks"
+                      :key="index"
+                      @click="inputWritersBlock(wbMessage)">
+                    <div class="wbm">
+                      <p class="p-3 m-0" style="font-size: 0.75rem"> ${ wbMessage }</p>
                     </div>
-                    <div>
-                        <div class="text-lg-left mb-2 pl-lg-3">
-                            <label class="d-none" for="giftFilter">Filter:</label>
-                            <select name="giftFilter" id="giftFilter" v-model="currentFilter">
-                                <option v-for="tag in giftTags" :value="tag">${ tag }</option>
-                            </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  STEP THREE - IMAGE FLAPS  -->
+        <div class="step" v-show="stepIndex == 2">
+          <h2>Customize the Side Panels of your Box</h2>
+          <p class="mb-3 text-center">
+            Each box is designed with customizable side panels that can be easily removed and displayed.
+          </p>
+          <div class="row justify-content-center"><div class="col-4"><div id="uploadery-container"></div></div></div>
+          <div>
+            <div class="topAlign">
+              <div>
+                <div class="row align-items-center justify-content-center">
+                  <div class="d-none d-lg-block d-xl-block col-3 col-lg-2 col-xl-3">
+                    <img src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_LP.png?v=1611508912" class="helperimg">
+                  </div>
+                  <div class="col-sm-5 col-lg-4 col-xl-3 panels-wrapper" v-for="(item, index) in productObj.properties.panels" :key="index">
+                    <h3 class="h4 my-2" v-if="index == 0">Left Panel</h3>
+                    <h3 class="h4 my-2" v-else="index == 1">Right Panel</h3>
+                    <div class="flapsUpload">
+                      <div class="polaroid">
+                        <div v-if="item.showProgress" class="imageUpload overlay">
+                          <br/><br/><br/><br/>
+                          <p>${item.uPloadProgressNow}%</p>
                         </div>
-                        <h3 v-if="currentFilter === 'Gift Sets' || currentFilter === 'All'">Gift Sets</h3>
-                        <div v-if="currentFilter === 'Gift Sets' || currentFilter === 'All'" class="row justify-content-center">
-                            <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="objectContains(gift.tag, 'Gift Sets')">
-                                <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event);">
-                                    <img :src="gift.image" :alt="gift.title">
-                                    <h3 class="grid-product__title grid-product__title--heading text-center px-3 pt-3">${ gift.title }</h3>
-                                </div>
-                                <div class="w-100 pb-3">
-                                    <label v-if="gift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="gift.id">${ gift.variantOption }</label>
-                                    <select v-if="gift.variants.length" class="mb-2 w-100" name="gift.title" id="gift.id"  @change="setVariantId($event, gift.id)" v-model="gift.id">
-                                        <option v-for="property in gift.variants" :value="property.id">
-                                        ${ property.title }
-                                        </option>
-                                    </select>
-                                    <div class="grid-product__price mb-2">$${ gift.price }</div>
-                                    <div v-show="gift.quantity <= 0" :id="gift.id">
-                                        <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;">Add</button>
-                                    </div>
-                                    <div v-show="gift.quantity > 0" :id="gift.id">
-                                        <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Add</span><span v-if="!gift.cantFit">Add 1 More</span></button>
-                                    </div>
-                                </div>
-                            </div>
+                        <div v-if="item.panelType == 'none'" class="noneUpload">
+                          <span class="align-middle font__17-5">Add a photo or choose one of our fun panels</span><br/>
+                          <span class="align-middle font__10-5">(be patient, photos can take 10 seconds to load)</span><br/>
+                          <img v-if="index == 0" src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_LP_Mobile.png?v=1611594993" class="helperimgInside d-lg-none">
+                          <img v-else="index == 1" src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_RP_Mobile.png?v=1611594988" class="helperimgInside d-lg-none">
                         </div>
-                        <h3 v-if="currentFilter === 'Gift Card' || currentFilter === 'All'"class="my-3">Gift Cards</h3>
-                        <div v-if="currentFilter === 'Gift Card' || currentFilter === 'All'" class="row justify-content-center">
-                            <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="objectContains(gift.tag, 'Gift Card')">
-                                <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event)">
-                                    <div class="row no-gutters">
-                                        <div class="col-sm-12">
-                                            <img :src="gift.image" :alt="gift.title" class="border">
-                                        </div>
-                                    </div>
-                                    <div class="row no-gutters">
-                                        <div class="col-sm-12">
-                                            <h3 class="grid-product__title grid-product__title--heading text-center py-0 pt-3">${ gift.title }</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pb-3">
-                                <label v-if="gift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="gift.id">${ gift.variantOption }</label>
-                                <select v-if="gift.variants.length" class="mb-2 w-100" name="gift.title" id="gift.id"  @change="setVariantId($event, gift.id)" v-model="gift.id">
-                                    <option v-for="property in gift.variants" :value="property.id">
-                                    ${ property.title }
-                                    </option>
-                                </select>
-                                <div class="grid-product__price mb-2">$${ gift.price }</div>
-                                <div v-show="gift.quantity <= 0" :id="gift.id">
-                                    <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add</span></button>
-                                </div>
-                                <div v-show="gift.quantity > 0" :id="gift.id">
-                                    <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add 1 More</span></button>
-                                </div>
-                                </div>
-                            </div>
+                        <div v-if="item.panelType == 'pattern'" class="patternUpload">
+                          <img :src="item.patternURL" class="patternSq"/>
                         </div>
-                        <h3 v-if="currentFilter !== 'Gift Card' && currentFilter !== 'Gift Sets'"class="my-3">Gifts</h3>
-                        <div v-if="currentFilter !== 'Gift Card' && currentFilter !== 'Gift Sets'" class="row justify-content-center">
-                            <div class="col-5 col-sm-3 col-xl-2 m-2 p-0 d-flex flex-column justify-content-between" v-for="(gift,index) in giftList" :key="index" v-if="objectContains(gift.tag, 'Single') && (objectContains(gift.tag, currentFilter) || currentFilter === 'All')">
-                                <div class="c-pointer" :id="gift.id" @click="toggleGiftSelection($event)">
-                                    <div class="row no-gutters">
-                                        <div class="col-sm-12">
-                                            <img :src="gift.image" :alt="gift.title" class="border">
-                                        </div>
-                                    </div>
-                                    <div class="row no-gutters">
-                                        <div class="col-sm-12">
-                                            <h3 class="grid-product__title grid-product__title--heading text-center py-0 pt-3">${ gift.title }</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pb-3">
-                                    <label for="gift.id">${ gift.variantOption }</label>
-                                    <select class="mb-2 w-100" name="gift.title" id="gift.id" v-if="gift.variants.length" @change="setVariantId($event, gift.id)" v-model="gift.id">
-                                    <option v-for="property in gift.variants" :value="property.id">
-                                        ${ property.title }
-                                    </option>
-                                    </select>
-                                    <div class="grid-product__price mb-2">$${ gift.price }</div>
-                                    <div v-show="gift.quantity <= 0" :id="gift.id">
-                                        <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add</span></button>
-                                    </div>
-                                    <div v-show="gift.quantity > 0" :id="gift.id">
-                                        <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add 1 More</span></button>
-                                    </div>
-                                </div>
-                            </div>
+                        <div v-if="item.panelType == 'image'" class="imageUpload">
+                          <img :src="item.imageURL" />
                         </div>
+                      </div>
+                      <div v-if="item.panelType == 'none'" class="btn__container-upload">
+                        <button
+                          id="cloudUploadWidget"
+                          class="btn btn__panel"
+                          @click="triggerUpload(item, index)">Upload Your Photo
+                        </button>
+                        <button
+                          id="selectGraphicBtn"
+                          class="btn btn__panel"
+                          @click="showPanels(index); openPanelsModal();">Choose a Panel
+                        </button>
+                      </div>
+                      <div v-else class="btn__container-upload">
+                        <button class="btn btn--secondary btn__panel " @click="removeImage(index)">
+                          Remove Image
+                        </button>
+                      </div>
                     </div>
-                    {% comment %} NEW Modal {% endcomment %}
-                    <div v-show="ShowGiftModal">
-                      <div class="gift-modal__overlay"></div>
-                      <div class="gift-modal__container" @click="closeGiftModal">
-                        <div class="gift-modal" @click.stop="">
-                          <button type="button" id="gift-modal-btn-close" class="gift-modal__button-close" @click="closeGiftModal">&#x2715</button>
-                          <div class="row justify-content-center">
-                            <div class="col-12 col-sm-6">
-                                <img :src="selectedGift.image" :alt="selectedGift.title" class="gift-preview-image">
-                            </div>
-                            <div class="col-12 col-sm-6 text-left mt-3 mt-sm-0">
-                                <h3 style="text-transform: capitalize;">${ selectedGift.title }</h3>
-                                <div class="mb-3" id="gift-modal-description"></div>
-                                <label v-if="selectedGift.variants.length" class="mb-1 text-left" style="letter-spacing: 0; text-transform: none;" for="selectedGift.id">${ selectedGift.variantOption }</label>
-                                <select v-if="selectedGift.variants.length" class="mb-2 w-100" name="selectedGift.title" id="selectedGift.id"  @change="setVariantId($event, selectedGift.id)" v-model="selectedGift.id">
-                                <option v-for="property in selectedGift.variants" :value="property.id">
-                                    ${ property.title }
-                                </option>
-                                </select>
-                                <h4><b>$${ selectedGift.price }</b></h4>
-                                <div>
-                                <div v-show="selectedGift.quantity <= 0" :id="selectedGift.id">
-                                    <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add</span></button>
-                                </div>
-                                <div v-show="selectedGift.quantity > 0" :id="selectedGift.id">
-                                    <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add 1 More</span></button>
-                                </div>
-                                </div>
-                            </div>
+                  </div>
+                  <div class="d-none d-lg-block d-xl-block col-3 col-lg-2 col-xl-3">
+                    <img src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_RP.png?v=161150891" class="helperimg">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="ShowPanelsModal">
+            <div class="panels-modal__overlay"></div>
+            <div class="panels-modal__container" @click="closePanelsModal">
+              <div class="panels-modal" @click.stop="">
+                <button type="button" id="panels-modal-btn-close" class="panels-modal__button-close" @click="closePanelsModal">&#x2715</button>
+                <h2>{{product.vendor}} Panels</h2>
+                <!-- <h3 class="h4 text-left text-bold">Suggested Designs</h3> -->
+                <div class="row sidepanels">
+                  <div v-for="(panel,index) in suggestedPanels" :key="index" class="col-6 col-sm-3 col-xl-2 p-2 c-pointer">
+                    <div v-if="index == 0" >
+                      <p class="ptrn-overlay mx-2">Box Pattern</p>
+                    </div>
+                    <div style="border: 1px solid #ddd;" @click="assignGraphic(panel);">
+                      <img :src="panel" width="200px">
+                    </div>
+                  </div>
+                </div>
+                <button type="button" v-show="!showRemainingPanels && vendor != 'Tangerine'" class="btn" @click="showRemainingPanels = true;">See More</button>
+                <div v-show="showRemainingPanels" class="pt-3">
+                  <h3 class="h4 text-left text-bold">All Panels</h3>
+                  <div class="row sidepanels">
+                    <div v-for="(panel,index) in remainingPanels" :key="index" class="col-6 col-sm-3 col-xl-2 p-2 c-pointer">
+                      <div style="border: 1px solid #ddd;" @click="assignGraphic(panel);">
+                        <img :src="panel" width="200px">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  STEP FOUR - SECRET MESSAGE -->
+        <div class="step" v-show="stepIndex === 3">
+          {% assign secretMessage = product.metafields.ha_SecretMessage %}
+          <div class="row">
+            <div class="col">
+              <h2>Select a Special Message</h2>
+              <p>Each box can have a message or quote printed on the bottom, the options for this box are below.</p>
+            </div>
+          </div>
+          <div class="container mt-4">
+            <div class="row justify-content-md-center align-items-center">
+              <div class="col-12 col-md-6">
+                <img class="secretmsg-img" :src="selectedSM">
+              </div>
+              <div class="col-12 col-md-6">
+                {% if product.metafields.ha_SecretMessage.SM_Option1 != blank and  product.metafields.ha_SecretMessage.SM_Option1URL != blank %}
+                <div class="smBTNs col-sm mb-1 mt-3">
+                  <input
+                    type="radio"
+                    class="radioButton"
+                    name="SecretMessage"
+                    id="smsg1"
+                    @click="secretmsg('{{ secretMessage.SM_Option1URL }}');" checked="checked"/>
+                  <label class="smBTN" for="smsg1">{{ secretMessage.SM_Option1 }}</label>
+                </div>
+                {% endif %}
+                {% if product.metafields.ha_SecretMessage.SM_Option2 != blank and  product.metafields.ha_SecretMessage.SM_Option2URL != blank %}
+                <div class="smBTNs col-sm mb-1 mt-3">
+                  <input
+                    type="radio"
+                    class="radioButton"
+                    name="SecretMessage"
+                    id="smsg2"
+                    @click="secretmsg('{{ secretMessage.SM_Option2URL }}');" />
+                  <label class="smBTN" for="smsg2">{{ secretMessage.SM_Option2 }}</label>
+                </div>
+                {% endif %}
+                {% if product.metafields.ha_SecretMessage.SM_Option3 != blank and  product.metafields.ha_SecretMessage.SM_Option3URL != blank %}
+                <div class="smBTNs col-sm mb-1 mt-3">
+                  <input
+                    type="radio"
+                    class="radioButton"
+                    name="SecretMessage"
+                    id="smsg3"
+                    @click="secretmsg('{{ secretMessage.SM_Option3URL }}');" />
+                  <label class="smBTN" for="smsg3">{{ secretMessage.SM_Option3 }}</label>
+                </div>
+                {% endif %}
+                {% if product.metafields.ha_SecretMessage.SM_Option4 != blank and  product.metafields.ha_SecretMessage.SM_Option4URL != blank %}
+                <div class="smBTNs col-sm mb-1 mt-3">
+                  <input
+                    type="radio"
+                    class="radioButton"
+                    name="SecretMessage"
+                    id="smsg4"
+                    @click="secretmsg('{{ secretMessage.SM_Option4URL }}');" />
+                  <label class="smBTN" for="smsg4">{{ secretMessage.SM_Option4 }}</label>
+                </div>
+                {% endif %}
+                <div class="smBTNs col-sm-12 mb-1 mt-3">
+                  <input
+                    type="radio"
+                    class="radioButton"
+                    name="SecretMessage"
+                    id="smsg5"
+                    @click="secretmsg('https://cdn.shopify.com/s/files/1/0517/8700/6144/files/sm000.png');" />
+                  <label class="smBTN" for="smsg5">Leave the bottom blank</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- STEP FIVE - REVIEW   -->
+        <div class="step" v-if="stepIndex === 4">
+          <h2>Review the Box</h2>
+          <p class="text-center">Almost finished! Take one last look before you approve but here’s a list<br> of our most common errors to help!</p>
+          <ul class="rte list__approval">
+            <li>Check your spelling and punctuation</li>
+            <li>Make sure you added the To and From</li>
+            <li>No emojis please!</li>
+            <li>Did you add your gifts?</li>
+          </ul>
+          <div class="container">
+            <!--::::: ROW 1 :::::-->
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="h4 mt-3">Card and Pattern</h3>
+                <img class="border" :src="productImages[0].src" alt="">
+              </div>
+            </div>
+            <!--::::: ROW 2 :::::-->
+            <div class="row align-items-center margin-top">
+              <div class="col">
+                <div class="d-flex justify-content-center align-items-center">
+                  <h3 class="h4 mt-3 pr-4">Message</h3>
+                  <p class="mt-3 edit-icon" @click="setStep(1);"><i class="fa fa-edit"></i>&nbsp;Edit</p>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-2 col-lg-3"></div>
+                  <div class="col-sm-12 col-md-8 col-lg-6">
+                    <div class="cardInsideReview" :class="{ textLeft: productObj.properties.LetterFormat }">
+                      <div class="cardTextReview d-flex align-items-center">
+                        <div class="d-flex flex-column">
+                          <div
+                            class="mb-4"
+                            :class="{
+                              Poppins: productObj.properties.FontName === 'Poppins',
+                              ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
+                              Marcellus: productObj.properties.FontName === 'Marcellus',
+                              Rufina: productObj.properties.FontName === 'Rufina',
+                              Parisienne: productObj.properties.FontName === 'Parisienne',
+                              HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
+                              LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
+                              OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
+                              Margarine: productObj.properties.FontName === 'Margarine',
+                              SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                            }">${productObj.properties.Salutation}
+                          </div>
+                          <div
+                            class="mb-4"
+                            :class="{
+                              Poppins: productObj.properties.FontName === 'Poppins',
+                              ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
+                              Marcellus: productObj.properties.FontName === 'Marcellus',
+                              Rufina: productObj.properties.FontName === 'Rufina',
+                              Parisienne: productObj.properties.FontName === 'Parisienne',
+                              HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
+                              LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
+                              OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
+                              Margarine: productObj.properties.FontName === 'Margarine',
+                              SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                            }">${productObj.properties.Message}
+                          </div>
+                          <div
+                            :class="{
+                              Poppins: productObj.properties.FontName === 'Poppins',
+                              ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
+                              Marcellus: productObj.properties.FontName === 'Marcellus',
+                              Rufina: productObj.properties.FontName === 'Rufina',
+                              Parisienne: productObj.properties.FontName === 'Parisienne',
+                              HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
+                              LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
+                              OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
+                              Margarine: productObj.properties.FontName === 'Margarine',
+                              SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
+                            }">${productObj.properties.Valediction}
                           </div>
                         </div>
                       </div>
                     </div>
-                      {% comment %} /NEW Modal {% endcomment %}
                   </div>
-
-                <!-- STEP FIVE - REVIEW   -->
-                <div class="step" v-if="stepIndex === 4">
-                    <h2>Review the Box</h2>
-                    <p class="text-center">Almost finished! Take one last look before you approve but here’s a list<br> of our most common errors to help!</p>
-                    <ul class="rte list__approval">
-                        <li>Check your spelling and punctuation</li>
-                        <li>Make sure you added the To and From</li>
-                        <li>No emojis please!</li>
-                        <li>Did you add your gifts?</li>
-                    </ul>
-                    <div class="container">
-                        <!--::::: ROW 1 :::::-->
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h3 class="h4 mt-3">Card and Pattern</h3>
-                                <img class="border" :src="productImages[0].src" alt="">
-                            </div>
-                        </div>
-                        <!--::::: ROW 2 :::::-->
-                        <div class="row align-items-center margin-top">
-                            <div class="col">
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <h3 class="h4 mt-3 pr-4">Message</h3>
-                                    <p class="mt-3 edit-icon" @click="setStep(0);"><i class="fa fa-edit "></i>&nbsp;Edit</p>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-2 col-lg-3"></div>
-                                    <div class="col-sm-12 col-md-8 col-lg-6">
-                                        <div class="cardInsideReview" :class="{ textLeft: productObj.properties.LetterFormat }">
-                                            <div class="cardTextReview d-flex align-items-center">
-                                                <div class="d-flex flex-column">
-                                                    <div
-                                                        class="mb-4"
-                                                        :class="{
-                                                        Poppins: productObj.properties.FontName === 'Poppins',
-                                                        ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
-                                                        Marcellus: productObj.properties.FontName === 'Marcellus',
-                                                        Rufina: productObj.properties.FontName === 'Rufina',
-                                                        Parisienne: productObj.properties.FontName === 'Parisienne',
-                                                        HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
-                                                        LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
-                                                        OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
-                                                        Margarine: productObj.properties.FontName === 'Margarine',
-                                                        SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
-                                                        }">${productObj.properties.Salutation}
-                                                    </div>
-                                                    <div
-                                                        class="mb-4"
-                                                        :class="{
-                                                        Poppins: productObj.properties.FontName === 'Poppins',
-                                                        ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
-                                                        Marcellus: productObj.properties.FontName === 'Marcellus',
-                                                        Rufina: productObj.properties.FontName === 'Rufina',
-                                                        Parisienne: productObj.properties.FontName === 'Parisienne',
-                                                        HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
-                                                        LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
-                                                        OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
-                                                        Margarine: productObj.properties.FontName === 'Margarine',
-                                                        SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
-                                                        }">${productObj.properties.Message}
-                                                    </div>
-                                                    <div
-                                                        :class="{
-                                                        Poppins: productObj.properties.FontName === 'Poppins',
-                                                        ArimaMadurai: productObj.properties.FontName === 'ArimaMadurai',
-                                                        Marcellus: productObj.properties.FontName === 'Marcellus',
-                                                        Rufina: productObj.properties.FontName === 'Rufina',
-                                                        Parisienne: productObj.properties.FontName === 'Parisienne',
-                                                        HomemadeApple: productObj.properties.FontName === 'HomemadeApple',
-                                                        LobsterTwo: productObj.properties.FontName === 'LobsterTwo',
-                                                        OriginalSurfer: productObj.properties.FontName === 'OriginalSurfer',
-                                                        Margarine: productObj.properties.FontName === 'Margarine',
-                                                        SansitaSwashed: productObj.properties.FontName === 'SansitaSwashed'
-                                                        }">${productObj.properties.Valediction}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-2 col-lg-3"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--::::: ROW 3 :::::-->
-                        <div class="row align-items-center margin-top">
-                            <div class="col">
-                                <div class="row align-items-end">
-                                    <div class="d-none d-md-block d-xl-block col-sm-12 col-md-3">
-                                        <img src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_LP.png?v=1611508912">
-                                    </div>
-                                    <div class="col-sm-6 col-md-3" v-for="(item, index) in productObj.properties.panels" class="topAlign">
-                                        <div>
-                                            <div v-if="index == 0" class="d-flex justify-content-center align-items-center">
-                                                <h3 class="h4 mt-3 pr-4" >Left Panel</h3>
-                                                <p class="mt-3 edit-icon"  @click="setStep(1);"><i class="fa fa-edit"></i>&nbsp;Edit</p>
-                                            </div>
-                                            <div v-else="index == 1" class="d-flex justify-content-center align-items-center">
-                                                <h3 class="h4 mt-3 pr-4" >Right Panel</h3>
-                                                <p class="mt-3 edit-icon" @click="setStep(1);"><i class="fa fa-edit"></i>&nbsp;Edit</p>
-                                            </div>
-                                            <div class="polaroidR">
-                                                <div v-if="item.panelType == 'pattern'" class="patternUploadR">
-                                                    <img :src="item.patternURL" class="patternSq"/>
-                                                </div>
-                                                <div v-if="item.panelType == 'image'" class="imageUploadR">
-                                                    <img class="iuMargin" :src="item.imageURL" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-none d-md-block d-xl-block col-sm-12 col-md-3">
-                                        <img src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_RP.png?v=1611508912">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--::::: ROW 4 :::::-->
-                        <div class="row align-items-center margin-top">
-                            <div class="col">
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <h3 class="h4 mt-3 pr-4">Special Message </h3>
-                                    <p class="mt-3 edit-icon" @click="setStep(2);"><i class="fa fa-edit"></i>&nbsp;Edit</p>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-2 col-lg-3"></div>
-                                    <div class="col-sm-12 col-md-8 col-lg-6">
-                                        <div class="col-12">
-                                            <img class="secretmsg-img" :src="selectedSM">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-2 col-lg-3"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--:::: Message :::::-->
-                        <p class="text-center">When you’re 100% happy with your box, its contents and your message, press <span class="text-bold">Add to Cart</span></p>
-                    </div>
+                  <div class="col-sm-12 col-md-2 col-lg-3"></div>
                 </div>
-                <!--  NAVIGATOR BOTTOM  -->
-                <div class="container mb-5">
-                    <div class="row w-100 justify-content-between">
-                      <button
-                          v-if="stepIndex == 0 && {{ cart.item_count }} <= 0"
-                          type="button"
-                          class="btn btn--secondary"
-                          onclick="history.back();">Back</button>
-                      <button
-                          v-if="stepIndex > 0 && stepIndex < totalSteps - 1"
-                          type="button"
-                          class="btn btn--secondary"
-                          @click="prevStep">Back</button>
-                      <button
-                      v-if="stepIndex === totalSteps - 1"
-                      type="button"
-                      class="btn btn--secondary"
-                      @click="prevStep">Back</button>
-                      <button
-                          v-if="stepIndex === totalSteps - 1"
-                          type="submit"
-                          name="add"
-                          class="btn  btn-approved"
-                          :class="{btnDisable: addingToCart}"
-                          @click="pushProduct(); return false;"><i class="atc-spinner" :class="[addingToCart ? ['fas','fa-circle-o-notch','fa-spin'] : '']"></i> Add to Cart</button>
-                      <button
-                          v-if="stepIndex < totalSteps - 1 && {{ cart.item_count }} <= 0"
-                          type="button"
-                          class="btn"
-                          @click="nextStep">Next</button>
+              </div>
+            </div>
+            <!--::::: ROW 3 :::::-->
+            <div class="row align-items-center margin-top">
+              <div class="col">
+                <div class="row align-items-end">
+                  <div class="d-none d-md-block d-xl-block col-sm-12 col-md-3">
+                    <img src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_LP.png?v=1611508912">
+                  </div>
+                  <div class="col-sm-6 col-md-3" v-for="(item, index) in productObj.properties.panels" class="topAlign">
+                    <div>
+                      <div v-if="index == 0" class="d-flex justify-content-center align-items-center">
+                        <h3 class="h4 mt-3 pr-4" >Left Panel</h3>
+                        <p class="mt-3 edit-icon"  @click="setStep(2);"><i class="fa fa-edit"></i>&nbsp;Edit</p>
+                      </div>
+                      <div v-else="index == 1" class="d-flex justify-content-center align-items-center">
+                        <h3 class="h4 mt-3 pr-4" >Right Panel</h3>
+                        <p class="mt-3 edit-icon" @click="setStep(2);"><i class="fa fa-edit"></i>&nbsp;Edit</p>
+                      </div>
+                      <div class="polaroidR">
+                        <div v-if="item.panelType == 'pattern'" class="patternUploadR">
+                          <img :src="item.patternURL" class="patternSq"/>
+                        </div>
+                        <div v-if="item.panelType == 'image'" class="imageUploadR">
+                          <img class="iuMargin" :src="item.imageURL" />
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                  <div class="d-none d-md-block d-xl-block col-sm-12 col-md-3">
+                    <img src="https://cdn.shopify.com/s/files/1/0517/8700/6144/files/5AL_5Steps_RP.png?v=1611508912">
+                  </div>
                 </div>
+              </div>
             </div>
-
-            <!-- {%- comment -%}
-                Live region for announcing updated price and availability to screen readers
-            {%- endcomment -%} -->
-            <p class="visually-hidden" data-product-status
-                aria-live="polite"
-                role="status"
-            ></p>
-
-            <!-- {%- comment -%}
-                Live region for announcing that the product form has been submitted and the
-                product is in the process being added to the cart
-            {%- endcomment -%} -->
-            <p class="visually-hidden" data-loader-status
-                aria-live="assertive"
-                role="alert"
-                aria-hidden="true"
-            >{{ 'products.product.loader_label' | t }}</p>
-
-            <div
-                class="product-single__store-availability-container"
-                data-store-availability-container
-                data-product-title="{{ product.title | escape }}"
-                data-has-only-default-variant="{{ product.has_only_default_variant }}"
-                data-base-url="{{ shop.url }}{{ routes.root_url }}"          >
+            <!--::::: ROW 4 :::::-->
+            <div class="row align-items-center margin-top">
+              <div class="col">
+                <div class="d-flex justify-content-center align-items-center">
+                  <h3 class="h4 mt-3 pr-4">Special Message </h3>
+                  <p class="mt-3 edit-icon" @click="setStep(3);"><i class="fa fa-edit"></i>&nbsp;Edit</p>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-2 col-lg-3"></div>
+                  <div class="col-sm-12 col-md-8 col-lg-6">
+                    <div class="col-12">
+                      <img class="secretmsg-img" :src="selectedSM">
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-2 col-lg-3"></div>
+                </div>
+              </div>
             </div>
+            <!--:::: Message :::::-->
+            <p class="text-center">When you’re 100% happy with your box, its contents and your message, press <span class="text-bold">Add to Cart</span></p>
+          </div>
         </div>
+        <!--  NAVIGATOR BOTTOM  -->
+      <div class="d-flex justify-content-between mx-1">
+          <button
+              v-if="stepIndex === 0 && {{ cart.item_count }} <= 0"
+              type="button"
+              class="btn btn--secondary"
+              onclick="history.back();">Back</button>
+          <button
+              v-if="stepIndex > 0 && stepIndex < totalSteps - 1"
+              type="button"
+              class="btn btn--secondary"
+              @click="prevStep">Back</button>
+          <button
+          v-if="stepIndex === totalSteps - 1"
+          type="button"
+          class="btn btn--secondary"
+          @click="prevStep">Back</button>
+          <button
+              v-if="stepIndex === totalSteps - 1"
+              type="submit"
+              name="add"
+              class="btn btn-approved"
+              :class="{btnDisable: addingToCart}"
+              @click="pushProduct(); return false;"><i class="atc-spinner" :class="[addingToCart ? ['fas','fa-circle-o-notch','fa-spin'] : '']"></i> Add to Cart</button>
+          <button
+              v-if="stepIndex < totalSteps - 1 && {{ cart.item_count }} <= 0"
+              type="button"
+              class="btn"
+              @click="nextStep">Next</button>
+        </div>
+      </div>
     </div>
+
+    {%- comment -%}
+      Live region for announcing updated price and availability to screen readers
+    {%- endcomment -%}
+    <p class="visually-hidden" data-product-status
+      aria-live="polite"
+      role="status"
+    ></p>
+
+    {%- comment -%}
+      Live region for announcing that the product form has been submitted and the
+      product is in the process being added to the cart
+    {%- endcomment -%}
+    <p class="visually-hidden" data-loader-status
+      aria-live="assertive"
+      role="alert"
+      aria-hidden="true"
+    >{{ 'products.product.loader_label' | t }}</p>
+
+    <div
+      class="product-single__store-availability-container"
+      data-store-availability-container
+      data-product-title="{{ product.title | escape }}"
+      data-has-only-default-variant="{{ product.has_only_default_variant }}"
+      data-base-url="{{ shop.url }}{{ routes.root_url }}"          >
+    </div>
+  </div>
 </div>
 
 
@@ -835,47 +861,47 @@
   var liqPatternName = productImages[3].alt
   var giftList = []
   var giftTags = ["All"]
-  {% if collections['Gift-Sets'] != blank %}
-    {% for giftProduct in collections['Gift-Sets'].products %}
-      {%- comment %}<locksmith:f858>{% endcomment -%}
-        {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: giftProduct, subject_parent: collections.Gift-Sets, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
-      {%- comment %}</locksmith:f858>{% endcomment -%}
-      {%- if giftProduct.available -%}
-        {% for tag in giftProduct.tags %}
-          if (giftTags.indexOf("{{ tag }}") === -1 && '{{tag}}' !== 'Single'){
-            giftTags.push("{{tag}}");
-          }
-        {% endfor %}
-        var object = {}
-        object.variants = [];
-        {% unless giftProduct.has_only_default_variant %}
-          {% for option in giftProduct.variants %}
-          {% if option.available %}
-            object.variants.push({id: {{ option.id }}, title: "{{ option.title }}", price: "{{ option.price | money_without_currency }}", image: "{{ option.featured_media | img_url: '500x500' }}" });
-          {% endif %}
-            {% endfor %}
-            object.variantOption = "{{ giftProduct.options }}"
-        {% endunless %}
-        object.title = "{{ giftProduct.title }}"
-        object.price = "{{ giftProduct.selected_or_first_available_variant.price | money_without_currency }}"
-        object.image = "{{ giftProduct.featured_image | img_url: '500x500' }}"
-        object.tag = "{{giftProduct.tags}}"
-        object.id = {{ giftProduct.selected_or_first_available_variant.id }}
-        object.description = `{{ giftProduct.description }}`
-        object.quantity = 0
-        object.cantFit = false;
-        object.occupancy = {{ giftProduct.metafields.Occupancy['Occupancy'] }}
-        object.active = false
-        giftList.push(object)
-      {%- endif -%}
-    {% endfor %}
-  {% endif %}
+  var vendor = "{{ product.vendor }}"
 
-  {% if collections['Gift-Cards'] != blank %}
+  
+  {% for giftProduct in collections['Gift-Sets'].products %}
+    {%- comment %}<locksmith:bf60>{% endcomment -%}
+      {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: giftProduct, subject_parent: collections.Gift-Sets, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+    {%- comment %}</locksmith:bf60>{% endcomment -%}
+    {%- if giftProduct.available -%}
+      {% for tag in giftProduct.tags %}
+        if (giftTags.indexOf("{{ tag }}") === -1 && '{{tag}}' !== 'Single'){
+          giftTags.push("{{tag}}");
+        }
+      {% endfor %}
+      var object = {}
+      object.variants = [];
+      {% unless giftProduct.has_only_default_variant %}
+        {% for option in giftProduct.variants %}
+        {% if option.available %}
+          object.variants.push({id: {{ option.id }}, title: "{{ option.title }}", price: "{{ option.price | money_without_currency }}", image: "{{ option.featured_media | img_url: '500x500' }}" });
+        {% endif %}
+          {% endfor %}
+          object.variantOption = "{{ giftProduct.options }}"
+      {% endunless %}
+      object.title = "{{ giftProduct.title }}"
+      object.price = "{{ giftProduct.selected_or_first_available_variant.price | money_without_currency }}"
+      object.image = "{{ giftProduct.featured_image | img_url: '500x500' }}"
+      object.tag = "{{giftProduct.tags}}"
+      object.id = {{ giftProduct.selected_or_first_available_variant.id }}
+      object.description = `{{ giftProduct.description }}`
+      object.quantity = 0
+      object.favourite = false;
+      object.cantFit = false;
+      object.occupancy = {{ giftProduct.metafields.Occupancy['Occupancy'] }}
+      object.active = false
+      giftList.push(object)
+    {%- endif -%}
+  {% endfor %}
   {% for giftProduct in collections['Gift-Cards'].products %}
-    {%- comment %}<locksmith:2d0b>{% endcomment -%}
+    {%- comment %}<locksmith:20a8>{% endcomment -%}
       {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: giftProduct, subject_parent: collections.Gift-Cards, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
-    {%- comment %}</locksmith:2d0b>{% endcomment -%}
+    {%- comment %}</locksmith:20a8>{% endcomment -%}
     {%- if giftProduct.available -%}
       {% for tag in giftProduct.tags %}
         if (giftTags.indexOf("{{ tag }}") === -1 && '{{tag}}' !== 'Single'){
@@ -897,21 +923,19 @@
       object.image = "{{ giftProduct.featured_image | img_url: '500x500' }}"
       object.tag = "{{giftProduct.tags}}"
       object.id = {{ giftProduct.selected_or_first_available_variant.id }}
-      object.description = `{{ giftProduct.description  }}`
+      object.description = `{{ giftProduct.description }}`
       object.quantity = 0
+            object.favourite = false;
       object.cantFit = false;
       object.occupancy = {{ giftProduct.metafields.Occupancy['Occupancy'] }}
       object.active = false
       giftList.push(object)
     {%- endif -%}
-    {% endfor %}
-    {% endif %}
-
-  {% if collections['Holiday-Gifts'] != blank %}
-    {% for giftProduct in collections['Holiday-Gifts'].products %}
-    {%- comment %}<locksmith:7833>{% endcomment -%}
+  {% endfor %}
+  {% for giftProduct in collections['Holiday-Gifts'].products %}
+    {%- comment %}<locksmith:8fa6>{% endcomment -%}
       {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: giftProduct, subject_parent: collections.Holiday-Gifts, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
-    {%- comment %}</locksmith:7833>{% endcomment -%}
+    {%- comment %}</locksmith:8fa6>{% endcomment -%}
     {%- if giftProduct.available -%}
       {% for tag in giftProduct.tags %}
         if (giftTags.indexOf("{{ tag }}") === -1 && '{{tag}}' !== 'Single'){
@@ -933,20 +957,19 @@
       object.image = "{{ giftProduct.featured_image | img_url: '500x500' }}"
       object.tag = "{{giftProduct.tags}}"
       object.id = {{ giftProduct.selected_or_first_available_variant.id }}
-      object.description = `{{ giftProduct.description  }}`
+      object.description = `{{ giftProduct.description }}`
       object.quantity = 0
+            object.favourite = false;
       object.cantFit = false;
       object.occupancy = {{ giftProduct.metafields.Occupancy['Occupancy'] }}
       object.active = false
       giftList.push(object)
     {%- endif -%}
-    {% endfor %}
-    {% endif %}
-    {% if collections['Home-Gifts'] != blank %}
+  {% endfor %}
   {% for giftProduct in collections['Home-Gifts'].products %}
-  {%- comment %}<locksmith:c9aa>{% endcomment -%}
+  {%- comment %}<locksmith:1415>{% endcomment -%}
     {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: giftProduct, subject_parent: collections.Home-Gifts, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
-  {%- comment %}</locksmith:c9aa>{% endcomment -%}
+  {%- comment %}</locksmith:1415>{% endcomment -%}
   {%- if giftProduct.available -%}
       {% for tag in giftProduct.tags %}
         if (giftTags.indexOf("{{ tag }}") === -1 && '{{tag}}' !== 'Single'){
@@ -968,20 +991,19 @@
       object.image = "{{ giftProduct.featured_image | img_url: '500x500' }}"
       object.tag = "{{giftProduct.tags}}"
       object.id = {{ giftProduct.selected_or_first_available_variant.id }}
-      object.description = `{{ giftProduct.description  }}`
+      object.description = `{{ giftProduct.description }}`
       object.quantity = 0
+            object.favourite = false;
       object.cantFit = false;
       object.occupancy = {{ giftProduct.metafields.Occupancy['Occupancy'] }}
       object.active = false
       giftList.push(object)
     {%- endif -%}
-    {% endfor %}
-    {% endif %}
-    {% if collections['Beauty-Gifts'] != blank %}
+  {% endfor %}
   {% for giftProduct in collections['Beauty-Gifts'].products %}
-    {%- comment %}<locksmith:019a>{% endcomment -%}
+    {%- comment %}<locksmith:87d8>{% endcomment -%}
       {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: giftProduct, subject_parent: collections.Beauty-Gifts, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
-    {%- comment %}</locksmith:019a>{% endcomment -%}
+    {%- comment %}</locksmith:87d8>{% endcomment -%}
     {%- if giftProduct.available -%}
       {% for tag in giftProduct.tags %}
         if (giftTags.indexOf("{{ tag }}") === -1 && '{{tag}}' !== 'Single'){
@@ -1003,21 +1025,19 @@
       object.image = "{{ giftProduct.featured_image | img_url: '500x500' }}"
       object.tag = "{{giftProduct.tags}}"
       object.id = {{ giftProduct.selected_or_first_available_variant.id }}
-      object.description = `{{ giftProduct.description  }}`
+      object.description = `{{ giftProduct.description }}`
       object.quantity = 0
+            object.favourite = false;
       object.cantFit = false;
       object.occupancy = {{ giftProduct.metafields.Occupancy['Occupancy'] }}
       object.active = false
       giftList.push(object)
     {%- endif -%}
-    {% endfor %}
-    {% endif %}
-
-    {% if collections['Food-Gifts'] != blank %}
+  {% endfor %}
   {% for giftProduct in collections['Food-Gifts'].products %}
-    {%- comment %}<locksmith:9a8e>{% endcomment -%}
+    {%- comment %}<locksmith:cfde>{% endcomment -%}
       {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: giftProduct, subject_parent: collections.Food-Gifts, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
-    {%- comment %}</locksmith:9a8e>{% endcomment -%}
+    {%- comment %}</locksmith:cfde>{% endcomment -%}
     {%- if giftProduct.available -%}
       {% for tag in giftProduct.tags %}
         if (giftTags.indexOf("{{ tag }}") === -1 && '{{tag}}' !== 'Single'){
@@ -1039,21 +1059,19 @@
       object.image = "{{ giftProduct.featured_image | img_url: '500x500' }}"
       object.tag = "{{giftProduct.tags}}"
       object.id = {{ giftProduct.selected_or_first_available_variant.id }}
-      object.description = `{{ giftProduct.description  }}`
+      object.description = `{{ giftProduct.description }}`
       object.quantity = 0
+            object.favourite = false;
       object.cantFit = false;
       object.occupancy = {{ giftProduct.metafields.Occupancy['Occupancy'] }}
       object.active = false
       giftList.push(object)
     {%- endif -%}
-    {% endfor %}
-    {% endif %}
-
-    {% if collections['Gifts-For-Men'] != blank %}
+  {% endfor %}
   {% for giftProduct in collections['Gifts-For-Men'].products %}
-    {%- comment %}<locksmith:f65a>{% endcomment -%}
+    {%- comment %}<locksmith:dd28>{% endcomment -%}
       {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: giftProduct, subject_parent: collections.Gifts-For-Men, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
-    {%- comment %}</locksmith:f65a>{% endcomment -%}
+    {%- comment %}</locksmith:dd28>{% endcomment -%}
     {%- if giftProduct.available -%}
       {% for tag in giftProduct.tags %}
         if (giftTags.indexOf("{{ tag }}") === -1 && '{{tag}}' !== 'Single'){
@@ -1064,7 +1082,7 @@
       object.variants = [];
       {% unless giftProduct.has_only_default_variant %}
         {% for option in giftProduct.variants %}
-          {% if option.available %}
+        {% if option.available %}
           object.variants.push({id: {{ option.id }}, title: "{{ option.title }}", price: "{{ option.price | money_without_currency }}", image: "{{ option.featured_media | img_url: '500x500' }}" });
         {% endif %}
           {% endfor %}
@@ -1075,15 +1093,52 @@
       object.image = "{{ giftProduct.featured_image | img_url: '500x500' }}"
       object.tag = "{{giftProduct.tags}}"
       object.id = {{ giftProduct.selected_or_first_available_variant.id }}
-      object.description = `{{ giftProduct.description  }}`
+      object.description = `{{ giftProduct.description }}`
       object.quantity = 0
+            object.favourite = false;
       object.cantFit = false;
       object.occupancy = {{ giftProduct.metafields.Occupancy['Occupancy'] }}
       object.active = false
       giftList.push(object)
     {%- endif -%}
-    {% endfor %}
-  {% endif %}
+  {% endfor %}
+
+  //This grabs the collection for the specific corporate account
+  {% assign collectionName = "gifts-" | append: product.vendor | downcase | replace: ' ', '-' %}
+  {% for giftProduct in collections[collectionName].products %}
+    {%- comment %}<locksmith:c214>{% endcomment -%}
+      {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: giftProduct, subject_parent: collections[collectionName], variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+    {%- comment %}</locksmith:c214>{% endcomment -%}
+    {%- if giftProduct.available -%}
+      {% for tag in giftProduct.tags %}
+        if (giftTags.indexOf("{{ tag }}") === -1 && '{{tag}}' !== 'Single'){
+          giftTags.push("{{tag}}");
+        }
+      {% endfor %}
+      var object = {}
+      object.variants = [];
+      {% unless giftProduct.has_only_default_variant %}
+        {% for option in giftProduct.variants %}
+        {% if option.available %}
+          object.variants.push({id: {{ option.id }}, title: "{{ option.title }}", price: "{{ option.price | money_without_currency }}", image: "{{ option.featured_media | img_url: '500x500' }}" });
+        {% endif %}
+        {% endfor %}
+                  object.variantOption = "{{ giftProduct.options }}"
+      {% endunless %}
+      object.title = "{{ giftProduct.title }}"
+      object.price = "{{ giftProduct.selected_or_first_available_variant.price | money_without_currency }}"
+      object.image = "{{ giftProduct.featured_image | img_url: '500x500' }}"
+      object.tag = "{{ giftProduct.tags }}"
+      object.id = {{ giftProduct.selected_or_first_available_variant.id }}
+      object.description = `{{ giftProduct.description }}`
+      object.quantity = 0;
+      object.favourite = true;
+      object.cantFit = false;
+      object.occupancy = {{ giftProduct.metafields.Occupancy['Occupancy'] }}
+      object.active = false
+      giftList.push(object)
+    {%- endif -%}
+  {% endfor %}
 
   function uniqByKeepLast(data, key){
     return [
@@ -1092,9 +1147,8 @@
       ).values()
     ]
   }
-
+	
   giftList = uniqByKeepLast(giftList, it => it.id)
-
 
   var li_productID = {{ product.selected_or_first_available_variant.id }}
   var li_productPrice = {{ product.price | money_without_currency }}
@@ -1136,8 +1190,7 @@
   let remainingPanels = [];
   //let occasions = ['Anniversary', 'Baby', 'Birthday','Congratulations', 'Corporate', 'Get Well', 'Just Because', 'Love', 'Retirement', 'Sympathy', 'Thank You'];
   //{%comment%} {% assign occasions = "Anniversary, Baby, Birthday, Congratulations, Corporate, Get Well, Just Because, Love, Retirement, Sympathy, Thank You" | split: ", " %}{%endcomment%}
-  {% assign occasions = "anniversary,baby,birthday,congratulations,corporate,get-well,just-because,love,retirement,sympathy,thank-you,wedding,bridesmaid,holiday" | split: "," %}
-
+  {% assign occasions = "anniversary,baby,birthday,congratulations,corporate,get-well,just-because,love,retirement,sympathy,thank-you,wedding,bridesmaid,holiday," | append: product.vendor | downcase | replace: ' ', '-' | split: "," %}
   {% for occasion in occasions %}
     {% for tag in product.tags %}
       {% assign productTag = tag | downcase | replace: ' ', '-' %}
@@ -1181,6 +1234,10 @@
 
   writersBlocks = [...new Set(writersBlocks)];
   writersBlocks = Array.from(writersBlocks);
+  var selectedSM = "https://cdn.shopify.com/s/files/1/0517/8700/6144/files/sm000.png"
+  {% if product.metafields.ha_SecretMessage.SM_Option1 != blank and  product.metafields.ha_SecretMessage.SM_Option1URL != blank %}
+    selectedSM = "{{ product.metafields.ha_SecretMessage.SM_Option1URL }}"
+  {% endif %}
   //*******************************************************//
   //*********************** VUEJS *************************//
   //*******************************************************//
@@ -1206,11 +1263,13 @@
       productImages: productImages,
       giftList: giftList,
       giftTags: giftTags,
+      showAllGifts: false,
+      vendor: vendor,
       currentFilter: "All",
       selectedGift: giftList[0],
       characterCount: 400,
       PatternName: liqPatternName,
-      selectedSM: "https://cdn.shopify.com/s/files/1/0517/8700/6144/files/sm000.png",
+      selectedSM: selectedSM,
       blankSM: "https://cdn.shopify.com/s/files/1/0517/8700/6144/files/sm000.png",
       boxTotalCost: 14.00,
       productObj: {
@@ -1262,14 +1321,11 @@
       },
       selectingPanel: [false, false],
     },
-    watch: {
-      productObj() {
-      }
-    },
     mounted: function(){
       this.calcTotalCost()
       this.$el.addEventListener('uploadSuccess', this.uploaderysuccess);
       setTimeout(this.checkDOMChange, 2000);
+      this.secretmsg(this.selectedSM);
       },
     methods: {
       checkDOMChange(){
@@ -1304,7 +1360,7 @@
         }
         window.scrollTo(0,0);
         this.cancelSelection();
-        if (this.stepIndex > 1){
+        if (this.stepIndex > 2){
           this.setDefaultPattern();
         }
       },
@@ -1314,7 +1370,7 @@
           this.isComplete[this.stepIndex] = true;
           this.setStep(this.stepIndex);
         }
-        if (this.stepIndex == 2){
+        if (this.stepIndex === 3){
           this.setDefaultPattern();
         }
       },
@@ -1392,7 +1448,6 @@
         Vue.set(this.selectingPanel, 1, false);
         this.ShowPanelsModal = false;
         this.cancelSelection()
-        this.closePanelsModal()
       },
       removeImage: function (index) {
         this.productObj.properties.panels[index].image = false;
@@ -1481,8 +1536,8 @@
         for (i = 0; i < this.giftList.length; i++){
           if (event.currentTarget.id == this.giftList[i].id)
           {
-            this.selectedGift = this.giftList[i];
-            document.querySelector("#gift-modal-description").innerHTML = this.selectedGift.description;
+          this.selectedGift = this.giftList[i];
+          document.querySelector("#gift-modal-description").innerHTML = this.selectedGift.description;
             this.openGiftModal();
             return;
           }
@@ -1600,7 +1655,7 @@
             finalBox.properties._LeftPanelURL = this.productObj.properties.panels[0].patternURL
           } else if (this.productObj.properties.panels[0].panelType == "image") {
             finalBox.properties.LeftPanel = this.productObj.properties.panels[0].imageName
-            if (this.productObj.properties.panels[0].imageFilename !== null && this.productObj.properties.panels[0].imageFilename !== undefined && this.productObj.properties.panels[0].imageFilename !== ""){
+            if (this.productObj.properties.panels[0].imageFilename !== null && this.productObj.properties.panels[0].imageFilename !== undefined && this.productObj.properties.panels[0].imageFilename != ""){
               finalBox.properties._LeftPanelFN = this.productObj.properties.panels[0].imageFilename
             } else {
               finalBox.properties._LeftPanelFN = this.productObj.properties.panels[0].imageName
@@ -1660,7 +1715,7 @@
   #app {
     display: flex;
     flex-direction: column;
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -1672,6 +1727,7 @@
   label.spb-productdescfont.spb-productdesctextcolor.rightpanel {
     font-size: 0px;
   }
+
   .progressCont {
     margin: 0 auto;
     max-width: 1300px;
@@ -1726,15 +1782,17 @@
   .progressBar li.active + li:after {
     background: #303030;
   }*/
-  @media (max-width: 350px) {
+  @media (max-width: 375px) {
     .progressBar li span {
       display: none;
+    }
+    .progressCont{
+      padding-bottom: 20px;
     }
   }
   .step {
     width: 100%;
-    max-width: 1300px;
-    margin: 24px auto;
+    margin: 0px auto 24px;
   }
   .cardOptions{
     margin: 20px auto 10px;
@@ -1807,12 +1865,13 @@
     padding: 6px 10px;
     text-align: center;
     text-decoration: none;
-    text-transform: none;
+    text-transform: normal;
     display: inline-block;
     font-size: 14px;
     letter-spacing: normal;
     width: 100%;
   }
+
   .radioFonts {
     display: flex;
     flex-wrap: wrap;
@@ -1836,6 +1895,7 @@
     text-decoration: none;
     transition-duration: 0.4s;
     min-width: 120px;
+    min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1900,17 +1960,9 @@
     font-family: 'Poppins' !important;
     font-size: 16px !important;
   }
-  .ArimaMadurai {
-    font-family: 'Arima Madurai' !important;
-    font-size: 18px !important;
-  }
   .Marcellus {
     font-family: 'Marcellus' !important;
     font-size: 17px !important;
-  }
-  .Rufina {
-    font-family: 'Rufina' !important;
-    font-size: 18px !important;
   }
   .Parisienne {
     font-family: 'Parisienne' !important;
@@ -1920,52 +1972,18 @@
     font-family: 'Homemade Apple' !important;
     font-size: 16px !important;
   }
-  .LobsterTwo {
-    font-family: 'Lobster Two' !important;
-    font-size: 18px !important;
-  }
-  .OriginalSurfer {
-    font-family: 'Original Surfer' !important;
-    font-size: 18px !important;
-  }
-  .Margarine {
-    font-family: 'Margarine' !important;
-    font-size: 17px !important;
-  }
-  .SansitaSwashed {
-    font-family: 'Sansita Swashed' !important;
-    font-size: 18px !important;
-  }
   @media (max-width: 600px){
     .Poppins {
       font-size: 12px !important;
     }
-    .ArimaMadurai {
-      font-size: 14px !important;
-    }
     .Marcellus {
       font-size: 13px !important;
-    }
-    .Rufina {
-      font-size: 14px !important;
     }
     .Parisienne {
       font-size: 17px !important;
     }
     .HomemadeApple {
       font-size: 12px !important;
-    }
-    .LobsterTwo {
-      font-size: 14px !important;
-    }
-    .OriginalSurfer {
-      font-size: 14px !important;
-    }
-    .Margarine {
-      font-size: 13px !important;
-    }
-    .SansitaSwashed {
-      font-size: 14px !important;
     }
   }
   .textLeft {
@@ -2013,9 +2031,6 @@
   }
   .helperimgInside {
     width: 100px;
-  }
-  .topAlign {
-    vertical-align: top;
   }
   .ptrn-panel-container{
     position: relative;
@@ -2252,7 +2267,7 @@
   .cartItems__img{
     object-fit:cover;
     min-height: 100%;
-    min-width: 100%
+    min-width: 100%;
   }
   .cartItems__img-card{
     height: 100px;
@@ -2322,13 +2337,6 @@
     .cartItems__item-holder{
       justify-content:center;
     }
-    .cartItems__item{
-      width: 75px;
-      height: 75px;
-    }
-    .cartItems__img-card{
-      height: 100px;
-    }
     .cartPricing__wrapper{
       width: 100%;
     }
@@ -2342,17 +2350,15 @@
   .btn__container-upload{
     width: 100%; max-width: 250px;
   }
-  .text-or{
-    margin: 5px auto;
-    font-weight: 600;
-  }
+  
   .btn__panel{
     font-size: 12px;
-    width: 90vw;
-    max-width: 250px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
   }
+
   .c-pointer{
     cursor: pointer;
   }
@@ -2561,4 +2567,4 @@
       max-width: 1200px;
     }
   }
-</style>
+</style>`

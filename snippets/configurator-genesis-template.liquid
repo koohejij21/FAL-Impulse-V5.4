@@ -1,11 +1,11 @@
-<div id="app" >
-  <div class="product-template__container page-width"
+<div id="app" class="d-flex align-items-center">
+  <div class="product-template__container page-width py-3 mx-0 w-100"
     id="ProductSection-{{ section.id }}"
     data-section-id="{{ section.id }}"
     data-section-type="product"
     data-enable-history-state="true"
     data-ajax-enabled="{{ settings.enable_ajax }}">
-
+    <h1 class="visually-hidden">{{ product.title }}</h1>
     <div class="justify-content-center">
 
       <div v-if="itemsInCart > 0">
@@ -18,60 +18,52 @@
 
       <div v-if="itemsInCart === 0">
         <!-- STEPS -->
-        <div class="container px-0 px-lg-3">
-          <div class="progressCont" v-show="stepIndex < totalSteps">
-            <ul class="progressBar">
-              <li
-                :class="{ active: isComplete[0], current: stepIndex === 0, linkHover: isComplete[0] }"
-                @click="setStep(0)">
-                <span>Gifts</span>
-              </li>
-              <li
-                :class="{ active: isComplete[1], current: stepIndex === 1, linkHover: isComplete[1] }"
-                @click="setStep(1)">
-                <span>Message</span>
-              </li>
-              <!-- <li
-                :class="{ active: isComplete[1], current: stepIndex === 1, linkHover: isComplete[1] }"
-                @click="setStep(1)">
-                <span>Panels</span>
-              </li> -->
-              <li
-                :class="{ active: isComplete[2], current: stepIndex === 2, linkHover: isComplete[2] }"
-                @click="setStep(2)">
-                <span>Review</span>
-              </li>
-            </ul>
-          </div>
+        <div class="progressCont" v-show="stepIndex < totalSteps">
+          <ul class="progressBar">
+            <li
+              :class="{ active: isComplete[0], current: stepIndex === 0, linkHover: isComplete[0] }"
+              @click="setStep(0)">
+              <span>Gifts</span>
+            </li>
+            <li
+              :class="{ active: isComplete[1], current: stepIndex === 1, linkHover: isComplete[1] }"
+              @click="setStep(1)">
+              <span>Message</span>
+            </li>
+            <!-- <li
+              :class="{ active: isComplete[1], current: stepIndex === 1, linkHover: isComplete[1] }"
+              @click="setStep(1)">
+              <span>Panels</span>
+            </li> -->
+            <li
+              :class="{ active: isComplete[2], current: stepIndex === 2, linkHover: isComplete[2] }"
+              @click="setStep(2)">
+              <span>Review</span>
+            </li>
+          </ul>
         </div>
         <!--  NAVIGATOR TOP  -->
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <button
-                v-if="stepIndex == 0"
-                type="button"
-                class="btn btn--secondary  float-left"
-                onclick="history.back();">Back</button>
-              <button
-                v-if="stepIndex > 0"
-                type="button"
-                class="btn btn--secondary  float-left"
-                @click="prevStep">Back</button>
-            </div>
-            <div class="col">
-              <button
-                v-if="stepIndex < totalSteps - 2"
-                type="button"
-                class="btn  float-right"
-                @click="nextStep">Next</button>
-              <button
-                v-if="stepIndex === totalSteps - 2"
-                type="button"
-                class="btn  float-right"
-                @click="nextStep">Next</button>
-            </div>
-          </div>
+        <div class="d-flex justify-content-between mx-1">
+          <button
+            v-if="stepIndex == 0"
+            type="button"
+            class="btn btn--secondary  float-left"
+            onclick="history.back();">Back</button>
+          <button
+            v-if="stepIndex > 0"
+            type="button"
+            class="btn btn--secondary  float-left"
+            @click="prevStep">Back</button>
+          <button
+            v-if="stepIndex < totalSteps - 2"
+            type="button"
+            class="btn  float-right"
+            @click="nextStep">Next</button>
+          <button
+            v-if="stepIndex === totalSteps - 2"
+            type="button"
+            class="btn float-right"
+            @click="nextStep">Next</button>
         </div>
         <!--  STEP ONE - CHOOSE GIFTS  -->
         <div class="step" v-show="stepIndex === 0">
@@ -129,7 +121,7 @@
                   <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;">Add</button>
                 </div>
                 <div v-show="gift.quantity > 0" :id="gift.id">
-                  <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Add</span><span v-if="!gift.cantFit">Add 1 More</span></button>
+                  <button class="btn p-2" name="Gifts" :id="gift.id" :value="gift.title" @click="removeGift($event); return false;">Remove</button>
                 </div>
               </div>
             </div>
@@ -216,7 +208,7 @@
                     @change="updateProps($event);"> -->
                     <textarea
                       data-limit-rows="true"
-                      maxlength="500"
+                      maxlength="700"
                       placeholder="Write your message..."
                       class="col-12 mb-2"
                       :class="{
@@ -234,7 +226,7 @@
                       }"
                       type="text-area"
                       id="message"
-                      rows="12"
+                      rows="15"
                       column="100"
                       wrap="hard"
                       name="Message"
@@ -518,44 +510,36 @@
           </div>
         </div>
         <!--  NAVIGATOR BOTTOM  -->
-        <div class="container mb-5">
-          <div class="row">
-            <div class="col">
-              <button
-                v-if="stepIndex == 0 && {{ cart.item_count }} <= 0"
-                type="button"
-                class="btn btn--secondary  float-left"
-                onclick="history.back();">Back</button>
-              <button
-                v-if="stepIndex > 0 && stepIndex < totalSteps - 1"
-                type="button"
-                class="btn btn--secondary  float-left"
-                @click="prevStep">Back</button>
-            </div>
-            <div v-if="stepIndex === totalSteps - 1" class="col-12 my-0 mx-auto">
-              <button
-              v-if="stepIndex === totalSteps - 1"
+        <div class="d-flex justify-content-between mx-1">
+          <button
+              v-if="stepIndex === 0 && {{ cart.item_count }} <= 0"
               type="button"
-              class="btn btn--secondary float-left"
+              class="btn btn--secondary"
+              onclick="history.back();">Back</button>
+          <button
+              v-if="stepIndex > 0 && stepIndex < totalSteps - 1"
+              type="button"
+              class="btn btn--secondary"
               @click="prevStep">Back</button>
-              <button
-                v-if="stepIndex === totalSteps - 1"
-                type="submit"
-                name="add"
-                class="btn btn-approved float-right"
-                :class="{btnDisable: addingToCart}"
-                @click="pushProduct(); return false;"><i class="atc-spinner" :class="[addingToCart ? ['fas','fa-circle-o-notch','fa-spin'] : '']"></i> Add to Cart</button>
-            </div>
-            <div class="col">
-              <button
-                v-if="stepIndex < totalSteps - 1 && {{ cart.item_count }} <= 0"
-                type="button"
-                class="btn  float-right"
-                @click="nextStep">Next</button>
-            </div>
-          </div>
+          <button
+          v-if="stepIndex === totalSteps - 1"
+          type="button"
+          class="btn btn--secondary"
+          @click="prevStep">Back</button>
+          <button
+              v-if="stepIndex === totalSteps - 1"
+              type="submit"
+              name="add"
+              class="btn btn-approved"
+              :class="{btnDisable: addingToCart}"
+              @click="pushProduct(); return false;"><i class="atc-spinner" :class="[addingToCart ? ['fas','fa-circle-o-notch','fa-spin'] : '']"></i> Add to Cart</button>
+          <button
+              v-if="stepIndex < totalSteps - 1 && {{ cart.item_count }} <= 0"
+              type="button"
+              class="btn"
+              @click="nextStep">Next</button>
         </div>
-      </div>
+        </div>
     </div>
 
     {%- comment -%}
@@ -584,7 +568,6 @@
       data-base-url="{{ shop.url }}{{ routes.root_url }}"          >
     </div>
   </div>
-  {{ product.vendor }}
 </div>
 
 
@@ -1206,7 +1189,7 @@
   #app {
     display: flex;
     flex-direction: column;
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -1218,6 +1201,7 @@
   label.spb-productdescfont.spb-productdesctextcolor.rightpanel {
     font-size: 0px;
   }
+
   .progressCont {
     margin: 0 auto;
     max-width: 1300px;
@@ -1227,11 +1211,10 @@
   .progressBar {
     counter-reset: step;
     list-style: none;
-    margin: 0 auto;
   }
   .progressBar li {
     float: left;
-    width: 33.3%;
+    width: 33%;
     position: relative;
     text-align: center;
   }
@@ -1273,15 +1256,17 @@
   .progressBar li.active + li:after {
     background: #303030;
   }*/
-  @media (max-width: 350px) {
+  @media (max-width: 375px) {
     .progressBar li span {
       display: none;
+    }
+    .progressCont{
+      padding-bottom: 20px;
     }
   }
   .step {
     width: 100%;
-    max-width: 1300px;
-    margin: 24px auto;
+    margin: 0px auto 24px;
   }
   .cardOptions{
     margin: 20px auto 10px;
@@ -1309,7 +1294,7 @@
     bottom: 0;
     right: 0;
     white-space: pre-line;
-    min-height: 400px;
+    min-height: 350px;
   }
   .designBundle {
     display: flex;
@@ -1354,11 +1339,17 @@
     padding: 6px 10px;
     text-align: center;
     text-decoration: none;
-    text-transform: none;
+    text-transform: normal;
     display: inline-block;
     font-size: 14px;
     letter-spacing: normal;
     width: 100%;
+  }
+
+  .radioFonts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   .radioFonts input[type="radio"] {
     opacity: 0;
@@ -1376,11 +1367,12 @@
     padding: 6px 10px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
     transition-duration: 0.4s;
     min-width: 120px;
-    width: 40%;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .radioFonts input[type="radio"]:checked + label {
     background-color: #bbb;
@@ -1442,17 +1434,9 @@
     font-family: 'Poppins' !important;
     font-size: 16px !important;
   }
-  .ArimaMadurai {
-    font-family: 'Arima Madurai' !important;
-    font-size: 18px !important;
-  }
   .Marcellus {
     font-family: 'Marcellus' !important;
     font-size: 17px !important;
-  }
-  .Rufina {
-    font-family: 'Rufina' !important;
-    font-size: 18px !important;
   }
   .Parisienne {
     font-family: 'Parisienne' !important;
@@ -1462,52 +1446,18 @@
     font-family: 'Homemade Apple' !important;
     font-size: 16px !important;
   }
-  .LobsterTwo {
-    font-family: 'Lobster Two' !important;
-    font-size: 18px !important;
-  }
-  .OriginalSurfer {
-    font-family: 'Original Surfer' !important;
-    font-size: 18px !important;
-  }
-  .Margarine {
-    font-family: 'Margarine' !important;
-    font-size: 17px !important;
-  }
-  .SansitaSwashed {
-    font-family: 'Sansita Swashed' !important;
-    font-size: 18px !important;
-  }
   @media (max-width: 600px){
     .Poppins {
       font-size: 12px !important;
     }
-    .ArimaMadurai {
-      font-size: 14px !important;
-    }
     .Marcellus {
       font-size: 13px !important;
-    }
-    .Rufina {
-      font-size: 14px !important;
     }
     .Parisienne {
       font-size: 17px !important;
     }
     .HomemadeApple {
       font-size: 12px !important;
-    }
-    .LobsterTwo {
-      font-size: 14px !important;
-    }
-    .OriginalSurfer {
-      font-size: 14px !important;
-    }
-    .Margarine {
-      font-size: 13px !important;
-    }
-    .SansitaSwashed {
-      font-size: 14px !important;
     }
   }
   .textLeft {
@@ -1547,14 +1497,14 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    height: 100%;
+    width: 270px;
     margin: 0 auto;
+  }
+  .helperimg {
+    width: 250px;
   }
   .helperimgInside {
     width: 100px;
-  }
-  .topAlign {
-    vertical-align: top;
   }
   .ptrn-panel-container{
     position: relative;
@@ -1588,44 +1538,32 @@
     align-items: center;
     margin: 10px;
     width: 90vw;
-    max-width: 500px;
-    aspect-ratio: 2/1;
+    height: 90vw;
+    max-width: 250px;
+    max-height: 250px;
     box-shadow: 0px 0px 10px 0px #c5c5c5;
     background-color: #ffffff;
-    overflow: hidden;
   }
   .polaroidR {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px 0px;
-    width: 100%;
-    max-width: 500px;
-    aspect-ratio: 2/1;
+    margin: 10px;
     box-shadow: 0px 0px 10px 0px #c5c5c5;
     background-color: #ffffff;
     }
   .imageUploadR {
     margin: auto;
     display: block;
-    width: 100%;
-    height: 100%;
     position: relative;
     overflow: hidden;
   }
   .iuMargin {
     padding: 10%;
   }
-  .reviewPanels{
-    width: 100%;
-    height: 100%;
-
-  }
   .patternUploadR {
     margin: auto;
     display: block;
-    width: 100%;
-    height: 100%;
     position: relative;
     overflow: hidden;
   }
@@ -1633,12 +1571,20 @@
     padding:20px;
   }
   .imageUpload {
-    width: 100%;
+    width: 80%;
+    height: 80%;
+    margin: auto;
     display: block;
     position: relative;
     overflow: hidden;
   }
   .imageUpload img {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
   }
   .patternUpload {
@@ -1662,6 +1608,7 @@
     margin-top:20px;
   }
   .panels-wrapper {
+    height: 420px;
     margin-bottom: 1.5rem;
   }
   ul.checkbox li {
@@ -1758,7 +1705,7 @@
   .btnDisable,
   .btnDisable:hover,
   .btnDisable:active {
-    opacity: 0.1;
+    background: #aaa !important;
     cursor: not-allowed;
   }
   .cartItems__wrapper{
@@ -1794,7 +1741,7 @@
   .cartItems__img{
     object-fit:cover;
     min-height: 100%;
-    min-width: 100%
+    min-width: 100%;
   }
   .cartItems__img-card{
     height: 100px;
@@ -1864,13 +1811,6 @@
     .cartItems__item-holder{
       justify-content:center;
     }
-    .cartItems__item{
-      width: 75px;
-      height: 75px;
-    }
-    .cartItems__img-card{
-      height: 100px;
-    }
     .cartPricing__wrapper{
       width: 100%;
     }
@@ -1884,17 +1824,15 @@
   .btn__container-upload{
     width: 100%; max-width: 250px;
   }
-  .text-or{
-    margin: 5px auto;
-    font-weight: 600;
-  }
+  
   .btn__panel{
     font-size: 12px;
-    width: 90vw;
-    max-width: 250px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
   }
+
   .c-pointer{
     cursor: pointer;
   }
