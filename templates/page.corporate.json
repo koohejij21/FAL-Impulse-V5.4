@@ -2,10 +2,179 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {}
+    },
+    "1646776185eb8a73df": {
+      "type": "slideshow",
+      "blocks": {
+        "1646776185962ca285-0": {
+          "type": "image",
+          "settings": {
+            "top_subheading": "",
+            "title": "A simple gesture.\nEndless loyalty.",
+            "title_size": 50,
+            "subheading": "",
+            "link": "",
+            "link_text": "Contact Us",
+            "link_2": "",
+            "link_text_2": "",
+            "color_accent": "rgba(0,0,0,0)",
+            "text_align": "vertical-center horizontal-center",
+            "image": "shopify:\/\/shop_images\/WelcomeToTheTeam.jpg",
+            "overlay_opacity": 30,
+            "focal_point": "center center"
+          }
+        }
+      },
+      "block_order": [
+        "1646776185962ca285-0"
+      ],
+      "settings": {
+        "section_height": "650px",
+        "mobile_height": "auto",
+        "parallax": false,
+        "style": "bars",
+        "autoplay": true,
+        "autoplay_speed": 5
+      }
+    },
+    "1646776456674abcf8": {
+      "type": "testimonials",
+      "blocks": {
+        "164677645637b6d4c4-0": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5-stars",
+            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
+            "author": "Author's name",
+            "author_info": "Los Angeles, CA"
+          }
+        },
+        "164677645637b6d4c4-1": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5-stars",
+            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
+            "author": "Author's name",
+            "author_info": "Los Angeles, CA"
+          }
+        },
+        "164677645637b6d4c4-2": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5-stars",
+            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
+            "author": "Author's name",
+            "author_info": "Los Angeles, CA"
+          }
+        },
+        "164677645637b6d4c4-3": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5-stars",
+            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
+            "author": "Author's name",
+            "author_info": "Los Angeles, CA"
+          }
+        },
+        "164677645637b6d4c4-4": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5-stars",
+            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
+            "author": "Author's name",
+            "author_info": "Los Angeles, CA"
+          }
+        }
+      },
+      "block_order": [
+        "164677645637b6d4c4-0",
+        "164677645637b6d4c4-1",
+        "164677645637b6d4c4-2",
+        "164677645637b6d4c4-3",
+        "164677645637b6d4c4-4"
+      ],
+      "settings": {
+        "title": "Testimonials",
+        "align_text": "center",
+        "round_images": true,
+        "color_background": "#f9f9f9",
+        "color_text": "#1c1d1d"
+      }
+    },
+    "164728567813cd61c2": {
+      "type": "text-columns",
+      "blocks": {
+        "16472856788379edf8-0": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image_width": 650,
+            "title": "Example title",
+            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "16472856788379edf8-1": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image_width": 650,
+            "title": "Example title",
+            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
+            "button_label": "Optional button",
+            "button_link": ""
+          }
+        },
+        "16472856788379edf8-2": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image_width": 650,
+            "title": "Example title",
+            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
+            "button_label": "Optional button",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "16472856788379edf8-0",
+        "16472856788379edf8-1",
+        "16472856788379edf8-2"
+      ],
+      "settings": {
+        "title": "",
+        "align_text": "center",
+        "divider": false
+      }
+    },
+    "1647285685d04a9061": {
+      "type": "contact-form",
+      "settings": {
+        "title": "Contact us",
+        "text": "",
+        "show_company": false,
+        "show_phone": false,
+        "show_count": false,
+        "count_min": "(Minimum 10)",
+        "show_date": false,
+        "show_design": false,
+        "show_gifts": false,
+        "show_cardmsg": false,
+        "show_message": true,
+        "show_details": false,
+        "narrow_column": false
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "1646776185eb8a73df",
+    "1646776456674abcf8",
+    "164728567813cd61c2",
+    "1647285685d04a9061"
   ]
 }
