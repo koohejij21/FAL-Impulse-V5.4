@@ -149,10 +149,10 @@
                       <h4><b>$${ selectedGift.price }</b></h4>
                       <div>
                         <div v-show="selectedGift.quantity <= 0" :id="selectedGift.id">
-                          <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add</span></button>
+                          <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Add</span><span v-if="!selectedGift.cantFit">Add</span></button>
                         </div>
                         <div v-show="selectedGift.quantity > 0" :id="selectedGift.id">
-                          <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add 1 More</span></button>
+                          <button class="btn p-2" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;">Remove</button>
                         </div>
                       </div>
                     </div>
