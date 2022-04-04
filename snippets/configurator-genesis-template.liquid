@@ -569,8 +569,6 @@
     </div>
   </div>
 </div>
-
-
 <script>
   //*******************************************************//
   //********************* JavaScript **********************//
@@ -615,7 +613,8 @@
   {% endfor %}
   var giftList = []
   //This grabs the collection for the specific corporate account
-  {% for giftProduct in collections["genesis-gifts"].products %}
+  {% assign vendorGifts = product.vendor | append: "-gifts" %}
+  {% for giftProduct in collections[vendorGifts].products %}
     {%- comment %}<locksmith:e2e9>{% endcomment -%}
       {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: giftProduct, subject_parent: collections.gifts-genesis, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
     {%- comment %}</locksmith:e2e9>{% endcomment -%}
