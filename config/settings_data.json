@@ -8,13 +8,13 @@
     "color_button": "#000000",
     "color_button_text": "#ffffff",
     "color_sale_tag": "#1c1d1d",
-    "color_cart_dot": "#ffe600",
+    "color_cart_dot": "#ff4e4e",
     "color_small_image_bg": "#e5e5e5",
     "color_large_image_bg": "#0f0f0f",
     "color_header": "#ffffff",
     "color_header_text": "#000000",
-    "color_announcement": "#ffce33",
-    "color_announcement_text": "#005fe4",
+    "color_announcement": "#fff2a6",
+    "color_announcement_text": "#002c44",
     "color_footer": "#ffffff",
     "color_footer_text": "#000000",
     "color_drawer_background": "#ffffff",
@@ -40,9 +40,10 @@
     "type_navigation_style": "body",
     "type_navigation_size": 14,
     "type_navigation_capitalize": false,
-    "type_product_style": "heading",
-    "type_collection_font": "body",
-    "type_collection_size": 24,
+    "type_product_style": "body",
+    "type_product_capitalize": false,
+    "type_collection_font": "heading",
+    "type_collection_size": 20,
     "button_style": "round-slight",
     "icon_weight": "3px",
     "icon_linecaps": "round",
@@ -101,20 +102,11 @@
               "link_text": "On all orders over $100",
               "link": ""
             }
-          },
-          "1524770296206": {
-            "type": "announcement",
-            "settings": {
-              "text": "Hassle-free returns",
-              "link_text": "30-day postage paid returns",
-              "link": ""
-            }
           }
         },
         "block_order": [
           "68aaf710-9f3c-4fe5-abdb-4a2cf6f3d551",
-          "1524770292306",
-          "1524770296206"
+          "1524770292306"
         ],
         "settings": {
           "main_menu_link_list": "main-menu",

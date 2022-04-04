@@ -2,10 +2,154 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {}
+    },
+    "1646773532ab5f5968": {
+      "type": "slideshow",
+      "blocks": {
+        "164677353203434d2d-0": {
+          "type": "image",
+          "settings": {
+            "top_subheading": "Step 1",
+            "title": "Choose a fancy box design",
+            "title_size": 70,
+            "subheading": "",
+            "link": "",
+            "link_text": "",
+            "link_2": "",
+            "link_text_2": "",
+            "color_accent": "rgba(0,0,0,0)",
+            "text_align": "vertical-bottom horizontal-left",
+            "image": "shopify:\/\/shop_images\/DSC_7768-Edit.jpg",
+            "overlay_opacity": 0,
+            "focal_point": "center center"
+          }
+        },
+        "6ec9b010-1970-4d87-8920-84e0bef087e1": {
+          "type": "image",
+          "settings": {
+            "top_subheading": "Step 2",
+            "title": "Personalize with a message and photos",
+            "title_size": 50,
+            "subheading": "",
+            "link": "",
+            "link_text": "",
+            "link_2": "",
+            "link_text_2": "",
+            "color_accent": "rgba(0,0,0,0)",
+            "text_align": "vertical-bottom horizontal-left",
+            "image": "shopify:\/\/shop_images\/DSC_7772-Edit.jpg",
+            "overlay_opacity": 0,
+            "focal_point": "center center"
+          }
+        },
+        "bb4c09bb-6840-4a5a-b1db-8cf2d6c76311": {
+          "type": "image",
+          "settings": {
+            "top_subheading": "Step 3",
+            "title": "Add some gifts",
+            "title_size": 80,
+            "subheading": "",
+            "link": "",
+            "link_text": "",
+            "link_2": "",
+            "link_text_2": "",
+            "color_accent": "rgba(0,0,0,0)",
+            "text_align": "vertical-bottom horizontal-left",
+            "image": "shopify:\/\/shop_images\/DSC_7783-Edit.jpg",
+            "overlay_opacity": 0,
+            "focal_point": "center center"
+          }
+        },
+        "164677353203434d2d-1": {
+          "type": "image",
+          "settings": {
+            "top_subheading": "Step 4",
+            "title": "Wrap it up!",
+            "title_size": 70,
+            "subheading": "",
+            "link": "",
+            "link_text": "",
+            "link_2": "",
+            "link_text_2": "",
+            "color_accent": "rgba(0,0,0,0)",
+            "text_align": "vertical-bottom horizontal-left",
+            "image": "shopify:\/\/shop_images\/DSC_7765-Edit.jpg",
+            "overlay_opacity": 0,
+            "focal_point": "center center"
+          }
+        }
+      },
+      "block_order": [
+        "164677353203434d2d-0",
+        "6ec9b010-1970-4d87-8920-84e0bef087e1",
+        "bb4c09bb-6840-4a5a-b1db-8cf2d6c76311",
+        "164677353203434d2d-1"
+      ],
+      "settings": {
+        "section_height": "750px",
+        "mobile_height": "500px",
+        "parallax": false,
+        "style": "minimal",
+        "autoplay": true,
+        "autoplay_speed": 5
+      }
+    },
+    "16467744370aff3d62": {
+      "type": "rich-text",
+      "blocks": {
+        "1646774437f1416e06-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Describe stuff with infographic here"
+          }
+        },
+        "1646774437f1416e06-1": {
+          "type": "text",
+          "settings": {
+            "enlarge_text": true,
+            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "1646774437f1416e06-0",
+        "1646774437f1416e06-1"
+      ],
+      "settings": {
+        "align_text": "center",
+        "narrow_column": true,
+        "divider": false,
+        "bg_color": "rgba(0,0,0,0)"
+      }
+    },
+    "16467744012fc09546": {
+      "type": "featured-video",
+      "settings": {
+        "title": "",
+        "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+        "divider": false
+      }
+    },
+    "1646774631307790ba": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Browse Designs",
+        "home_featured_products": "cards",
+        "per_row": 4,
+        "rows": 1,
+        "mobile_scrollable": false,
+        "view_all": true,
+        "divider": false
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "1646773532ab5f5968",
+    "16467744370aff3d62",
+    "16467744012fc09546",
+    "1646774631307790ba"
   ]
 }

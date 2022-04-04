@@ -14,8 +14,10 @@
             "link_text": "Shop this",
             "link_2": "",
             "link_text_2": "",
-            "color_accent": "#000000",
-            "text_align": "vertical-center horizontal-center",
+            "color_accent": "#002c44",
+            "text_align": "vertical-center horizontal-left",
+            "image": "shopify:\/\/shop_images\/DSC_6898-Edit-3.jpg",
+            "image_mobile": "shopify:\/\/shop_images\/DSC_6909-Edit.jpg",
             "overlay_opacity": 0,
             "focal_point": "top center"
           }
@@ -25,272 +27,242 @@
         "slideshow-0"
       ],
       "settings": {
-        "section_height": "750px",
+        "section_height": "100vh",
         "mobile_height": "auto",
-        "parallax": true,
+        "parallax": false,
         "style": "bars",
         "autoplay": true,
         "autoplay_speed": 7
       }
     },
-    "rich-text": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "title": "Rich text"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "enlarge_text": true,
-            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text"
-      ],
+    "1646771865867c03ae": {
+      "type": "image-tile",
       "settings": {
+        "image": "shopify:\/\/shop_images\/DSC_6609.jpg",
+        "section_height": "600px",
+        "flush_vertical": false,
+        "flush_horizontal": false,
+        "background_color": "rgba(0,0,0,0)",
+        "subtitle": "",
+        "title": "Say Thanks",
+        "heading_color": "#000000",
+        "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.<\/p>",
+        "button_label": "Shop Thank You",
+        "button_color": "#000000",
+        "button_link": "shopify:\/\/collections\/thank-you",
+        "button_style": "primary",
         "align_text": "center",
-        "narrow_column": true,
+        "layout": "right",
         "divider": false
       }
     },
-    "promo-grid": {
-      "type": "promo-grid",
-      "blocks": {
-        "promo-0": {
-          "type": "advanced",
-          "settings": {
-            "subheading": "Limited time",
-            "heading": "Announce your promotion",
-            "textarea": "Include the smaller details of your promotion in text below the title.",
-            "cta_text1": "Shop This",
-            "cta_link1": "shopify:\/\/collections\/all",
-            "cta_text2": "Shop All",
-            "cta_link2": "",
-            "video_url": "",
-            "width": "50",
-            "height": 800,
-            "text_size": 100,
-            "text_align": "vertical-center horizontal-center",
-            "focal_point": "center",
-            "color_accent": "rgba(0,0,0,0)",
-            "boxed": false,
-            "framed": true
-          }
-        },
-        "promo-1": {
-          "type": "advanced",
-          "settings": {
-            "subheading": "Limited time",
-            "heading": "Announce your promotion",
-            "textarea": "Include the smaller details of your promotion in text below the title.",
-            "cta_text1": "Shop This",
-            "cta_link1": "shopify:\/\/collections\/all",
-            "cta_text2": "Shop All",
-            "cta_link2": "",
-            "video_url": "",
-            "width": "50",
-            "height": 500,
-            "text_size": 100,
-            "text_align": "vertical-bottom horizontal-center",
-            "focal_point": "80% 50%",
-            "color_accent": "rgba(0,0,0,0)",
-            "boxed": true,
-            "framed": false
-          }
-        }
-      },
-      "block_order": [
-        "promo-0",
-        "promo-1"
-      ],
-      "settings": {
-        "full_width": true,
-        "gutter_size": 20,
-        "space_above": false,
-        "space_below": false
-      }
-    },
-    "featured-collections": {
+    "1646772150c74e4d34": {
       "type": "featured-collections",
       "blocks": {
-        "featured-collections-0": {
+        "1646772150026952e3-0": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "birthday",
             "title": "",
             "focal_point": "center center"
           }
         },
-        "featured-collections-1": {
+        "1646772150026952e3-1": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "congratulations",
             "title": "",
             "focal_point": "center center"
           }
         },
-        "featured-collections-2": {
+        "1646772150026952e3-2": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "just-because",
             "title": "",
             "focal_point": "center center"
           }
         },
-        "featured-collections-3": {
+        "1646772150026952e3-3": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "sympathy",
             "title": "",
             "focal_point": "center center"
           }
         }
       },
       "block_order": [
-        "featured-collections-0",
-        "featured-collections-1",
-        "featured-collections-2",
-        "featured-collections-3"
+        "1646772150026952e3-0",
+        "1646772150026952e3-1",
+        "1646772150026952e3-2",
+        "1646772150026952e3-3"
       ],
       "settings": {
-        "title": "Shop by category",
+        "title": "What occasion do you need?",
         "divider": false,
         "per_row": 4,
         "enable_gutter": true
       }
     },
-    "promo-grid2": {
-      "type": "promo-grid",
+    "164677190208c08c20": {
+      "type": "image-tile",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/DSC_6822.jpg",
+        "section_height": "500px",
+        "flush_vertical": false,
+        "flush_horizontal": false,
+        "background_color": "rgba(0,0,0,0)",
+        "subtitle": "",
+        "title": "Image with text",
+        "heading_color": "#010101",
+        "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.<\/p>",
+        "button_label": "Shop Now",
+        "button_color": "#010101",
+        "button_link": "",
+        "button_style": "primary",
+        "align_text": "left",
+        "layout": "left",
+        "divider": false
+      }
+    },
+    "164677132817ab580b": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Our Tasty Treats",
+        "home_featured_products": "food-gifts",
+        "per_row": 4,
+        "rows": 1,
+        "mobile_scrollable": false,
+        "view_all": false,
+        "divider": false
+      }
+    },
+    "1646771797261b043b": {
+      "type": "rich-text",
       "blocks": {
-        "promo2-0": {
-          "type": "advanced",
+        "16467717972bf64ec6-0": {
+          "type": "heading",
           "settings": {
-            "subheading": "Limited time",
-            "heading": "Announce your promotion",
-            "textarea": "Include the smaller details of your promotion in text below the title.",
-            "cta_text1": "Shop This",
-            "cta_link1": "shopify:\/\/collections\/all",
-            "cta_text2": "Shop All",
-            "cta_link2": "",
-            "video_url": "",
-            "width": "100",
-            "height": 720,
-            "text_size": 120,
-            "text_align": "vertical-center horizontal-center",
-            "focal_point": "80% 50%",
-            "color_accent": "rgba(0,0,0,0)",
-            "boxed": false,
-            "framed": false
+            "title": "Quote"
           }
         },
-        "promo2-1": {
-          "type": "sale_collection",
+        "16467717972bf64ec6-1": {
+          "type": "text",
           "settings": {
-            "sale_collection": "cards",
-            "top_text": "Up to",
-            "middle_text": "50% off",
-            "bottom_text": "Select products",
-            "width": "100",
-            "color_tint": "#000000",
-            "color_tint_opacity": 0,
-            "boxed": false,
-            "framed": false
-          }
-        },
-        "promo2-2": {
-          "type": "sale_collection",
-          "settings": {
-            "sale_collection": "",
-            "top_text": "Up to",
-            "middle_text": "50% off",
-            "bottom_text": "Select products",
-            "width": "50",
-            "color_tint": "#000000",
-            "color_tint_opacity": 0,
-            "boxed": false,
-            "framed": true
+            "enlarge_text": true,
+            "text": "<p>\"You miss 100% of the shots you don't take. - Wayne Gretzky\" - Michael Scott<\/p>"
           }
         }
       },
       "block_order": [
-        "promo2-0",
-        "promo2-1",
-        "promo2-2"
+        "16467717972bf64ec6-0",
+        "16467717972bf64ec6-1"
       ],
       "settings": {
-        "full_width": false,
-        "gutter_size": 20,
-        "space_above": false,
-        "space_below": false
+        "align_text": "center",
+        "narrow_column": true,
+        "divider": false,
+        "bg_color": "rgba(0,0,0,0)"
       }
     },
-    "featured-collection": {
-      "type": "featured-collection",
+    "1646770580b0bbc2be": {
+      "type": "featured-video",
       "settings": {
-        "title": "Featured collection",
-        "home_featured_products": "",
-        "per_row": 4,
-        "rows": 1,
-        "mobile_scrollable": true,
-        "view_all": true,
+        "title": "How it Works",
+        "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
         "divider": false
       }
     },
-    "background-image-text": {
-      "type": "background-image-text",
+    "1646771323958279ad": {
+      "type": "testimonials",
+      "blocks": {
+        "164677132368ec3a7f-0": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5-stars",
+            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
+            "author": "Author's name",
+            "author_info": "Los Angeles, CA"
+          }
+        },
+        "164677132368ec3a7f-1": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5-stars",
+            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
+            "author": "Author's name",
+            "author_info": "Los Angeles, CA"
+          }
+        },
+        "164677132368ec3a7f-2": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5-stars",
+            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
+            "author": "Author's name",
+            "author_info": "Los Angeles, CA"
+          }
+        },
+        "164677132368ec3a7f-3": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5-stars",
+            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
+            "author": "Author's name",
+            "author_info": "Los Angeles, CA"
+          }
+        },
+        "164677132368ec3a7f-4": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5-stars",
+            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
+            "author": "Author's name",
+            "author_info": "Los Angeles, CA"
+          }
+        }
+      },
+      "block_order": [
+        "164677132368ec3a7f-0",
+        "164677132368ec3a7f-1",
+        "164677132368ec3a7f-2",
+        "164677132368ec3a7f-3",
+        "164677132368ec3a7f-4"
+      ],
       "settings": {
-        "subtitle": "Impressive",
-        "title": "Large image with text box",
-        "text": "<p>Pair large text with a full-width image to draw attention to an important detail of your brand or product line.<\/p>",
-        "button_label": "",
-        "button_link": "shopify:\/\/collections\/all",
-        "focal_point": "80% 0",
-        "layout": "left",
-        "height": 750,
-        "framed": false,
-        "parallax": false
+        "title": "What Everyone's Saying",
+        "align_text": "center",
+        "round_images": true,
+        "color_background": "rgba(0,0,0,0)",
+        "color_text": "#002c44"
       }
     },
-    "blog-posts": {
-      "type": "blog-posts",
+    "16467717953a333c22": {
+      "type": "apps",
+      "blocks": {
+        "c1c7253b-c0ab-41e7-83dd-7c175252a1ce": {
+          "type": "shopify:\/\/apps\/instafeed\/blocks\/app-block\/c447db20-095d-4a10-9725-b5977662c9d5",
+          "settings": {
+            "heading_font": "helvetica_n4",
+            "heading_size": 10,
+            "feed_width": 100,
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "c1c7253b-c0ab-41e7-83dd-7c175252a1ce"
+      ],
       "settings": {
-        "title": "From the journal",
-        "blog": "news",
-        "post_limit": 3,
-        "blog_show_tags": false,
-        "blog_show_date": true,
-        "blog_show_comments": false,
-        "blog_show_author": false,
-        "view_all": true,
-        "blog_image_size": "wide",
-        "divider": false
+        "full_width": true,
+        "space_around": false
       }
     },
-    "map": {
-      "type": "map",
+    "16468539165100ea2a": {
+      "type": "text-and-image",
       "settings": {
-        "map_title": "Our retail store",
-        "address": "<p>301 Front St W<br\/>Toronto, Canada<\/p><p>Mon - Fri, 8:30am - 10:30pm<br\/>Saturday, 8:30am - 10:30pm<br\/>Sunday, 8:30am - 10:30pm<\/p>",
-        "map_address": "301 Front St W, Toronto, ON M5V 2T6",
-        "api_key": "",
-        "show_button": true,
-        "background_image_position": "center center"
-      }
-    },
-    "1646347607a6f4a477": {
-      "type": "image-tile",
-      "settings": {
-        "section_height": "natural",
-        "flush_vertical": false,
-        "flush_horizontal": false,
-        "background_color": "rgba(0,0,0,0)",
+        "image_width": 700,
         "subtitle": "",
         "title": "Image with text",
         "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.<\/p>",
@@ -301,18 +273,76 @@
         "layout": "right",
         "divider": false
       }
+    },
+    "1646853932ba0a9820": {
+      "type": "promo-grid",
+      "blocks": {
+        "1646853932904cc092-0": {
+          "type": "advanced",
+          "settings": {
+            "subheading": "Limited time",
+            "heading": "Announce your promotion",
+            "textarea": "Include the smaller details of your promotion in text below the title.",
+            "cta_text1": "Shop This",
+            "cta_link1": "",
+            "cta_text2": "Shop All",
+            "cta_link2": "",
+            "video_url": "",
+            "width": "50",
+            "height": 500,
+            "text_size": 100,
+            "text_align": "vertical-center horizontal-center",
+            "focal_point": "center",
+            "color_accent": "rgba(0,0,0,0)",
+            "boxed": false,
+            "framed": false
+          }
+        },
+        "1646853932904cc092-1": {
+          "type": "advanced",
+          "settings": {
+            "subheading": "Limited time",
+            "heading": "Announce your promotion",
+            "textarea": "Include the smaller details of your promotion in text below the title.",
+            "cta_text1": "Shop This",
+            "cta_link1": "",
+            "cta_text2": "Shop All",
+            "cta_link2": "",
+            "video_url": "",
+            "width": "50",
+            "height": 500,
+            "text_size": 100,
+            "text_align": "vertical-center horizontal-center",
+            "focal_point": "center",
+            "color_accent": "rgba(0,0,0,0)",
+            "boxed": false,
+            "framed": false
+          }
+        }
+      },
+      "block_order": [
+        "1646853932904cc092-0",
+        "1646853932904cc092-1"
+      ],
+      "settings": {
+        "full_width": false,
+        "gutter_size": 20,
+        "space_above": true,
+        "space_below": true
+      }
     }
   },
   "order": [
     "slideshow",
-    "rich-text",
-    "promo-grid",
-    "featured-collections",
-    "promo-grid2",
-    "featured-collection",
-    "background-image-text",
-    "blog-posts",
-    "map",
-    "1646347607a6f4a477"
+    "1646771865867c03ae",
+    "1646772150c74e4d34",
+    "164677190208c08c20",
+    "164677132817ab580b",
+    "1646771797261b043b",
+    "1646770580b0bbc2be",
+    "1646771323958279ad",
+    "16467717953a333c22",
+    "16468539165100ea2a",
+    "1646853932ba0a9820"
   ]
 }

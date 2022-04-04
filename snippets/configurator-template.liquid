@@ -163,10 +163,10 @@
                             </select>
                             <div class="grid-product__price mb-2">$${ gift.price }</div>
                             <div v-show="gift.quantity <= 0" :id="gift.id">
-                                <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add</span></button>
+                                <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Add</span><span v-if="!gift.cantFit">Add</span></button>
                             </div>
                             <div v-show="gift.quantity > 0" :id="gift.id">
-                                <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add 1 More</span></button>
+                                <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Add</span><span v-if="!gift.cantFit">Add 1 More</span></button>
                             </div>
                             </div>
                         </div>
