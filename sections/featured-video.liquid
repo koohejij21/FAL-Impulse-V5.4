@@ -1,22 +1,23 @@
 {%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
-
-<div class="page-width">
-  {%- if section.settings.title != blank -%}
-    <div class="section-header">
-      <h2>{{ section.settings.title }}</h2>
+<div class="index-section" style="background-color: {{ section.settings.bg_color }}">
+    <div class="page-width">
+      {%- if section.settings.title != blank -%}
+      <div class="section-header">
+        <h2>{{ section.settings.title }}</h2>
+      </div>
+      {%- endif -%}
+      <div class="video-wrapper">
+      {%- if section.settings.video_url == blank -%}
+      <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+      {%- else -%}
+        {%- if section.settings.video_url.type == "youtube" -%}
+        <iframe src="//www.youtube.com/embed/{{ section.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+        {%- endif -%}
+        {%- if section.settings.video_url.type == "vimeo" -%}
+        <iframe src="//player.vimeo.com/video/{{ section.settings.video_url.id }}?color={{ settings.color_button | remove: "#" }}&byline=0&portrait=0&badge=0" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+        {%- endif -%}
+      {%- endif -%}
     </div>
-  {%- endif -%}
-  <div class="video-wrapper">
-  {%- if section.settings.video_url == blank -%}
-    <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
-  {%- else -%}
-    {%- if section.settings.video_url.type == "youtube" -%}
-      <iframe src="//www.youtube.com/embed/{{ section.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
-    {%- endif -%}
-    {%- if section.settings.video_url.type == "vimeo" -%}
-      <iframe src="//player.vimeo.com/video/{{ section.settings.video_url.id }}?color={{ settings.color_button | remove: "#" }}&byline=0&portrait=0&badge=0" width="850" height="480" frameborder="0" allowfullscreen></iframe>
-    {%- endif -%}
-  {%- endif -%}
   </div>
 </div>
 
@@ -25,7 +26,6 @@
 {% schema %}
   {
     "name": "Video",
-    "class": "index-section",
     "settings": [
       {
         "type": "text",
@@ -44,6 +44,12 @@
         "id": "divider",
         "label": "Show section divider",
         "default": false
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background",
+        "default": "rgba(0,0,0,0)"
       }
     ],
     "presets": [
