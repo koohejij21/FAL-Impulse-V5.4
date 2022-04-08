@@ -7,9 +7,9 @@
           "type": "image",
           "settings": {
             "top_subheading": "",
-            "title": "Two line\ntitle slide.",
+            "title": "Make Mom smile\nthis Mothers Day.",
             "title_size": 60,
-            "subheading": "And optional subtext",
+            "subheading": "Surprise mom with a gift that is as unique as she is.",
             "link": "shopify:\/\/collections\/all",
             "link_text": "Shop Mother's Day",
             "link_2": "",
@@ -36,56 +36,6 @@
         "autoplay_speed": 7
       }
     },
-    "1649105672fd3bb723": {
-      "type": "benefits-bar",
-      "disabled": true,
-      "blocks": {
-        "16491056721e4afa5f-0": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image_width": 650,
-            "title": "Example title",
-            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
-            "button_label": "Optional button",
-            "button_link": ""
-          }
-        },
-        "16491056721e4afa5f-1": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image_width": 650,
-            "title": "Example title",
-            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
-            "button_label": "Optional button",
-            "button_link": ""
-          }
-        },
-        "16491056721e4afa5f-2": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image_width": 650,
-            "title": "Example title",
-            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
-            "button_label": "Optional button",
-            "button_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "16491056721e4afa5f-0",
-        "16491056721e4afa5f-1",
-        "16491056721e4afa5f-2"
-      ],
-      "settings": {
-        "title": "",
-        "align_text": "center",
-        "divider": false,
-        "header_size": 1.4
-      }
-    },
     "164875760866cc14f2": {
       "type": "text-columns",
       "blocks": {
@@ -96,7 +46,7 @@
             "image": "shopify:\/\/shop_images\/Wine_Not_in_box.jpg",
             "image_width": 650,
             "title": "Wine Not",
-            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
+            "text": "<p>We love this bundle for all the mom's that love wine. It includes 4 super fun high quality gold coasters, a  cool \"wine tasting guide\" tea towel (almost too pretty to use) and 2 amazing Swedish wine themed dish cloths that are eco-friendly, bacteria resistant and never stink in the sink.<\/p>",
             "button_label": "View More",
             "button_link": ""
           }
@@ -108,7 +58,7 @@
             "image": "shopify:\/\/shop_images\/Sweetest_Mom_in_Box.jpg",
             "image_width": 650,
             "title": "Sweetest Mom",
-            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
+            "text": "<p>We've bundled 3 of our favourite sweets to make this decadent gift trio.  Mom will love indulging on our Sea Salt and Maple popcorn which has just the right amount sweetness, our super creamy triple caramel bar handcrafted by an award winning chocolatier in Prince Edward Country and our squish sparkling bears that are an all time celebration favourite.<\/p>",
             "button_label": "View More",
             "button_link": ""
           }
@@ -120,7 +70,7 @@
             "image": "shopify:\/\/shop_images\/Moms_Time_Out_in_box.jpg",
             "image_width": 650,
             "title": "Mom's Time Out",
-            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
+            "text": "<p>This gorgeous oversized mug will give mom the time she needs to enjoy a hot beverage, while drifting away into a new book and snacking on our top selling Belgian Chocolate Fraktals.<\/p>",
             "button_label": "View More",
             "button_link": ""
           }
@@ -157,10 +107,10 @@
           "settings": {
             "subheading": "",
             "heading": "Graduation",
-            "textarea": "Include the smaller details of your promotion in text below the title.",
-            "cta_text1": "Shop This",
+            "textarea": "Our Graduation boxes are a thoughtful and creative way to congratulate all the 2022 Grads in your life.",
+            "cta_text1": "Shop Congratulations",
             "cta_link1": "",
-            "cta_text2": "Shop All",
+            "cta_text2": "",
             "cta_link2": "",
             "video_url": "",
             "width": "50",
@@ -168,7 +118,7 @@
             "text_size": 100,
             "text_align": "vertical-center horizontal-center",
             "focal_point": "center",
-            "color_accent": "rgba(0,0,0,0)",
+            "color_accent": "#002c44",
             "boxed": false,
             "framed": false
           }
@@ -178,7 +128,7 @@
           "settings": {
             "subheading": "",
             "heading": "Father's Day",
-            "textarea": "Include the smaller details of your promotion in text below the title.",
+            "textarea": "The perfect Father's Day boxes and gift bundles  coming soon...",
             "cta_text1": "",
             "cta_link1": "",
             "cta_text2": "",
@@ -356,61 +306,41 @@
           "type": "testimonial",
           "settings": {
             "icon": "5-stars",
-            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
-            "author": "Author's name",
-            "author_info": "Los Angeles, CA"
+            "testimonial": "<p>I've given four or five of these fabulous little boxes and each has brought joy to the recipient. Also really appreciate how this company goes the extra mile to ensure the pretty packages arrive on time--excellent customer service!<\/p>",
+            "author": "Jackie K.",
+            "author_info": ""
           }
         },
         "164677132368ec3a7f-1": {
           "type": "testimonial",
           "settings": {
             "icon": "5-stars",
-            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
-            "author": "Author's name",
-            "author_info": "Los Angeles, CA"
+            "testimonial": "<p>Love, love, love these gift boxes. The personalization makes it an extra special gift and gives it that special touch. Perfect way to send a little love or tell someone you are thinking about them. Much better than flowers!!<\/p>",
+            "author": "Karen O.",
+            "author_info": ""
           }
         },
         "164677132368ec3a7f-2": {
           "type": "testimonial",
           "settings": {
             "icon": "5-stars",
-            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
-            "author": "Author's name",
-            "author_info": "Los Angeles, CA"
-          }
-        },
-        "164677132368ec3a7f-3": {
-          "type": "testimonial",
-          "settings": {
-            "icon": "5-stars",
-            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
-            "author": "Author's name",
-            "author_info": "Los Angeles, CA"
-          }
-        },
-        "164677132368ec3a7f-4": {
-          "type": "testimonial",
-          "settings": {
-            "icon": "5-stars",
-            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
-            "author": "Author's name",
-            "author_info": "Los Angeles, CA"
+            "testimonial": "<p>I LOVED making a box for mother’s day! I designed it for my mother-in-law and she thought it was the most unique gift to ever arrive at her front door! She was so surprised and still has the photos on her fridge months later.<br\/><br\/>This is a great gift idea for any occasion and can be customized to match any person - highly recommend it as a surprise gift!<\/p>",
+            "author": "Brittany S.",
+            "author_info": ""
           }
         }
       },
       "block_order": [
         "164677132368ec3a7f-0",
         "164677132368ec3a7f-1",
-        "164677132368ec3a7f-2",
-        "164677132368ec3a7f-3",
-        "164677132368ec3a7f-4"
+        "164677132368ec3a7f-2"
       ],
       "settings": {
         "title": "What Everyone's Saying",
         "align_text": "center",
         "round_images": true,
         "color_background": "#fdc0e5",
-        "color_text": "#303030"
+        "color_text": "#002c44"
       }
     },
     "16467717953a333c22": {
@@ -433,33 +363,10 @@
         "full_width": true,
         "space_around": false
       }
-    },
-    "1646771797261b043b": {
-      "type": "rich-text",
-      "disabled": true,
-      "blocks": {
-        "16467717972bf64ec6-1": {
-          "type": "text",
-          "settings": {
-            "enlarge_text": true,
-            "text": "<p>Some gifts are big. Some gifts are small. But the ones that come from 5am Lemon are the best gifts of all.<\/p><p>- Audrey, <em>Founder<\/em><\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "16467717972bf64ec6-1"
-      ],
-      "settings": {
-        "align_text": "center",
-        "narrow_column": true,
-        "divider": false,
-        "bg_color": "#f2f2f2"
-      }
     }
   },
   "order": [
     "slideshow",
-    "1649105672fd3bb723",
     "164875760866cc14f2",
     "1647457301a337f511",
     "1648757087d731c9ea",
@@ -468,7 +375,6 @@
     "1648757522195f6758",
     "164884227180084092",
     "1646771323958279ad",
-    "16467717953a333c22",
-    "1646771797261b043b"
+    "16467717953a333c22"
   ]
 }

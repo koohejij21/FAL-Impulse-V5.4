@@ -2,11 +2,11 @@
   "sections": {
     "main": {
       "type": "main-page",
-      "disabled": true,
       "settings": {}
     },
     "1646773532ab5f5968": {
       "type": "slideshow",
+      "disabled": true,
       "blocks": {
         "164677353203434d2d-0": {
           "type": "image",
@@ -20,7 +20,7 @@
             "link_2": "",
             "link_text_2": "",
             "color_accent": "rgba(0,0,0,0)",
-            "text_align": "vertical-bottom horizontal-left",
+            "text_align_desktop": "vertical-center-desktop horizontal-center-desktop",
             "text_align_mobile": "vertical-center horizontal-center",
             "image": "shopify:\/\/shop_images\/DSC_7768-Edit.jpg",
             "overlay_opacity": 0,
@@ -39,7 +39,7 @@
             "link_2": "",
             "link_text_2": "",
             "color_accent": "rgba(0,0,0,0)",
-            "text_align": "vertical-bottom horizontal-left",
+            "text_align_desktop": "vertical-center-desktop horizontal-center-desktop",
             "text_align_mobile": "vertical-center horizontal-center",
             "image": "shopify:\/\/shop_images\/DSC_7783-Edit.jpg",
             "overlay_opacity": 0,
@@ -58,7 +58,7 @@
             "link_2": "",
             "link_text_2": "",
             "color_accent": "rgba(0,0,0,0)",
-            "text_align": "vertical-bottom horizontal-left",
+            "text_align_desktop": "vertical-center-desktop horizontal-center-desktop",
             "text_align_mobile": "vertical-center horizontal-center",
             "image": "shopify:\/\/shop_images\/DSC_7772-Edit.jpg",
             "overlay_opacity": 0,
@@ -77,7 +77,7 @@
             "link_2": "",
             "link_text_2": "",
             "color_accent": "rgba(0,0,0,0)",
-            "text_align": "vertical-bottom horizontal-left",
+            "text_align_desktop": "vertical-center-desktop horizontal-center-desktop",
             "text_align_mobile": "vertical-center horizontal-center",
             "image": "shopify:\/\/shop_images\/DSC_7765-Edit.jpg",
             "overlay_opacity": 0,
@@ -102,6 +102,7 @@
     },
     "1649351648ce6496bd": {
       "type": "text-and-image",
+      "disabled": true,
       "settings": {
         "image": "shopify:\/\/shop_images\/How_it_Works_Box_with_Panels.jpg",
         "image2": "shopify:\/\/shop_images\/How_it_Works_Box.jpg",
@@ -119,6 +120,7 @@
     },
     "1647461831b0060c50": {
       "type": "text-and-image",
+      "disabled": true,
       "settings": {
         "image": "shopify:\/\/shop_images\/How_it_Works_Gifts.jpg",
         "image2": "shopify:\/\/shop_images\/How_it_Works_Gifts_2.jpg",
@@ -136,6 +138,7 @@
     },
     "1647461862f58acd6f": {
       "type": "text-and-image",
+      "disabled": true,
       "settings": {
         "image": "shopify:\/\/shop_images\/How_it_Works_Message.jpg",
         "image2": "shopify:\/\/shop_images\/How_it_Works_Message_2.jpg",
@@ -153,6 +156,7 @@
     },
     "16474618676c829ff6": {
       "type": "text-and-image",
+      "disabled": true,
       "settings": {
         "image": "shopify:\/\/shop_images\/Side_Panels_white.jpg",
         "image2": "shopify:\/\/shop_images\/Side_Panels_2_white.jpg",
@@ -170,6 +174,7 @@
     },
     "1647461872a7cd7231": {
       "type": "text-and-image",
+      "disabled": true,
       "settings": {
         "image": "shopify:\/\/shop_images\/How_it_Works_Hidden_Message.jpg",
         "image2": "shopify:\/\/shop_images\/How_it_Works_Hidden_Message_2.jpg",
@@ -187,6 +192,7 @@
     },
     "16474619878be754dc": {
       "type": "text-and-image",
+      "disabled": true,
       "settings": {
         "image": "shopify:\/\/shop_images\/How_it_Works_Wrapped_Box.jpg",
         "image2": "shopify:\/\/shop_images\/How_it_Works_Wrapped_Box_3.jpg",
@@ -200,6 +206,171 @@
         "align_text": "left",
         "layout": "left",
         "divider": false
+      }
+    },
+    "1649447571afd3d87c": {
+      "type": "rich-text",
+      "disabled": true,
+      "settings": {
+        "align_text": "center",
+        "narrow_column": true,
+        "divider": false,
+        "bg_color": "rgba(0,0,0,0)"
+      }
+    },
+    "1649447540b7d7eaef": {
+      "type": "advanced-content",
+      "blocks": {
+        "1649447540abba0954-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/DSC_7768-Edit.jpg",
+            "link": "",
+            "width": "25%",
+            "alignment": "center"
+          }
+        },
+        "1649447540abba0954-1": {
+          "type": "liquid",
+          "settings": {
+            "code": "<h2 class=\"h3\"><b>STEP 1:<\/b> Choose your card<\/h2>\n<p>The box pattern is designed to go with the card. The inside of the card is blank and this is for you to completely personalize with your message. We have perforated the card so it can be easily be removed from the box and becomes a stand alone 4 x 6 card.<\/p><\/br>",
+            "width": "50%",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "1649447540abba0954-0",
+        "1649447540abba0954-1"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": false,
+        "horizontal_center": true
+      }
+    },
+    "1649447511670472ad": {
+      "type": "advanced-content",
+      "blocks": {
+        "1649447511916fdcdf-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/DSC_7783-Edit.jpg",
+            "link": "",
+            "width": "25%",
+            "alignment": "center"
+          }
+        },
+        "1649447511916fdcdf-1": {
+          "type": "liquid",
+          "settings": {
+            "code": "<h2 class=\"h3\"><b>STEP 2:<\/b> Choose your gifts<\/h2>\n<p>Choose gifts to include in your box! We have curated gift gets that work well together and fit nicely (you can also ship your box with no gifts).<\/p><\/br>",
+            "width": "50%",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "1649447511916fdcdf-0",
+        "1649447511916fdcdf-1"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": false,
+        "horizontal_center": true
+      }
+    },
+    "16494472269f07b67b": {
+      "type": "advanced-content",
+      "blocks": {
+        "1649447226ac345769-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/DSC_7771-Edit.jpg",
+            "link": "",
+            "width": "25%",
+            "alignment": "center"
+          }
+        },
+        "1649447226ac345769-1": {
+          "type": "liquid",
+          "settings": {
+            "code": "<h2 class=\"h3\"><b>STEP 3:<\/b> Write your card message<\/h2>\n<p>Now you have chosen your card, you can write your message and choose your font. Stuck for words? We offer pre-scripted ideas for inspiration.<\/p><\/br>",
+            "width": "50%",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "1649447226ac345769-0",
+        "1649447226ac345769-1"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": false,
+        "horizontal_center": true
+      }
+    },
+    "164944759198178462": {
+      "type": "advanced-content",
+      "blocks": {
+        "1649447591703fe20c-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/DSC_7772-Edit.jpg",
+            "link": "",
+            "width": "25%",
+            "alignment": "center"
+          }
+        },
+        "1649447591703fe20c-1": {
+          "type": "liquid",
+          "settings": {
+            "code": "<h2 class=\"h3\"><b>STEP 1:<\/b> Customize Side Panels<\/h2>\n<p>We have created these fun side panels which are removable (they are perforated). You can upload photos from your computer, chose a 5am Lemon designed panel or simply keep your box pattern. We include magnets so your recipient can display their panels.<\/p><\/br>",
+            "width": "50%",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "1649447591703fe20c-0",
+        "1649447591703fe20c-1"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": false,
+        "horizontal_center": true
+      }
+    },
+    "164944764581f55bc6": {
+      "type": "advanced-content",
+      "blocks": {
+        "1649447645e4acf0cd-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/DSC_7765-Edit.jpg",
+            "link": "",
+            "width": "25%",
+            "alignment": "center"
+          }
+        },
+        "1649447645e4acf0cd-1": {
+          "type": "liquid",
+          "settings": {
+            "code": "<h2 class=\"h3\"><b>STEP 1:<\/b> Put a bow on it!<\/h2>\n<p>Check out and wait for the text or call thanking you for your thoughtfulness. We put a matching bow on your box and ship your box safely in a recycled corrugate shipping box.<\/p><\/br>",
+            "width": "50%",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "1649447645e4acf0cd-0",
+        "1649447645e4acf0cd-1"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": false,
+        "horizontal_center": true
       }
     },
     "16467744012fc09546": {
@@ -242,6 +413,12 @@
     "16474618676c829ff6",
     "1647461872a7cd7231",
     "16474619878be754dc",
+    "1649447571afd3d87c",
+    "1649447540b7d7eaef",
+    "1649447511670472ad",
+    "16494472269f07b67b",
+    "164944759198178462",
+    "164944764581f55bc6",
     "16467744012fc09546",
     "1647461949f7f66e03"
   ]
