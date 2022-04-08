@@ -21,7 +21,9 @@
             "link_text_2": "",
             "color_accent": "rgba(0,0,0,0)",
             "text_align": "vertical-bottom horizontal-left",
-            "image": "shopify:\/\/shop_images\/DSC_6733-Edit.jpg",
+            "text_align_mobile": "vertical-center horizontal-center",
+            "image": "shopify:\/\/shop_images\/Audrey.png",
+            "image_mobile": "shopify:\/\/shop_images\/DSC_6733-Edit.jpg",
             "overlay_opacity": 16,
             "focal_point": "center center"
           }
@@ -61,9 +63,10 @@
         "1646776124fcb7a0c1-1"
       ],
       "settings": {
-        "align_text": "center",
+        "align_text": "left",
         "narrow_column": true,
-        "divider": false
+        "divider": false,
+        "bg_color": "rgba(0,0,0,0)"
       }
     },
     "16467750416cd5ba5f": {
@@ -90,95 +93,8 @@
       "settings": {
         "align_text": "center",
         "narrow_column": true,
-        "divider": false
-      }
-    },
-    "1646775161e19d8d35": {
-      "type": "advanced-content",
-      "blocks": {
-        "16467751617bc247a8-0": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/VirtualEvents.jpg",
-            "link": "",
-            "width": "33%",
-            "alignment": "center"
-          }
-        },
-        "38a23e92-2e7d-4458-af56-30a37c7df9fb": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/DSC_6822.jpg",
-            "link": "",
-            "width": "33%",
-            "alignment": "center"
-          }
-        },
-        "02257c9c-2da3-4077-b4e9-80c27f7b516c": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/EmployeeClientAppreciation.jpg",
-            "link": "",
-            "width": "33%",
-            "alignment": "center"
-          }
-        }
-      },
-      "block_order": [
-        "16467751617bc247a8-0",
-        "38a23e92-2e7d-4458-af56-30a37c7df9fb",
-        "02257c9c-2da3-4077-b4e9-80c27f7b516c"
-      ],
-      "settings": {
-        "full_width": false,
-        "space_around": false
-      }
-    },
-    "164677568934a71401": {
-      "type": "logo-list",
-      "blocks": {
-        "1646775688d03272f4-0": {
-          "type": "logo_image",
-          "settings": {
-            "link": ""
-          }
-        },
-        "1646775688d03272f4-1": {
-          "type": "logo_image",
-          "settings": {
-            "link": ""
-          }
-        },
-        "1646775688d03272f4-2": {
-          "type": "logo_image",
-          "settings": {
-            "link": ""
-          }
-        },
-        "1646775688d03272f4-3": {
-          "type": "logo_image",
-          "settings": {
-            "link": ""
-          }
-        },
-        "34422b96-da98-4639-aea1-942ebe88c7a1": {
-          "type": "logo_image",
-          "settings": {
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "1646775688d03272f4-0",
-        "1646775688d03272f4-1",
-        "1646775688d03272f4-2",
-        "1646775688d03272f4-3",
-        "34422b96-da98-4639-aea1-942ebe88c7a1"
-      ],
-      "settings": {
-        "title": "Popular Vendors We Carry",
-        "logo_opacity": 76,
-        "divider": false
+        "divider": false,
+        "bg_color": "#ffe2e2"
       }
     },
     "16467750677f35096d": {
@@ -198,8 +114,8 @@
         "d6174e34-df17-4f6b-ab40-bc26b743d88c"
       ],
       "settings": {
-        "full_width": false,
-        "space_around": true
+        "full_width": true,
+        "space_around": false
       }
     }
   },
@@ -208,8 +124,6 @@
     "16467752112c6a4743",
     "16467761249b8512c3",
     "16467750416cd5ba5f",
-    "1646775161e19d8d35",
-    "164677568934a71401",
     "16467750677f35096d"
   ]
 }

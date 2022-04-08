@@ -9,6 +9,7 @@
         },
         "separator": {
           "type": "separator",
+          "disabled": true,
           "settings": {}
         },
         "variant_picker": {
@@ -21,9 +22,10 @@
         },
         "sales_point": {
           "type": "sales_point",
+          "disabled": true,
           "settings": {
             "icon": "globe",
-            "text": "Free worldwide shipping"
+            "text": "Canada Wide Shipping"
           }
         },
         "inventory_status": {
@@ -64,6 +66,10 @@
         "share": {
           "type": "share",
           "settings": {}
+        },
+        "8b5c17ff-8403-4353-8af9-9dc990e1c677": {
+          "type": "trust_badge",
+          "settings": {}
         }
       },
       "block_order": [
@@ -76,7 +82,8 @@
         "description",
         "tab",
         "contact",
-        "share"
+        "share",
+        "8b5c17ff-8403-4353-8af9-9dc990e1c677"
       ],
       "settings": {
         "sku_enable": false,

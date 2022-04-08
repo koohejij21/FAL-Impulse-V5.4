@@ -8,18 +8,19 @@
           "settings": {
             "top_subheading": "",
             "title": "Two line\ntitle slide.",
-            "title_size": 80,
+            "title_size": 60,
             "subheading": "And optional subtext",
             "link": "shopify:\/\/collections\/all",
-            "link_text": "Shop this",
+            "link_text": "Shop Mother's Day",
             "link_2": "",
             "link_text_2": "",
             "color_accent": "#002c44",
-            "text_align": "vertical-center horizontal-left",
-            "image": "shopify:\/\/shop_images\/DSC_6898-Edit-3.jpg",
-            "image_mobile": "shopify:\/\/shop_images\/DSC_6909-Edit.jpg",
+            "text_align_desktop": "vertical-center-desktop horizontal-left-desktop",
+            "text_align_mobile": "vertical-bottom horizontal-center",
+            "image": "shopify:\/\/shop_images\/Mothers_Day_EXT-v2.png",
+            "image_mobile": "shopify:\/\/shop_images\/Mothers_Day_Landing_Page_square.jpg",
             "overlay_opacity": 0,
-            "focal_point": "top center"
+            "focal_point": "center center"
           }
         }
       },
@@ -27,50 +28,200 @@
         "slideshow-0"
       ],
       "settings": {
-        "section_height": "100vh",
-        "mobile_height": "auto",
+        "section_height": "750px",
+        "mobile_height": "100vh",
         "parallax": false,
         "style": "bars",
         "autoplay": true,
         "autoplay_speed": 7
       }
     },
-    "1646771865867c03ae": {
-      "type": "image-tile",
+    "1649105672fd3bb723": {
+      "type": "benefits-bar",
+      "disabled": true,
+      "blocks": {
+        "16491056721e4afa5f-0": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image_width": 650,
+            "title": "Example title",
+            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
+            "button_label": "Optional button",
+            "button_link": ""
+          }
+        },
+        "16491056721e4afa5f-1": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image_width": 650,
+            "title": "Example title",
+            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
+            "button_label": "Optional button",
+            "button_link": ""
+          }
+        },
+        "16491056721e4afa5f-2": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image_width": 650,
+            "title": "Example title",
+            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
+            "button_label": "Optional button",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "16491056721e4afa5f-0",
+        "16491056721e4afa5f-1",
+        "16491056721e4afa5f-2"
+      ],
       "settings": {
-        "image": "shopify:\/\/shop_images\/DSC_6609.jpg",
-        "section_height": "600px",
-        "flush_vertical": false,
-        "flush_horizontal": false,
-        "background_color": "rgba(0,0,0,0)",
-        "subtitle": "",
-        "title": "Say Thanks",
-        "heading_color": "#000000",
-        "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.<\/p>",
-        "button_label": "Shop Thank You",
-        "button_color": "#000000",
-        "button_link": "shopify:\/\/collections\/thank-you",
-        "button_style": "primary",
+        "title": "",
         "align_text": "center",
-        "layout": "right",
+        "divider": false,
+        "header_size": 1.4
+      }
+    },
+    "164875760866cc14f2": {
+      "type": "text-columns",
+      "blocks": {
+        "164875760865c2d6e9-0": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify:\/\/shop_images\/Wine_Not_in_box.jpg",
+            "image_width": 650,
+            "title": "Wine Not",
+            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
+            "button_label": "View More",
+            "button_link": ""
+          }
+        },
+        "164875760865c2d6e9-1": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify:\/\/shop_images\/Sweetest_Mom_in_Box.jpg",
+            "image_width": 650,
+            "title": "Sweetest Mom",
+            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
+            "button_label": "View More",
+            "button_link": ""
+          }
+        },
+        "164875760865c2d6e9-2": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify:\/\/shop_images\/Moms_Time_Out_in_box.jpg",
+            "image_width": 650,
+            "title": "Mom's Time Out",
+            "text": "<p>Use this section to explain a set of product features, to link to a series of pages, or to answer common questions about your products. Add images for emphasis.<\/p>",
+            "button_label": "View More",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "164875760865c2d6e9-0",
+        "164875760865c2d6e9-1",
+        "164875760865c2d6e9-2"
+      ],
+      "settings": {
+        "title": "Mother's Day Bundles",
+        "align_text": "center",
         "divider": false
+      }
+    },
+    "1647457301a337f511": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Mother's Day Favourites",
+        "home_featured_products": "cards",
+        "per_row": 4,
+        "rows": 1,
+        "mobile_scrollable": false,
+        "view_all": false,
+        "divider": false
+      }
+    },
+    "1648757087d731c9ea": {
+      "type": "promo-grid",
+      "blocks": {
+        "1648757086d5499660-0": {
+          "type": "advanced",
+          "settings": {
+            "subheading": "",
+            "heading": "Graduation",
+            "textarea": "Include the smaller details of your promotion in text below the title.",
+            "cta_text1": "Shop This",
+            "cta_link1": "",
+            "cta_text2": "Shop All",
+            "cta_link2": "",
+            "video_url": "",
+            "width": "50",
+            "height": 500,
+            "text_size": 100,
+            "text_align": "vertical-center horizontal-center",
+            "focal_point": "center",
+            "color_accent": "rgba(0,0,0,0)",
+            "boxed": false,
+            "framed": false
+          }
+        },
+        "1648757086d5499660-1": {
+          "type": "advanced",
+          "settings": {
+            "subheading": "",
+            "heading": "Father's Day",
+            "textarea": "Include the smaller details of your promotion in text below the title.",
+            "cta_text1": "",
+            "cta_link1": "",
+            "cta_text2": "",
+            "cta_link2": "",
+            "image": "shopify:\/\/shop_images\/DSC_7804-Edit.jpg",
+            "video_url": "",
+            "width": "50",
+            "height": 500,
+            "text_size": 100,
+            "text_align": "vertical-bottom horizontal-center",
+            "focal_point": "bottom",
+            "color_accent": "rgba(0,0,0,0)",
+            "boxed": false,
+            "framed": false
+          }
+        }
+      },
+      "block_order": [
+        "1648757086d5499660-0",
+        "1648757086d5499660-1"
+      ],
+      "settings": {
+        "full_width": true,
+        "gutter_size": 16,
+        "space_above": false,
+        "space_below": false
       }
     },
     "1646772150c74e4d34": {
       "type": "featured-collections",
       "blocks": {
-        "1646772150026952e3-0": {
+        "1646772150026952e3-3": {
           "type": "collection",
           "settings": {
-            "collection": "birthday",
+            "collection": "love",
             "title": "",
             "focal_point": "center center"
           }
         },
-        "1646772150026952e3-1": {
+        "1646772150026952e3-0": {
           "type": "collection",
           "settings": {
-            "collection": "congratulations",
+            "collection": "birthday",
             "title": "",
             "focal_point": "center center"
           }
@@ -83,20 +234,56 @@
             "focal_point": "center center"
           }
         },
-        "1646772150026952e3-3": {
+        "119d8fb0-7b86-4abe-97be-4c76afe85459": {
           "type": "collection",
           "settings": {
-            "collection": "sympathy",
+            "collection": "thank-you",
+            "title": "",
+            "focal_point": "center center"
+          }
+        },
+        "727c38cf-2c1c-4ae8-bb0d-34352e22e724": {
+          "type": "collection",
+          "settings": {
+            "collection": "corporate",
+            "title": "",
+            "focal_point": "center center"
+          }
+        },
+        "1646772150026952e3-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "congratulations",
+            "title": "",
+            "focal_point": "center center"
+          }
+        },
+        "902da773-aab5-4a5b-abb7-ad140d5c5be6": {
+          "type": "collection",
+          "settings": {
+            "collection": "get-well",
+            "title": "",
+            "focal_point": "center center"
+          }
+        },
+        "f038e3af-ee01-4cae-965a-cf33be01393a": {
+          "type": "collection",
+          "settings": {
+            "collection": "retirement",
             "title": "",
             "focal_point": "center center"
           }
         }
       },
       "block_order": [
+        "1646772150026952e3-3",
         "1646772150026952e3-0",
-        "1646772150026952e3-1",
         "1646772150026952e3-2",
-        "1646772150026952e3-3"
+        "119d8fb0-7b86-4abe-97be-4c76afe85459",
+        "727c38cf-2c1c-4ae8-bb0d-34352e22e724",
+        "1646772150026952e3-1",
+        "902da773-aab5-4a5b-abb7-ad140d5c5be6",
+        "f038e3af-ee01-4cae-965a-cf33be01393a"
       ],
       "settings": {
         "title": "What occasion do you need?",
@@ -105,72 +292,60 @@
         "enable_gutter": true
       }
     },
-    "164677190208c08c20": {
-      "type": "image-tile",
-      "settings": {
-        "image": "shopify:\/\/shop_images\/DSC_6822.jpg",
-        "section_height": "500px",
-        "flush_vertical": false,
-        "flush_horizontal": false,
-        "background_color": "rgba(0,0,0,0)",
-        "subtitle": "",
-        "title": "Image with text",
-        "heading_color": "#010101",
-        "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.<\/p>",
-        "button_label": "Shop Now",
-        "button_color": "#010101",
-        "button_link": "",
-        "button_style": "primary",
-        "align_text": "left",
-        "layout": "left",
-        "divider": false
-      }
-    },
-    "164677132817ab580b": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Our Tasty Treats",
-        "home_featured_products": "food-gifts",
-        "per_row": 4,
-        "rows": 1,
-        "mobile_scrollable": false,
-        "view_all": false,
-        "divider": false
-      }
-    },
-    "1646771797261b043b": {
-      "type": "rich-text",
-      "blocks": {
-        "16467717972bf64ec6-0": {
-          "type": "heading",
-          "settings": {
-            "title": "Quote"
-          }
-        },
-        "16467717972bf64ec6-1": {
-          "type": "text",
-          "settings": {
-            "enlarge_text": true,
-            "text": "<p>\"You miss 100% of the shots you don't take. - Wayne Gretzky\" - Michael Scott<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "16467717972bf64ec6-0",
-        "16467717972bf64ec6-1"
-      ],
-      "settings": {
-        "align_text": "center",
-        "narrow_column": true,
-        "divider": false,
-        "bg_color": "rgba(0,0,0,0)"
-      }
-    },
     "1646770580b0bbc2be": {
       "type": "featured-video",
       "settings": {
         "title": "How it Works",
         "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+        "divider": false,
+        "bg_color": "#fdc0e5"
+      }
+    },
+    "1648757522195f6758": {
+      "type": "promo-grid",
+      "disabled": true,
+      "blocks": {
+        "1648757522b7043d7a-1": {
+          "type": "advanced",
+          "settings": {
+            "subheading": "Limited time",
+            "heading": "Announce your promotion",
+            "textarea": "Include the smaller details of your promotion in text below the title.",
+            "cta_text1": "Shop This",
+            "cta_link1": "",
+            "cta_text2": "Shop All",
+            "cta_link2": "",
+            "video_url": "",
+            "width": "100",
+            "height": 580,
+            "text_size": 100,
+            "text_align": "vertical-center horizontal-center",
+            "focal_point": "center",
+            "color_accent": "rgba(0,0,0,0)",
+            "boxed": false,
+            "framed": false
+          }
+        }
+      },
+      "block_order": [
+        "1648757522b7043d7a-1"
+      ],
+      "settings": {
+        "full_width": true,
+        "gutter_size": 0,
+        "space_above": false,
+        "space_below": false
+      }
+    },
+    "164884227180084092": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Popular Gift Bundles",
+        "home_featured_products": "gifts",
+        "per_row": 4,
+        "rows": 1,
+        "mobile_scrollable": false,
+        "view_all": true,
         "divider": false
       }
     },
@@ -234,8 +409,8 @@
         "title": "What Everyone's Saying",
         "align_text": "center",
         "round_images": true,
-        "color_background": "rgba(0,0,0,0)",
-        "color_text": "#002c44"
+        "color_background": "#fdc0e5",
+        "color_text": "#303030"
       }
     },
     "16467717953a333c22": {
@@ -259,90 +434,41 @@
         "space_around": false
       }
     },
-    "16468539165100ea2a": {
-      "type": "text-and-image",
-      "settings": {
-        "image_width": 700,
-        "subtitle": "",
-        "title": "Image with text",
-        "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.<\/p>",
-        "button_label": "",
-        "button_link": "",
-        "button_style": "primary",
-        "align_text": "left",
-        "layout": "right",
-        "divider": false
-      }
-    },
-    "1646853932ba0a9820": {
-      "type": "promo-grid",
+    "1646771797261b043b": {
+      "type": "rich-text",
+      "disabled": true,
       "blocks": {
-        "1646853932904cc092-0": {
-          "type": "advanced",
+        "16467717972bf64ec6-1": {
+          "type": "text",
           "settings": {
-            "subheading": "Limited time",
-            "heading": "Announce your promotion",
-            "textarea": "Include the smaller details of your promotion in text below the title.",
-            "cta_text1": "Shop This",
-            "cta_link1": "",
-            "cta_text2": "Shop All",
-            "cta_link2": "",
-            "video_url": "",
-            "width": "50",
-            "height": 500,
-            "text_size": 100,
-            "text_align": "vertical-center horizontal-center",
-            "focal_point": "center",
-            "color_accent": "rgba(0,0,0,0)",
-            "boxed": false,
-            "framed": false
-          }
-        },
-        "1646853932904cc092-1": {
-          "type": "advanced",
-          "settings": {
-            "subheading": "Limited time",
-            "heading": "Announce your promotion",
-            "textarea": "Include the smaller details of your promotion in text below the title.",
-            "cta_text1": "Shop This",
-            "cta_link1": "",
-            "cta_text2": "Shop All",
-            "cta_link2": "",
-            "video_url": "",
-            "width": "50",
-            "height": 500,
-            "text_size": 100,
-            "text_align": "vertical-center horizontal-center",
-            "focal_point": "center",
-            "color_accent": "rgba(0,0,0,0)",
-            "boxed": false,
-            "framed": false
+            "enlarge_text": true,
+            "text": "<p>Some gifts are big. Some gifts are small. But the ones that come from 5am Lemon are the best gifts of all.<\/p><p>- Audrey, <em>Founder<\/em><\/p>"
           }
         }
       },
       "block_order": [
-        "1646853932904cc092-0",
-        "1646853932904cc092-1"
+        "16467717972bf64ec6-1"
       ],
       "settings": {
-        "full_width": false,
-        "gutter_size": 20,
-        "space_above": true,
-        "space_below": true
+        "align_text": "center",
+        "narrow_column": true,
+        "divider": false,
+        "bg_color": "#f2f2f2"
       }
     }
   },
   "order": [
     "slideshow",
-    "1646771865867c03ae",
+    "1649105672fd3bb723",
+    "164875760866cc14f2",
+    "1647457301a337f511",
+    "1648757087d731c9ea",
     "1646772150c74e4d34",
-    "164677190208c08c20",
-    "164677132817ab580b",
-    "1646771797261b043b",
     "1646770580b0bbc2be",
+    "1648757522195f6758",
+    "164884227180084092",
     "1646771323958279ad",
     "16467717953a333c22",
-    "16468539165100ea2a",
-    "1646853932ba0a9820"
+    "1646771797261b043b"
   ]
 }
