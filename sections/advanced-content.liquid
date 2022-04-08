@@ -4,7 +4,7 @@
 {%- unless section.settings.full_width -%}
   <div class="page-width">
 {%- endunless -%}
-  <div class="custom-content">
+  <div class="custom-content {% if section.settings.horizontal_center %}d-flex justify-content-center {% endif %}">
   {%- for block in section.blocks -%}
     {%- liquid
       case block.settings.width
@@ -100,6 +100,12 @@
         "type": "checkbox",
         "id": "space_around",
         "label": "Add spacing above and below",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "horizontal_center",
+        "label": "Center All",
         "default": true
       }
     ],
