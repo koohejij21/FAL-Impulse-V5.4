@@ -211,7 +211,7 @@
               {%- if hero_text -%}
                 <div class="hero__text-wrap">
                   <div class="page-width">
-                    <div class="hero__text-content {{ block.settings.text_align }}">
+                    <div class="hero__text-content {{ block.settings.text_align }} {{ block.settings.text_align_mobile }}">
                       <div class="hero__text-shadow">
                         {%- unless block.settings.top_subheading == blank -%}
                           <div class="hero__top-subtitle">
@@ -446,44 +446,44 @@
           },
           {
             "type": "select",
-            "id": "text_align",
+            "id": "text_align_desktop",
             "label": "Text alignment desktop",
-            "default": "vertical-center horizontal-center",
+            "default": "vertical-center-desktop horizontal-center-desktop",
             "options": [
               {
-                "value": "vertical-top horizontal-left",
+                "value": "vertical-top-desktop horizontal-left-desktop",
                 "label": "Top left"
               },
               {
-                "value": "vertical-top horizontal-center",
+                "value": "vertical-top-desktop horizontal-center-desktop",
                 "label": "Top center"
               },
               {
-                "value": "vertical-top horizontal-right",
+                "value": "vertical-top-desktop horizontal-right-desktop",
                 "label": "Top right"
               },
               {
-                "value": "vertical-center horizontal-left",
+                "value": "vertical-center-desktop horizontal-left-desktop",
                 "label": "Center left"
               },
               {
-                "value": "vertical-center horizontal-center",
+                "value": "vertical-center-desktop horizontal-center-desktop",
                 "label": "Center"
               },
               {
-                "value": "vertical-center horizontal-right",
+                "value": "vertical-center-desktop horizontal-right-desktop",
                 "label": "Center right"
               },
               {
-                "value": "vertical-bottom horizontal-left",
+                "value": "vertical-bottom-desktop horizontal-left-desktop",
                 "label": "Bottom left"
               },
               {
-                "value": "vertical-bottom horizontal-center",
+                "value": "vertical-bottom-desktop horizontal-center-desktop",
                 "label": "Bottom center"
               },
               {
-                "value": "vertical-bottom horizontal-right",
+                "value": "vertical-bottom-desktop horizontal-right-desktop",
                 "label": "Bottom right"
               }
             ]
@@ -492,7 +492,7 @@
             "type": "select",
             "id": "text_align_mobile",
             "label": "Text alignment mobile",
-            "default": "mob-vertical-center mob-horizontal-center",
+            "default": "vertical-center horizontal-center",
             "options": [
               {
                 "value": "vertical-top horizontal-left",
