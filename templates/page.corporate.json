@@ -15,12 +15,12 @@
             "title": "A simple gesture.\nEndless loyalty.",
             "title_size": 50,
             "subheading": "",
-            "link": "",
+            "link": "shopify:\/\/pages\/contact-us",
             "link_text": "Contact Us",
             "link_2": "",
             "link_text_2": "",
             "color_accent": "rgba(0,0,0,0)",
-            "text_align": "vertical-center horizontal-center",
+            "text_align_desktop": "vertical-center-desktop horizontal-center-desktop",
             "text_align_mobile": "vertical-center horizontal-center",
             "image": "shopify:\/\/shop_images\/WelcomeToTheTeam.jpg",
             "overlay_opacity": 12,
@@ -123,6 +123,7 @@
     "16492738653560e806": {
       "type": "text-and-image",
       "settings": {
+        "image": "shopify:\/\/shop_images\/5AMLEMON_ADVENTURE_BOX.png",
         "image_width": 700,
         "subtitle": "",
         "title": "Leaving",

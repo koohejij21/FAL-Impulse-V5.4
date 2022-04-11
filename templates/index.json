@@ -10,7 +10,7 @@
             "title": "Make Mom smile\nthis Mothers Day.",
             "title_size": 60,
             "subheading": "Surprise mom with a gift that is as unique as she is.",
-            "link": "shopify:\/\/collections\/all",
+            "link": "shopify:\/\/collections\/holiday",
             "link_text": "Shop Mother's Day",
             "link_2": "",
             "link_text_2": "",
@@ -109,9 +109,10 @@
             "heading": "Graduation",
             "textarea": "Our Graduation boxes are a thoughtful and creative way to congratulate all the 2022 Grads in your life.",
             "cta_text1": "Shop Congratulations",
-            "cta_link1": "",
+            "cta_link1": "shopify:\/\/collections\/congratulations",
             "cta_text2": "",
             "cta_link2": "",
+            "image": "shopify:\/\/shop_images\/5AL_Homepage_Graduation.jpg",
             "video_url": "",
             "width": "50",
             "height": 500,
@@ -251,42 +252,6 @@
         "bg_color": "#fdc0e5"
       }
     },
-    "1648757522195f6758": {
-      "type": "promo-grid",
-      "disabled": true,
-      "blocks": {
-        "1648757522b7043d7a-1": {
-          "type": "advanced",
-          "settings": {
-            "subheading": "Limited time",
-            "heading": "Announce your promotion",
-            "textarea": "Include the smaller details of your promotion in text below the title.",
-            "cta_text1": "Shop This",
-            "cta_link1": "",
-            "cta_text2": "Shop All",
-            "cta_link2": "",
-            "video_url": "",
-            "width": "100",
-            "height": 580,
-            "text_size": 100,
-            "text_align": "vertical-center horizontal-center",
-            "focal_point": "center",
-            "color_accent": "rgba(0,0,0,0)",
-            "boxed": false,
-            "framed": false
-          }
-        }
-      },
-      "block_order": [
-        "1648757522b7043d7a-1"
-      ],
-      "settings": {
-        "full_width": true,
-        "gutter_size": 0,
-        "space_above": false,
-        "space_below": false
-      }
-    },
     "164884227180084092": {
       "type": "featured-collection",
       "settings": {
@@ -306,7 +271,7 @@
           "type": "testimonial",
           "settings": {
             "icon": "5-stars",
-            "testimonial": "<p>I've given four or five of these fabulous little boxes and each has brought joy to the recipient. Also really appreciate how this company goes the extra mile to ensure the pretty packages arrive on time--excellent customer service!<\/p>",
+            "testimonial": "<p>\"I've given four or five of these fabulous little boxes and each has brought joy to the recipient. Also really appreciate how this company goes the extra mile to ensure the pretty packages arrive on time--excellent customer service!\"<\/p>",
             "author": "Jackie K.",
             "author_info": ""
           }
@@ -315,7 +280,7 @@
           "type": "testimonial",
           "settings": {
             "icon": "5-stars",
-            "testimonial": "<p>Love, love, love these gift boxes. The personalization makes it an extra special gift and gives it that special touch. Perfect way to send a little love or tell someone you are thinking about them. Much better than flowers!!<\/p>",
+            "testimonial": "<p>\"Love, love, love these gift boxes. The personalization makes it an extra special gift and gives it that special touch. Perfect way to send a little love or tell someone you are thinking about them. Much better than flowers!!\"<\/p>",
             "author": "Karen O.",
             "author_info": ""
           }
@@ -324,7 +289,7 @@
           "type": "testimonial",
           "settings": {
             "icon": "5-stars",
-            "testimonial": "<p>I LOVED making a box for mother’s day! I designed it for my mother-in-law and she thought it was the most unique gift to ever arrive at her front door! She was so surprised and still has the photos on her fridge months later.<br\/><br\/>This is a great gift idea for any occasion and can be customized to match any person - highly recommend it as a surprise gift!<\/p>",
+            "testimonial": "<p>\"I LOVED making a box for mother’s day! I designed it for my mother-in-law and she thought it was the most unique gift to ever arrive at her front door! She was so surprised and still has the photos on her fridge months later.\"<\/p>",
             "author": "Brittany S.",
             "author_info": ""
           }
@@ -372,7 +337,6 @@
     "1648757087d731c9ea",
     "1646772150c74e4d34",
     "1646770580b0bbc2be",
-    "1648757522195f6758",
     "164884227180084092",
     "1646771323958279ad",
     "16467717953a333c22"
