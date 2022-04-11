@@ -224,7 +224,7 @@
         "1649447540abba0954-0": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/DSC_7768-Edit.jpg",
+            "image": "shopify:\/\/shop_images\/How_it_Works_Message_2.jpg",
             "link": "",
             "width": "25%",
             "alignment": "center"
@@ -255,7 +255,7 @@
         "1649447511916fdcdf-0": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/DSC_7783-Edit.jpg",
+            "image": "shopify:\/\/shop_images\/How_it_Works_Gifts.jpg",
             "link": "",
             "width": "25%",
             "alignment": "center"
@@ -286,7 +286,7 @@
         "1649447226ac345769-0": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/DSC_7771-Edit.jpg",
+            "image": "shopify:\/\/shop_images\/How_it_Works_Message.jpg",
             "link": "",
             "width": "25%",
             "alignment": "center"
@@ -295,7 +295,7 @@
         "1649447226ac345769-1": {
           "type": "liquid",
           "settings": {
-            "code": "<h2 class=\"h3\"><b>STEP 3:<\/b> Write your card message<\/h2>\n<p>Now you have chosen your card, you can write your message and choose your font. Stuck for words? We offer pre-scripted ideas for inspiration.<\/p><\/br>",
+            "code": "<h2 class=\"h3\"><b>STEP 3:<\/b> Write your card message<\/h2>\n<p>Now you have chosen your gifts, you can write your message and choose your font. Stuck for words? We offer pre-scripted ideas for inspiration.<\/p><\/br>",
             "width": "50%",
             "alignment": "center"
           }
@@ -317,7 +317,7 @@
         "1649447591703fe20c-0": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/DSC_7772-Edit.jpg",
+            "image": "shopify:\/\/shop_images\/Side_Panels_white.jpg",
             "link": "",
             "width": "25%",
             "alignment": "center"
@@ -326,7 +326,7 @@
         "1649447591703fe20c-1": {
           "type": "liquid",
           "settings": {
-            "code": "<h2 class=\"h3\"><b>STEP 1:<\/b> Customize Side Panels<\/h2>\n<p>We have created these fun side panels which are removable (they are perforated). You can upload photos from your computer, chose a 5am Lemon designed panel or simply keep your box pattern. We include magnets so your recipient can display their panels.<\/p><\/br>",
+            "code": "<h2 class=\"h3\"><b>STEP 4:<\/b> Customize Side Panels<\/h2>\n<p>We have created these fun side panels which are removable (they are perforated). You can upload photos from your computer, chose a 5am Lemon designed panel or simply keep your box pattern. We include magnets so your recipient can display their panels.<\/p><\/br>",
             "width": "50%",
             "alignment": "center"
           }
@@ -348,7 +348,7 @@
         "1649447645e4acf0cd-0": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/DSC_7765-Edit.jpg",
+            "image": "shopify:\/\/shop_images\/How_it_Works_Wrapped_Box_3.jpg",
             "link": "",
             "width": "25%",
             "alignment": "center"
@@ -357,7 +357,7 @@
         "1649447645e4acf0cd-1": {
           "type": "liquid",
           "settings": {
-            "code": "<h2 class=\"h3\"><b>STEP 1:<\/b> Put a bow on it!<\/h2>\n<p>Check out and wait for the text or call thanking you for your thoughtfulness. We put a matching bow on your box and ship your box safely in a recycled corrugate shipping box.<\/p><\/br>",
+            "code": "<h2 class=\"h3\"><b>STEP 5:<\/b> Put a bow on it!<\/h2>\n<p>Check out and wait for the text or call thanking you for your thoughtfulness. We put a matching bow on your box and ship your box safely in a recycled corrugate shipping box.<\/p><\/br>",
             "width": "50%",
             "alignment": "center"
           }
