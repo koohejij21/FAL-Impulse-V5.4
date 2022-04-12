@@ -5,34 +5,27 @@
       "disabled": true,
       "settings": {}
     },
-    "rich-text": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "title": "Get in touch"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "heading",
-        "text"
-      ],
-      "settings": {}
-    },
     "form": {
       "type": "contact-form",
-      "settings": {}
+      "settings": {
+        "title": "Contact us",
+        "text": "",
+        "show_company": false,
+        "show_phone": false,
+        "show_count": false,
+        "count_min": "(Minimum 10)",
+        "show_date": false,
+        "show_design": false,
+        "show_gifts": false,
+        "show_cardmsg": false,
+        "show_message": true,
+        "show_details": false,
+        "narrow_column": true
+      }
     }
   },
   "order": [
     "main",
-    "rich-text",
     "form"
   ]
 }

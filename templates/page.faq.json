@@ -12,38 +12,227 @@
           "type": "rich-text",
           "settings": {
             "title": "Shipping",
-            "text": ""
+            "text": "<p>All our 5am Lemon orders are shipped from our facility in Markham within<br\/> 3 business days from order date. Please expect some delays due to the <br\/>increase in parcel deliveries during the current pandemic. Thank you for<br\/> your patience.<\/p>",
+            "align_text": "left"
           }
         },
         "faq-1": {
           "type": "question",
-          "settings": {}
+          "settings": {
+            "title": "Do you ship internationally",
+            "text": "<p>Currently, we only ship within Canada using Canada Post Expedited shipping services.<\/p>"
+          }
         },
         "faq-2": {
           "type": "question",
-          "settings": {}
-        },
-        "faq-3": {
-          "type": "rich-text",
           "settings": {
-            "title": "Returns",
-            "text": ""
+            "title": "How much does shipping cost?",
+            "text": "<p>From the time we receive and confirm your order, you can expect the gift box to be shipped from our facility within 3 business days. Canada Post can deliver to most destinations in Canada within 2 -10 business days (please take into account delays due to the pandemic).<\/p>"
+          }
+        },
+        "98bdbcee-bec5-41f4-b1c1-4ac74350f544": {
+          "type": "question",
+          "settings": {
+            "title": "Do you deliver to PO boxes?",
+            "text": "<p>For sure we do! Our boxes can ship anywhere within Canada, just be sure <br\/>to specify the PO box information on the shipping forms page.<\/p>"
           }
         },
         "faq-4": {
           "type": "question",
-          "settings": {}
+          "settings": {
+            "title": "Is there an option for pickup instead of delivery?",
+            "text": "<p>When checking out, select the option to pick up at our 498 Markland Street address in Markham, Ontario. Pickup is available at the back door, Unit #7, from 8:00am – 5:00pm, Monday to Friday only.<\/p>"
+          }
+        },
+        "fbe08cfe-83eb-4f05-9037-20fe4746635d": {
+          "type": "question",
+          "settings": {
+            "title": "How do I track my 5am Lemon box?",
+            "text": "<p>Our 5am Lemon boxes are sent sing Canada Post <strong>Expedited<\/strong> shipping service and an email will be sent to you with a tracking number. You can follow the gift box all the way to the recipient's mailbox! You'll receive a confirmation email from Canada Post once the gift has been successfully delivered, or be contacted if there are any issues with delivery.<\/p>"
+          }
+        },
+        "beb2117a-0b1b-4bd2-a118-eb91a5496021": {
+          "type": "question",
+          "settings": {
+            "title": "What if I need my box delivered on a specific day?",
+            "text": "<p>Unfortunately, we do not offer a specific day delivery option.  We love this idea and it’s definitely in our future plans.<\/p>"
+          }
+        },
+        "c0a03326-8211-40c2-b1b0-96ea9898b3d4": {
+          "type": "question",
+          "settings": {
+            "title": "My order hasn't arrived when scheduled, or I have issues with my order, what do I do?",
+            "text": "<p>Let us help you! Send us an email at <a href=\"mailto:hello@5amlemon.com\"><strong>hello@5amlemon.com<\/strong> <\/a>and we will do our best to assist.<\/p>"
+          }
+        },
+        "e95f500e-5b5e-49d8-8904-9952313ea40e": {
+          "type": "question",
+          "settings": {
+            "title": "What happens if the recipient isn’t home to receive the box?",
+            "text": "<p>Our 5am Lemon boxes are sent using Canada Post Expedited shipping service and sent with <strong>Authority to Leave.<\/strong> If no one is home to receive the gift box Canada Post drivers will attempt to leave the package in a safe place by the front door. If there is no safe place to leave the package a slip will be left and the box will be taken to the nearest Canada Post outlet for pickup.<\/p>"
+          }
+        },
+        "06808b69-c23d-48f0-b4ed-c8ee366326ae": {
+          "type": "question",
+          "settings": {
+            "title": "Can I request a delivery time?",
+            "text": "<p>Unfortunately, we are unable to guarantee a specific delivery time. All our 5am Lemon boxes are delivered between 9am - 5pm.<\/p>"
+          }
+        },
+        "7d48502e-e3b8-4fee-83b4-de178bc1f065": {
+          "type": "question",
+          "settings": {
+            "title": "What happens if my 5am Lemon box needs to be redelivered?",
+            "text": "<p>If the wrong shipping address is provided or the gift box is not collected from the Canada Post outlet within 5 business days you will be required to pay a $15 re-delivery fee to have the gift box redelivered, which we will gladly take care of for you.  (we get charged by Canada post for the return and the re-delivery)<\/p>"
+          }
+        },
+        "faq-3": {
+          "type": "rich-text",
+          "settings": {
+            "title": "Return policy",
+            "text": "<p>Due to the personalized nature of our 5am Lemon boxes, all sales are final and non-refundable. But we are sure they are going to love their box as much as we enjoyed making it for them!<\/p><p>If there are any issues with your gift upon arrival, please let us know within 24 hours. We take every effort to ensure your 5am Lemon box arrives looking amazing!<\/p>",
+            "align_text": "left"
+          }
+        },
+        "f65e01df-6789-4499-8fe4-ad539fe74e7c": {
+          "type": "question",
+          "settings": {
+            "title": "Can I return a gift box or an item from a gift box?",
+            "text": "<p>Unfortunately, we do not accept returns on 5am Lemon boxes or on gifts within the boxes. However, if anything inside the box has arrived  damaged, please email us at <a href=\"mailto:hello@5amlemon.com\"><strong>hello@5amlemon.com<\/strong><\/a> and we will make it right.<\/p>"
+          }
+        },
+        "a20058bd-726b-4610-9bea-46b8dbece1e9": {
+          "type": "rich-text",
+          "settings": {
+            "title": "Your 5am Lemon box",
+            "text": "",
+            "align_text": "left"
+          }
+        },
+        "ef85ffde-790b-4fac-b971-a49e4b112d02": {
+          "type": "question",
+          "settings": {
+            "title": "What will my 5am Lemon box look like when it arrives?",
+            "text": "<p>Your 5am Lemon gifts will be presented in a 4 x 4 x 6 custom printed matte white box. Each box is sealed with a 7\/8\" grosgrain ribbon, and bowed for a unique boxing experience. This box is secured inside our 100% recycled corrugate shipping box. You can be sure your gift box will look amazing when it arrives at their front door and they will be so happy when they discover the awesome gifts inside. Our packaging is also eco-friendly and can be reused or 100% recycled.<\/p>"
+          }
+        },
+        "1380397a-2068-40ab-abb3-d9013f425a76": {
+          "type": "question",
+          "settings": {
+            "title": "Will you be offering more box designs?",
+            "text": "<p>Yes, we will be adding new designs for every major holiday and for occasions in between. Do you have an idea that you'd like to see on our website? Send us a note at <a href=\"mailto:hello@5amlemon.com\"><strong>hello@5amlemon.com<\/strong><\/a><strong>.<\/strong><\/p>"
+          }
+        },
+        "8b7652f2-9779-4707-99d8-b6b0630ee8cc": {
+          "type": "question",
+          "settings": {
+            "title": "Will my recipient see the box price?",
+            "text": "<p>No your recipient will see no pricing when their box arrives.<\/p>"
+          }
+        },
+        "1aec5304-6425-48c3-8bd7-3750f802bc72": {
+          "type": "rich-text",
+          "settings": {
+            "title": "Ordering your 5am Lemon box",
+            "text": "",
+            "align_text": "left"
+          }
+        },
+        "fb6b09a5-49a2-4e02-9114-e7a9925746b2": {
+          "type": "question",
+          "settings": {
+            "title": "What is the size of the box?",
+            "text": "<p>The finished size of the box is 4  x 4 x 6 and it ships in a corrugate box that is 5 x 5 x 7. The finished size of the removable greeting card is 4 x 6.<\/p>"
+          }
+        },
+        "a6927610-c047-4b6d-b154-34b20a5433cc": {
+          "type": "question",
+          "settings": {
+            "title": "What payments do you accept?",
+            "text": "<p>We accept VISA, MC & PayPal at this time. Sorry we don’t accept personal cheques.<\/p>"
+          }
+        },
+        "4e22f462-4041-4bf9-b8eb-47293d67cc34": {
+          "type": "question",
+          "settings": {
+            "title": "I’m having problems placing an order. What do I do?",
+            "text": "<p>If you are having trouble at any stage of the process, we are happy to help! Email us at <a href=\"mailto:hello@5amlemon.com\"><strong>hello@5amlemon.com<\/strong><\/a> and leave us a number where we can reach you. We will get back to you as quick as we can.<\/p>"
+          }
+        },
+        "73eba17a-8fc0-44cf-82e7-4004cc22746a": {
+          "type": "question",
+          "settings": {
+            "title": "Why can I order only one box at time?",
+            "text": "<p>Please be patient we are in launch mode and just figuring out the logistics of ordering boxes that will ship to multiple destinations. The feature is coming soon.<\/p>"
+          }
+        },
+        "0b666550-e036-4c71-978e-33a9437371f1": {
+          "type": "question",
+          "settings": {
+            "title": "How can I place a corporate order for an order larger than 20 boxes?",
+            "text": "<p>For corporate orders, please email us at <a href=\"mailto:hello@5amlemon.com\"><strong>hello@5amlemon.com<\/strong><\/a> and we would love to discuss your gift giving requirements.  Full box personalization including custom designs is available.<\/p>"
+          }
+        },
+        "199ec171-c625-43e8-95c4-1672eee192fb": {
+          "type": "question",
+          "settings": {
+            "title": "Can I order a box with no gift?",
+            "text": "<p>Yes, you can easily order an empty box, gifts are optional.  You can ship the box to yourself and fill it with anything you like.<\/p>"
+          }
+        },
+        "6a0f440e-0a44-49d6-bfb2-19b108502bb0": {
+          "type": "question",
+          "settings": {
+            "title": "Can I drop off items for you to put in my box?",
+            "text": "<p>Unfortunately, right now we can only fill your box with items that we stock. We are adding to this list every week.  But feel free to order the box to yourself to fill and then re-ship to your gift recipient.<\/p>"
+          }
+        },
+        "fd996a75-b890-4038-989c-40151904cb31": {
+          "type": "question",
+          "settings": {
+            "title": "Can I order your gifts with no box?",
+            "text": "<p>At this time, we only offer the gifts in a 5am Lemon Box.<\/p>"
+          }
+        },
+        "56baf0a1-e127-463f-be67-04fbb4ac558d": {
+          "type": "question",
+          "settings": {
+            "title": "There was a mistake on my card message?",
+            "text": "<p>We take your card message and directly print it without re-keying or altering it. This is why at the proof stage it’s important for you to check over your card message carefully.<\/p>"
+          }
         }
       },
       "block_order": [
         "faq-0",
         "faq-1",
         "faq-2",
+        "98bdbcee-bec5-41f4-b1c1-4ac74350f544",
+        "faq-4",
+        "fbe08cfe-83eb-4f05-9037-20fe4746635d",
+        "beb2117a-0b1b-4bd2-a118-eb91a5496021",
+        "c0a03326-8211-40c2-b1b0-96ea9898b3d4",
+        "e95f500e-5b5e-49d8-8904-9952313ea40e",
+        "06808b69-c23d-48f0-b4ed-c8ee366326ae",
+        "7d48502e-e3b8-4fee-83b4-de178bc1f065",
         "faq-3",
-        "faq-4"
+        "f65e01df-6789-4499-8fe4-ad539fe74e7c",
+        "a20058bd-726b-4610-9bea-46b8dbece1e9",
+        "ef85ffde-790b-4fac-b971-a49e4b112d02",
+        "1380397a-2068-40ab-abb3-d9013f425a76",
+        "8b7652f2-9779-4707-99d8-b6b0630ee8cc",
+        "1aec5304-6425-48c3-8bd7-3750f802bc72",
+        "fb6b09a5-49a2-4e02-9114-e7a9925746b2",
+        "a6927610-c047-4b6d-b154-34b20a5433cc",
+        "4e22f462-4041-4bf9-b8eb-47293d67cc34",
+        "73eba17a-8fc0-44cf-82e7-4004cc22746a",
+        "0b666550-e036-4c71-978e-33a9437371f1",
+        "199ec171-c625-43e8-95c4-1672eee192fb",
+        "6a0f440e-0a44-49d6-bfb2-19b108502bb0",
+        "fd996a75-b890-4038-989c-40151904cb31",
+        "56baf0a1-e127-463f-be67-04fbb4ac558d"
       ],
       "settings": {
-        "title": ""
+        "title": "Frequently Asked Questions"
       }
     }
   },

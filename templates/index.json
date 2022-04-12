@@ -48,7 +48,7 @@
             "title": "Wine Not",
             "text": "<p>We love this bundle for all the mom's that love wine. It includes 4 super fun high quality gold coasters, a  cool \"wine tasting guide\" tea towel (almost too pretty to use) and 2 amazing Swedish wine themed dish cloths that are eco-friendly, bacteria resistant and never stink in the sink.<\/p>",
             "button_label": "View More",
-            "button_link": ""
+            "button_link": "shopify:\/\/products\/wine-not"
           }
         },
         "164875760865c2d6e9-1": {
@@ -60,7 +60,7 @@
             "title": "Sweetest Mom",
             "text": "<p>We've bundled 3 of our favourite sweets to make this decadent gift trio.  Mom will love indulging on our Sea Salt and Maple popcorn which has just the right amount sweetness, our super creamy triple caramel bar handcrafted by an award winning chocolatier in Prince Edward Country and our squish sparkling bears that are an all time celebration favourite.<\/p>",
             "button_label": "View More",
-            "button_link": ""
+            "button_link": "shopify:\/\/products\/sweetest-mom"
           }
         },
         "164875760865c2d6e9-2": {
@@ -72,7 +72,7 @@
             "title": "Mom's Time Out",
             "text": "<p>This gorgeous oversized mug will give mom the time she needs to enjoy a hot beverage, while drifting away into a new book and snacking on our top selling Belgian Chocolate Fraktals.<\/p>",
             "button_label": "View More",
-            "button_link": ""
+            "button_link": "shopify:\/\/products\/moms-time-out"
           }
         }
       },
@@ -247,7 +247,7 @@
       "type": "featured-video",
       "settings": {
         "title": "How it Works",
-        "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+        "video_url": "https:\/\/youtu.be\/eYNG2tCSFhw",
         "divider": false,
         "bg_color": "#fdc0e5"
       }

@@ -3,7 +3,7 @@
   fiddle with what's below, but your changes will be reset the next time that
   Locksmith interacts with your shop.
 
-  Last updated: Thu, 02 Dec 2021 15:44:39 +0000
+  Last updated: Tue, 12 Apr 2022 04:15:28 +0000
   Integration version: v6.27
 {% endcomment -%}
 
@@ -90,6 +90,13 @@
         event.preventDefault();
         Locksmith.postResource({}, { spinner: true, container: document });
       });
+
+      Locksmith.submitPasscode = function (passcode) {
+        Locksmith.postResource(
+          { passcode: passcode },
+          { spinner: false, container: 'locksmith-content' }
+        );
+      };
     };
 
     if (typeof Locksmith !== 'undefined') {

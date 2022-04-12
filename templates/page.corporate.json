@@ -92,13 +92,14 @@
     "1649273379ab78f164": {
       "type": "text-and-image",
       "settings": {
+        "image": "shopify:\/\/shop_images\/Corpoarte_Welcome_Box.jpg",
         "image_width": 700,
         "subtitle": "",
         "title": "Welcome",
         "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.<\/p>",
         "button_label": "Shop Corporate",
-        "button_link": "",
-        "button_style": "secondary",
+        "button_link": "shopify:\/\/collections\/corporate",
+        "button_style": "primary",
         "align_text": "left",
         "layout": "right",
         "divider": false
@@ -113,8 +114,8 @@
         "title": "Appreciation",
         "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.<\/p>",
         "button_label": "Shop Corporate",
-        "button_link": "",
-        "button_style": "secondary",
+        "button_link": "shopify:\/\/collections\/corporate",
+        "button_style": "primary",
         "align_text": "left",
         "layout": "left",
         "divider": false
@@ -123,14 +124,14 @@
     "16492738653560e806": {
       "type": "text-and-image",
       "settings": {
-        "image": "shopify:\/\/shop_images\/5AMLEMON_ADVENTURE_BOX.png",
+        "image": "shopify:\/\/shop_images\/Next_Adventure_Bundle.jpg",
         "image_width": 700,
         "subtitle": "",
         "title": "Leaving",
         "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.<\/p>",
         "button_label": "Shop Corporate",
-        "button_link": "",
-        "button_style": "secondary",
+        "button_link": "shopify:\/\/collections\/corporate",
+        "button_style": "primary",
         "align_text": "left",
         "layout": "right",
         "divider": false

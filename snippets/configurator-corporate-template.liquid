@@ -134,7 +134,7 @@
                   <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;">Add</button>
                 </div>
                 <div v-show="gift.quantity > 0" :id="gift.id">
-                  <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add 1 More</span></button>
+                  <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Add</span><span v-if="!gift.cantFit">Add 1 More</span></button>
                 </div>
               </div>
             </div>
@@ -229,10 +229,10 @@
                   </select>
                     <div class="grid-product__price mb-2">$${ gift.price }</div>
                     <div v-show="gift.quantity <= 0" :id="gift.id">
-                      <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add</span></button>
+                      <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Add</span><span v-if="!gift.cantFit">Add</span></button>
                     </div>
                     <div v-show="gift.quantity > 0" :id="gift.id">
-                      <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Won't Fit</span><span v-if="!gift.cantFit">Add 1 More</span></button>
+                      <button class="btn p-2" :class="{btnDisable: gift.cantFit}" name="Gifts" :id="gift.id" :value="gift.title" @click="pushGift($event); return false;"><span v-if="gift.cantFit">Add</span><span v-if="!gift.cantFit">Add 1 More</span></button>
                     </div>
                   </div>
                 </div>
@@ -261,10 +261,10 @@
                     <h4><b>$${ selectedGift.price }</b></h4>
                     <div>
                       <div v-show="selectedGift.quantity <= 0" :id="selectedGift.id">
-                        <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add</span></button>
+                        <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Add</span><span v-if="!selectedGift.cantFit">Add</span></button>
                       </div>
                       <div v-show="selectedGift.quantity > 0" :id="selectedGift.id">
-                        <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Won't Fit</span><span v-if="!selectedGift.cantFit">Add 1 More</span></button>
+                        <button class="btn p-2" :class="{btnDisable : selectedGift.cantFit}" name="Gifts":id="selectedGift.id" :value="selectedGift.title" @click="pushGift($event); closeGiftModal(); return false;"><span v-if="selectedGift.cantFit">Add</span><span v-if="!selectedGift.cantFit">Add 1 More</span></button>
                       </div>
                     </div>
                   </div>
