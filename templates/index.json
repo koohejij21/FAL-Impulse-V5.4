@@ -7,11 +7,11 @@
           "type": "image",
           "settings": {
             "top_subheading": "",
-            "title": "Make Mom smile\nthis Mothers Day.",
+            "title": "Make Mom smile\nthis Mother's Day.",
             "title_size": 60,
             "subheading": "Surprise mom with a gift that is as unique as she is.",
-            "link": "shopify:\/\/collections\/cards",
-            "link_text": "Get Started",
+            "link": "shopify:\/\/collections\/holiday",
+            "link_text": "Shop Mother's Day",
             "link_2": "",
             "link_text_2": "",
             "color_accent": "#002c44",
@@ -84,7 +84,8 @@
       "settings": {
         "title": "Mother's Day Bundles",
         "align_text": "center",
-        "divider": false
+        "divider": false,
+        "button_type": true
       }
     },
     "1647457301a337f511": {
@@ -312,7 +313,7 @@
       "type": "apps",
       "blocks": {
         "c1c7253b-c0ab-41e7-83dd-7c175252a1ce": {
-          "type": "shopify:\/\/apps\/instafeed\/blocks\/app-block\/c447db20-095d-4a10-9725-b5977662c9d5",
+          "type": "shopify:\/\/apps\/instafeed-instagram-feed\/blocks\/app-block\/c447db20-095d-4a10-9725-b5977662c9d5",
           "settings": {
             "heading_font": "helvetica_n4",
             "heading_size": 10,

@@ -2,3 +2,7 @@ development:
   password: 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
   theme_id: "128731218112"
   store: 5amlemon.myshopify.com
+# development:
+#   password: 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
+#   theme_id: "129556152512"
+#   store: 5amlemon.myshopify.com

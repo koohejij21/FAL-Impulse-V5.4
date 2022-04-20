@@ -148,8 +148,8 @@
             "type": "newsletter",
             "settings": {
               "show_footer_title": true,
-              "title": "Sign up and save",
-              "text": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.<\/p>",
+              "title": "Get the Juicy Deets",
+              "text": "<p>New products, special offers & more.<\/p>",
               "container_width": 33
             }
           }
