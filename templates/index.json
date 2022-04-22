@@ -12,15 +12,15 @@
             "subheading": "Surprise mom with a gift that is as unique as she is.",
             "link": "shopify:\/\/collections\/holiday",
             "link_text": "Shop Mother's Day",
-            "link_2": "",
-            "link_text_2": "",
+            "link_2": "shopify:\/\/pages\/april-campaign",
+            "link_text_2": "See the 5 Easy Steps",
             "color_accent": "#002c44",
             "text_align_desktop": "vertical-center-desktop horizontal-left-desktop",
             "text_align_mobile": "vertical-bottom horizontal-center",
-            "image": "shopify:\/\/shop_images\/Mothers_Day_EXT-v2.png",
-            "image_mobile": "shopify:\/\/shop_images\/Mothers_Day_Landing_Page_square.jpg",
+            "image": "shopify:\/\/shop_images\/Homepage_Sending-Hugs_Desktop.jpg",
+            "image_mobile": "shopify:\/\/shop_images\/HP-Sending_Hugs-Mobile-V2.png",
             "overlay_opacity": 0,
-            "focal_point": "center center"
+            "focal_point": "top center"
           }
         }
       },
@@ -29,7 +29,7 @@
       ],
       "settings": {
         "section_height": "750px",
-        "mobile_height": "100vh",
+        "mobile_height": "600px",
         "parallax": false,
         "style": "bars",
         "autoplay": true,

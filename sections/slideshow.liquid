@@ -106,7 +106,7 @@
 
                 {%- assign button_alpha = block.settings.color_accent | color_extract: 'alpha' -%}
                 {% unless button_alpha == 0.0 %}
-                  .slideshow__slide--{{ block.id }} .btn {
+                  .slideshow__slide--{{ block.id }} .btn .btn--primary {
                     background: {{ block.settings.color_accent }} !important;
                     border: none;
 
@@ -238,12 +238,12 @@
                           {%- if block.settings.link_text != blank or block.settings.link_text_2 != blank -%}
                             <div class="hero__link">
                               {%- if block.settings.link_text != blank -%}
-                                <a href="{{ block.settings.link }}" class="btn{% if block.settings.color_accent contains 'rgba(0,0,0,0)' %} btn--inverse{% endif %}">
+                                <a href="{{ block.settings.link }}" class="btn btn--primary{% if block.settings.color_accent contains 'rgba(0,0,0,0)' %} btn--inverse{% endif %}">
                                   {{ block.settings.link_text }}
                                 </a>
                               {%- endif -%}
                               {%- if block.settings.link_text_2 != blank -%}
-                                <a href="{{ block.settings.link_2 }}" class="btn{% if block.settings.color_accent contains 'rgba(0,0,0,0)' %} btn--inverse{% endif %}">
+                                <a href="{{ block.settings.link_2 }}" class="btn btn--secondary{% if block.settings.color_accent contains 'rgba(0,0,0,0)' %} btn--inverse{% endif %}">
                                   {{ block.settings.link_text_2 }}
                                 </a>
                               {%- endif -%}
@@ -332,6 +332,14 @@
           {
             "label": "500px",
             "value": "500px"
+          },
+          {
+            "label": "600px",
+            "value": "600px"
+          },
+          {
+            "label": "700px",
+            "value": "700px"
           },
           {
             "label": "Full screen",
