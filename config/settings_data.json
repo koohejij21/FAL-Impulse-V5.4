@@ -122,7 +122,7 @@
           "sticky_index": true,
           "sticky_collection": true,
           "announcement_compact": true,
-          "announcement_above_header": false,
+          "announcement_above_header": true,
           "toolbar_menu": "",
           "toolbar_social": false,
           "show_locale_selector": true,
