@@ -135,11 +135,12 @@
     },
     "text-and-image2": {
       "type": "text-and-image",
+      "disabled": true,
       "settings": {
         "image_width": 700,
         "subtitle": "",
-        "title": "About your brand",
-        "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.<\/p>",
+        "title": "What we offer",
+        "text": "<p>Trust, satisfaction, and emotional connection<\/p>",
         "button_label": "",
         "button_link": "",
         "button_style": "primary",
