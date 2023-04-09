@@ -1,5 +1,21 @@
 {
   "sections": {
+    "2b823e8e-92a4-4937-afe7-aad00e20f590": {
+      "type": "hero-video",
+      "settings": {
+        "title": "",
+        "title_size": 80,
+        "subheading": "",
+        "link_text": "",
+        "link": "",
+        "color_accent": "rgba(0,0,0,0)",
+        "text_align": "vertical-center horizontal-center",
+        "video_url": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/ed4138ccb8584bc18a4cdd54f5a4b41e.mp4",
+        "overlay_opacity": 0,
+        "section_height": "650px",
+        "mobile_height": "auto"
+      }
+    },
     "slideshow": {
       "type": "slideshow",
       "blocks": {
@@ -211,76 +227,11 @@
         "enable_gutter": true
       }
     },
-    "promo-grid2": {
-      "type": "promo-grid",
-      "blocks": {
-        "promo2-0": {
-          "type": "advanced",
-          "settings": {
-            "subheading": "Limited time",
-            "heading": "Announce your promotion",
-            "textarea": "Include the smaller details of your promotion in text below the title.",
-            "cta_text1": "Shop This",
-            "cta_link1": "shopify:\/\/collections\/all",
-            "cta_text2": "Shop All",
-            "cta_link2": "",
-            "video_url": "",
-            "width": "100",
-            "height": 720,
-            "text_size": 120,
-            "text_align": "vertical-center horizontal-center",
-            "focal_point": "80% 50%",
-            "color_accent": "rgba(0,0,0,0)",
-            "boxed": false,
-            "framed": false
-          }
-        },
-        "promo2-1": {
-          "type": "sale_collection",
-          "settings": {
-            "sale_collection": "cards",
-            "top_text": "Up to",
-            "middle_text": "50% off",
-            "bottom_text": "Select products",
-            "width": "100",
-            "color_tint": "#000000",
-            "color_tint_opacity": 0,
-            "boxed": false,
-            "framed": false
-          }
-        },
-        "promo2-2": {
-          "type": "sale_collection",
-          "settings": {
-            "sale_collection": "",
-            "top_text": "Up to",
-            "middle_text": "50% off",
-            "bottom_text": "Select products",
-            "width": "50",
-            "color_tint": "#000000",
-            "color_tint_opacity": 0,
-            "boxed": false,
-            "framed": true
-          }
-        }
-      },
-      "block_order": [
-        "promo2-0",
-        "promo2-1",
-        "promo2-2"
-      ],
-      "settings": {
-        "full_width": false,
-        "gutter_size": 20,
-        "space_above": false,
-        "space_below": false
-      }
-    },
     "featured-collection": {
       "type": "featured-collection",
       "settings": {
         "title": "Featured collection",
-        "home_featured_products": "",
+        "home_featured_products": "street-bad-shirts",
         "per_row": 4,
         "rows": 1,
         "mobile_scrollable": true,
@@ -321,17 +272,19 @@
     "map": {
       "type": "map",
       "settings": {
-        "map_title": "Our retail store",
-        "address": "<p>301 Front St W<br\/>Toronto, Canada<\/p><p>Mon - Fri, 8:30am - 10:30pm<br\/>Saturday, 8:30am - 10:30pm<br\/>Sunday, 8:30am - 10:30pm<\/p>",
+        "map_title": "Our headquarters",
+        "address": "<p>2425 Rd Number 2425, Manama, Bahrain<\/p><p><\/p>",
         "map_address": "301 Front St W, Toronto, ON M5V 2T6",
         "api_key": "",
-        "show_button": true,
+        "show_button": false,
+        "background_image": "shopify:\/\/shop_images\/Screenshot_2023-04-10_023103.png",
         "background_image_position": "center center"
       }
     },
     "1646347607a6f4a477": {
       "type": "image-tile",
       "settings": {
+        "image": "shopify:\/\/shop_images\/dew-covered-red-flowers.jpg",
         "section_height": "natural",
         "flush_vertical": false,
         "flush_horizontal": false,
@@ -351,11 +304,11 @@
     }
   },
   "order": [
+    "2b823e8e-92a4-4937-afe7-aad00e20f590",
     "slideshow",
     "rich-text",
     "promo-grid",
     "featured-collections",
-    "promo-grid2",
     "featured-collection",
     "background-image-text",
     "blog-posts",
