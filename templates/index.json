@@ -124,7 +124,7 @@
         "featured-collections-0": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "bottoms-2",
             "title": "",
             "focal_point": "center center"
           }
@@ -152,13 +152,22 @@
             "title": "",
             "focal_point": "center center"
           }
+        },
+        "5b3f80bd-e88b-480b-852b-5c405aad6221": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "focal_point": "center center"
+          }
         }
       },
       "block_order": [
         "featured-collections-0",
         "featured-collections-1",
         "featured-collections-2",
-        "featured-collections-3"
+        "featured-collections-3",
+        "5b3f80bd-e88b-480b-852b-5c405aad6221"
       ],
       "settings": {
         "title": "Shop by category",
