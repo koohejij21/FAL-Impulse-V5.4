@@ -242,11 +242,12 @@
     "background-image-text": {
       "type": "background-image-text",
       "settings": {
-        "subtitle": "Impressive",
-        "title": "Large image with text box",
-        "text": "<p>Pair large text with a full-width image to draw attention to an important detail of your brand or product line.<\/p>",
+        "subtitle": "acknowledgement",
+        "title": "About our products",
+        "text": "<p>We use luxurious and sustainable materials to create high-quality, stylish clothing. Our eco-friendly manufacturing process and ethical partnerships ensure each garment is crafted with care and precision, reflecting our commitment to excellence in design and sustainability.<\/p>",
         "button_label": "",
         "button_link": "shopify:\/\/collections\/all",
+        "image": "shopify:\/\/shop_images\/black-fabric-in-sewing-machine.jpg",
         "focal_point": "80% 0",
         "layout": "left",
         "height": 750,
@@ -283,6 +284,7 @@
     },
     "1646347607a6f4a477": {
       "type": "image-tile",
+      "disabled": true,
       "settings": {
         "image": "shopify:\/\/shop_images\/dew-covered-red-flowers.jpg",
         "section_height": "natural",
