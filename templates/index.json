@@ -12,7 +12,7 @@
         "text_align": "vertical-center horizontal-center",
         "video_url": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/ed4138ccb8584bc18a4cdd54f5a4b41e.mp4",
         "overlay_opacity": 0,
-        "section_height": "650px",
+        "section_height": "100vh",
         "mobile_height": "auto"
       }
     },
