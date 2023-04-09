@@ -5,11 +5,13 @@
       "blocks": {
         "price": {
           "type": "price",
-          "settings": {}
+          "settings": {
+          }
         },
         "separator": {
           "type": "separator",
-          "settings": {}
+          "settings": {
+          }
         },
         "variant_picker": {
           "type": "variant_picker",
@@ -63,7 +65,8 @@
         },
         "share": {
           "type": "share",
-          "settings": {}
+          "settings": {
+          }
         }
       },
       "block_order": [
@@ -101,10 +104,11 @@
       "type": "background-image-text",
       "settings": {
         "subtitle": "Impressive",
-        "title": "About your brand",
-        "text": "<p>Pair large text with a full-width image to draw attention to an important detail of your brand or product line.<\/p>",
+        "title": "About our brand",
+        "text": "<p>Experience the refined elegance of our clothing brand - Timeless pieces crafted with precision and care. Elevate your style with our sumptuous fabrics and understated designs.<\/p>",
         "button_label": "",
         "button_link": "",
+        "image": "shopify:\/\/shop_images\/womens-fashion-on-hangers.jpg",
         "focal_point": "center",
         "layout": "left",
         "height": 550,
@@ -114,6 +118,7 @@
     },
     "text-and-image": {
       "type": "text-and-image",
+      "disabled": true,
       "settings": {
         "image_width": 700,
         "subtitle": "",
@@ -129,6 +134,7 @@
     },
     "text-and-image2": {
       "type": "text-and-image",
+      "disabled": true,
       "settings": {
         "image_width": 700,
         "subtitle": "",
@@ -202,7 +208,8 @@
     },
     "collection-return": {
       "type": "collection-return",
-      "settings": {}
+      "settings": {
+      }
     }
   },
   "order": [
