@@ -99,7 +99,7 @@
       "settings": {
         "align_text": "center",
         "narrow_column": true,
-        "divider": false,
+        "divider": true,
         "bg_color": "rgba(0,0,0,0)"
       }
     },
