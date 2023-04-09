@@ -7,7 +7,7 @@
           "type": "image",
           "settings": {
             "top_subheading": "",
-            "title": "Two line\ntitle slide.",
+            "title": "Two line\ntitle slide",
             "title_size": 80,
             "subheading": "And optional subtext",
             "link": "shopify:\/\/collections\/all",
@@ -57,7 +57,8 @@
       "settings": {
         "align_text": "center",
         "narrow_column": true,
-        "divider": false
+        "divider": false,
+        "bg_color": "rgba(0,0,0,0)"
       }
     },
     "promo-grid": {
@@ -293,8 +294,10 @@
         "background_color": "rgba(0,0,0,0)",
         "subtitle": "",
         "title": "Image with text",
+        "heading_color": "rgba(1,1,1,1)",
         "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.<\/p>",
         "button_label": "",
+        "button_color": "rgba(1,1,1,1)",
         "button_link": "",
         "button_style": "primary",
         "align_text": "left",

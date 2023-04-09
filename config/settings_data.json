@@ -246,7 +246,9 @@
         }
       }
     },
-    "content_for_index": []
+    "content_for_index": [
+
+    ]
   },
   "presets": {
     "Modern": {
@@ -392,7 +394,8 @@
         },
         "newsletter-popup": {
           "type": "newsletter-popup",
-          "settings": {}
+          "settings": {
+          }
         },
         "collection-header": {
           "type": "collection-header",
@@ -736,7 +739,8 @@
           "blocks": {
             "1524768779513": {
               "type": "logo",
-              "settings": {}
+              "settings": {
+              }
             }
           },
           "block_order": [
@@ -757,7 +761,8 @@
           "blocks": {
             "1494292487693": {
               "type": "newsletter",
-              "settings": {}
+              "settings": {
+              }
             },
             "1526406521795": {
               "type": "menu",
@@ -784,7 +789,8 @@
         },
         "newsletter-popup": {
           "type": "newsletter-popup",
-          "settings": {}
+          "settings": {
+          }
         },
         "collection-header": {
           "type": "collection-header",
