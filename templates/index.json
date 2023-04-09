@@ -6,8 +6,8 @@
         "slideshow-0": {
           "type": "image",
           "settings": {
-            "top_subheading": "",
-            "title": "welocme to chic",
+            "top_subheading": "welocme to",
+            "title": "chic",
             "title_size": 80,
             "subheading": "Find the perfect outfit for any occasion",
             "link": "shopify:\/\/collections\/all",
@@ -141,13 +141,13 @@
             "image": "shopify:\/\/shop_images\/29298.png",
             "video_url": "",
             "width": "50",
-            "height": 500,
+            "height": 800,
             "text_size": 100,
             "text_align": "vertical-bottom horizontal-center",
             "focal_point": "top",
             "color_accent": "rgba(0,0,0,0)",
             "boxed": false,
-            "framed": false
+            "framed": true
           }
         }
       },
