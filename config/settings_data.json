@@ -13,7 +13,7 @@
     "color_large_image_bg": "#0f0f0f",
     "color_header": "#ffffff",
     "color_header_text": "#000000",
-    "color_announcement": "#ffce33",
+    "color_announcement": "#ffffff",
     "color_announcement_text": "#005fe4",
     "color_footer": "#ffffff",
     "color_footer_text": "#000000",
@@ -26,13 +26,13 @@
     "color_image_overlay": "#000000",
     "color_image_overlay_opacity": 0,
     "color_image_overlay_text_shadow": 24,
-    "type_header_font_family": "montserrat_n6",
+    "type_header_font_family": "americana_n8",
     "type_header_spacing": "25",
     "type_header_base_size": 40,
     "type_header_line_height": 1,
     "type_header_capitalize": false,
     "type_headers_align_text": true,
-    "type_base_font_family": "montserrat_n4",
+    "type_base_font_family": "americana_n4",
     "type_base_spacing": "25",
     "type_base_size": 16,
     "type_base_line_height": 1.6,
@@ -59,7 +59,7 @@
     "collection_grid_tint": "#000000",
     "collection_grid_opacity": 20,
     "collection_grid_gutter": true,
-    "cart_type": "page",
+    "cart_type": "drawer",
     "cart_icon": "cart",
     "cart_notes_enable": false,
     "cart_terms_conditions_enable": false,
@@ -68,7 +68,7 @@
     "social_instagram_link": "https:\/\/instagram.com\/5amlemon",
     "share_twitter": true,
     "favicon": "shopify:\/\/shop_images\/5_Yellow.png",
-    "search_enable": false,
+    "search_enable": true,
     "predictive_search_enabled": false,
     "checkout_logo_position": "left",
     "checkout_logo_size": "medium",
@@ -88,8 +88,6 @@
           "68aaf710-9f3c-4fe5-abdb-4a2cf6f3d551": {
             "type": "logo",
             "settings": {
-              "logo": "shopify:\/\/shop_images\/5AL_LOGO_Landscape-Black.png",
-              "logo-inverted": "shopify:\/\/shop_images\/5AL_LOGO_White_Landscape.png",
               "desktop_logo_width": 200,
               "mobile_logo_width": 140
             }
@@ -119,10 +117,10 @@
         "settings": {
           "main_menu_link_list": "main-menu",
           "mega_menu_images": true,
-          "main_menu_alignment": "left-center",
+          "main_menu_alignment": "left-drawer",
           "header_style": "sticky",
-          "sticky_index": false,
-          "sticky_collection": false,
+          "sticky_index": true,
+          "sticky_collection": true,
           "announcement_compact": true,
           "announcement_above_header": false,
           "toolbar_menu": "",
@@ -138,7 +136,6 @@
           "1494301487048": {
             "type": "logo_social",
             "settings": {
-              "logo": "shopify:\/\/shop_images\/5AL_LOGO_Landscape-Black.png",
               "desktop_logo_height": 50,
               "container_width": 33
             }
