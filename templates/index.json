@@ -22,25 +22,6 @@
             "focal_point": "top center"
           }
         },
-        "fc05993d-94b2-4b25-a49c-3c0bdb007f50": {
-          "type": "image",
-          "settings": {
-            "top_subheading": "",
-            "title": "Chic collection",
-            "title_size": 80,
-            "subheading": "",
-            "link": "shopify:\/\/collections\/chic-collection",
-            "link_text": "Check out",
-            "link_2": "shopify:\/\/collections\/chic-collection",
-            "link_text_2": "",
-            "color_accent": "rgba(0,0,0,0)",
-            "text_align": "vertical-center horizontal-center",
-            "image": "shopify:\/\/shop_images\/Screenshot_2023-03-12_at_10.40.55_PM.png",
-            "image_mobile": "shopify:\/\/shop_images\/Screenshot_2023-03-12_at_10.40.55_PM.png",
-            "overlay_opacity": 0,
-            "focal_point": "center center"
-          }
-        },
         "5281ba4a-d1b4-4560-8d10-69e45d9a0f9a": {
           "type": "image",
           "settings": {
@@ -59,12 +40,31 @@
             "overlay_opacity": 0,
             "focal_point": "center center"
           }
+        },
+        "fc05993d-94b2-4b25-a49c-3c0bdb007f50": {
+          "type": "image",
+          "settings": {
+            "top_subheading": "",
+            "title": "Chic collection",
+            "title_size": 80,
+            "subheading": "",
+            "link": "shopify:\/\/collections\/chic-collection",
+            "link_text": "Check out",
+            "link_2": "shopify:\/\/collections\/chic-collection",
+            "link_text_2": "",
+            "color_accent": "rgba(0,0,0,0)",
+            "text_align": "vertical-center horizontal-center",
+            "image": "shopify:\/\/shop_images\/Screenshot_2023-03-12_at_10.40.55_PM.png",
+            "image_mobile": "shopify:\/\/shop_images\/Screenshot_2023-03-12_at_10.40.55_PM.png",
+            "overlay_opacity": 0,
+            "focal_point": "center center"
+          }
         }
       },
       "block_order": [
         "slideshow-0",
-        "fc05993d-94b2-4b25-a49c-3c0bdb007f50",
-        "5281ba4a-d1b4-4560-8d10-69e45d9a0f9a"
+        "5281ba4a-d1b4-4560-8d10-69e45d9a0f9a",
+        "fc05993d-94b2-4b25-a49c-3c0bdb007f50"
       ],
       "settings": {
         "section_height": "650px",
