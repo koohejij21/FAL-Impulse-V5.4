@@ -129,7 +129,7 @@
           "main_menu_link_list": "main-menu",
           "mega_menu_images": true,
           "main_menu_alignment": "left-drawer",
-          "header_style": "sticky",
+          "header_style": "normal",
           "sticky_index": true,
           "sticky_collection": true,
           "announcement_compact": true,
