@@ -1,6 +1,6 @@
 {
   "current": {
-    "color_body_bg": "#e8e8e1",
+    "color_body_bg": "#ffffff",
     "color_body_text": "#000000",
     "color_price": "#1c1d1d",
     "color_savings_text": "#ff4e4e",
@@ -11,7 +11,7 @@
     "color_cart_dot": "#ffe600",
     "color_small_image_bg": "#e5e5e5",
     "color_large_image_bg": "#0f0f0f",
-    "color_header": "#e8e8e1",
+    "color_header": "#ffffff",
     "color_header_text": "#000000",
     "color_announcement": "#e8e8e1",
     "color_announcement_text": "#005fe4",
