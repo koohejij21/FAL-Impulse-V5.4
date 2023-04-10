@@ -2,6 +2,7 @@
   "sections": {
     "2b823e8e-92a4-4937-afe7-aad00e20f590": {
       "type": "hero-video",
+      "disabled": true,
       "settings": {
         "title": "",
         "title_size": 80,
