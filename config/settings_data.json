@@ -90,7 +90,7 @@
             "type": "logo",
             "settings": {
               "logo": "shopify:\/\/shop_images\/Screenshot_2023-01-25_185544_06341a8e-754e-4053-98e2-0569dbb7d929.png",
-              "desktop_logo_width": 150,
+              "desktop_logo_width": 100,
               "mobile_logo_width": 100
             }
           },
@@ -128,7 +128,7 @@
         "settings": {
           "main_menu_link_list": "main-menu",
           "mega_menu_images": true,
-          "main_menu_alignment": "left-center",
+          "main_menu_alignment": "left-drawer",
           "header_style": "normal",
           "sticky_index": true,
           "sticky_collection": true,
