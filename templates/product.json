@@ -62,11 +62,6 @@
             "title": "Ask a question",
             "phone": false
           }
-        },
-        "share": {
-          "type": "share",
-          "settings": {
-          }
         }
       },
       "block_order": [
@@ -78,8 +73,7 @@
         "buy_buttons",
         "description",
         "tab",
-        "contact",
-        "share"
+        "contact"
       ],
       "settings": {
         "sku_enable": false,
@@ -98,39 +92,6 @@
       "disabled": true,
       "settings": {
         "max_width": true
-      }
-    },
-    "background-image-text": {
-      "type": "background-image-text",
-      "settings": {
-        "subtitle": "Impressive",
-        "title": "About our brand",
-        "text": "<p>Experience the refined elegance of our clothing brand - Timeless pieces crafted with precision and care. Elevate your style with our sumptuous fabrics and understated designs.<\/p>",
-        "button_label": "",
-        "button_link": "",
-        "image": "shopify:\/\/shop_images\/womens-fashion-on-hangers.jpg",
-        "focal_point": "center",
-        "layout": "left",
-        "height": 550,
-        "framed": false,
-        "parallax": false
-      }
-    },
-    "text-and-image": {
-      "type": "text-and-image",
-      "settings": {
-        "image": "shopify:\/\/shop_images\/sicssors-cutting-fabric-topdown.jpg",
-        "image2": "shopify:\/\/shop_images\/sewing-threads-on-wall.jpg",
-        "image_width": 700,
-        "subtitle": "",
-        "title": "Materials",
-        "text": "<p>Fancy fabrics add a touch of luxury and sophistication to any garment. With high-quality materials and intricate embellishments, they are the perfect choice for those seeking a glamorous and refined look.<\/p>",
-        "button_label": "",
-        "button_link": "",
-        "button_style": "primary",
-        "align_text": "left",
-        "layout": "right",
-        "divider": false
       }
     },
     "text-and-image2": {
@@ -216,8 +177,6 @@
   "order": [
     "main",
     "sub",
-    "background-image-text",
-    "text-and-image",
     "text-and-image2",
     "testimonials",
     "product-recommendations",
