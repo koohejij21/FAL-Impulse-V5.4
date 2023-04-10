@@ -93,14 +93,6 @@
               "mobile_logo_width": 140
             }
           },
-          "1524770292306": {
-            "type": "announcement",
-            "settings": {
-              "text": "Free shipping",
-              "link_text": "On all orders over $100",
-              "link": ""
-            }
-          },
           "1524770296206": {
             "type": "announcement",
             "settings": {
@@ -108,12 +100,29 @@
               "link_text": "use code CHIC15 for 15% off",
               "link": ""
             }
+          },
+          "174183a0-2abb-4325-aacd-f906baf66697": {
+            "type": "announcement",
+            "settings": {
+              "text": "Hassle-free returns",
+              "link_text": "30-day postage paid returns",
+              "link": ""
+            }
+          },
+          "1524770292306": {
+            "type": "announcement",
+            "settings": {
+              "text": "Free shipping",
+              "link_text": "On all orders over $100",
+              "link": ""
+            }
           }
         },
         "block_order": [
           "68aaf710-9f3c-4fe5-abdb-4a2cf6f3d551",
-          "1524770292306",
-          "1524770296206"
+          "1524770296206",
+          "174183a0-2abb-4325-aacd-f906baf66697",
+          "1524770292306"
         ],
         "settings": {
           "main_menu_link_list": "main-menu",
