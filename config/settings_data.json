@@ -89,8 +89,9 @@
           "68aaf710-9f3c-4fe5-abdb-4a2cf6f3d551": {
             "type": "logo",
             "settings": {
+              "logo": "shopify:\/\/shop_images\/Screenshot_2023-02-25_091254.png",
               "desktop_logo_width": 150,
-              "mobile_logo_width": 60
+              "mobile_logo_width": 100
             }
           },
           "1524770296206": {
