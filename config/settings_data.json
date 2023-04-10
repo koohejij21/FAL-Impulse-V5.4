@@ -97,8 +97,8 @@
           "1524770296206": {
             "type": "announcement",
             "settings": {
-              "text": "Use code CHIC15 for 15% discount",
-              "link_text": "",
+              "text": "Use code CHIC15",
+              "link_text": "for 15% discount",
               "link": ""
             }
           },
